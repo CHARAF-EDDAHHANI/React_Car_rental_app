@@ -1,6 +1,6 @@
 // BookNowModal.jsx
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Form, Radio } from 'antd';
 import BookingDate from './BookingDate';
 
 const BookNowModal = ({ open, onOk, onCancel }) => {
@@ -8,6 +8,7 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
   const [endDate, setEndDate] = useState(null);
   const [pickupLocation, setPickupLocation] = useState('');
   const [dropoffLocation, setDropoffLocation] = useState('');
+  const [driver, setDriver] = useState('withDriver');
 
   const handleDateChange = (date, role) => {
     if (!date) return;
@@ -30,12 +31,14 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
     localStorage.setItem('pickupLocation', pickupLocation);
     localStorage.setItem('dropoffLocation', dropoffLocation);
     localStorage.setItem('selectedDates', JSON.stringify([startDate, endDate]));
+    localStorage.setItem('driver', driver);
 
     console.log("Booking Info:", {
       pickupLocation,
       dropoffLocation,
       startDate,
       endDate,
+      driver
     });
 
     onOk({ startDate, endDate, pickupLocation, dropoffLocation });
@@ -83,6 +86,13 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
             border: '1px solid #d9d9d9',
           }}
         />
+         <div style={{ marginTop: '1em' }}>
+          <label style={{ display: 'block', marginBottom: '0.5em' }}>Select choice for Driver :</label>
+            <Radio.Group onChange={(e) => setDriver(e.target.value)} value={driver}>
+              <Radio value="withDriver">With Driver</Radio>
+              <Radio value="NoDriver">No Driver</Radio>
+            </Radio.Group>
+          </div>
       </div>
     </Modal>
   );

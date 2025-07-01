@@ -8,7 +8,8 @@ import Home from './pages/home';
 import UserProfile from './pages/UserProfile';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-
+import LandingPage from './pages/LandingPage';
+import Testpage from './pages/Testpage'; // Import Testpage if needed
 const App = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
 
@@ -17,13 +18,15 @@ const App = () => {
       <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
       <Box sx={{ mt: 8 }}> {/* Add margin to account for AppBar */}
         <Routes>
-          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/loca" element={<Home/>} />
           <Route path="/carbooking/:vehicle_id" element={<CarBook />}/>
           <Route path="/CarSearch/:location" element={<CarSearch />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/Login/" element={<Login />} />
           <Route path="/SignUp/" element={<SignUp />} />
-
+          <Route path="/Testpage" element={<Testpage />} />
+          {/* Add more routes as needed */}
 
 
         </Routes>

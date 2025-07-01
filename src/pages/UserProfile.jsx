@@ -1,49 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  MoneyCollectTwoTone,
-  UserOutlined,
-  HeartFilled,
-  CarTwoTone,
-  CloudUploadOutlined,
-  CalendarTwoTone,
-  WalletTwoTone,
-  CheckCircleTwoTone,
-  CloseCircleTwoTone,
-  MessageFilled,
-  CustomerServiceFilled,
-  WarningTwoTone,
-  CloseSquareTwoTone
-} from '@ant-design/icons';
+  Upload as UploadIcon,
+  Menu as MenuIcon,
+  Close as CloseIcon,
+  CheckCircle as CheckCircleIcon,
+  EventNote as CalendarIcon,
+  DirectionsCarFilled as CarIcon,
+  Cancel as CancelIcon,
+  CancelPresentation as DisvalidateIcon,
+  ReportProblem as WarningIcon,
+  Chat as ChatIcon,
+  SupportAgent as SupportIcon,
+  Logout as LogoutIcon,
+} from '@mui/icons-material';
 
-import { Button, Layout, Menu, theme } from 'antd';
+import {
+  Box,
+  Drawer,
+  SwipeableDrawer,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  useMediaQuery,
+  useTheme,
+  IconButton,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import UploadCar from '../component/UploadCar';
 
-const { Header, Sider, Content } = Layout;
+const drawerWidth = 240;
+const collapsedWidth = 60;
 
 const UserProfile = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [profileType, setProfileType] = useState('');
   const [userSession, setUserSession] = useState(null);
-  const navigate = useNavigate();
+  const [uploadOpen, setUploadOpen] = useState(false);
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     try {
       const session = JSON.parse(localStorage.getItem('user'));
       if (!session) throw new Error('No session');
       setUserSession(session);
-      if (session.userType === 'seller') {
-        setProfileType('seller');
-      } else if (session.userType === 'buyer') {
-        setProfileType('buyer');
-      } else {
-        throw new Error('Invalid userType');
-      }
+      if (session.userType === 'seller') setProfileType('seller');
+      else if (session.userType === 'buyer') setProfileType('buyer');
+      else throw new Error('Invalid userType');
     } catch (error) {
       console.error('Session error:', error.message);
       localStorage.removeItem('user');
@@ -51,68 +60,105 @@ const UserProfile = () => {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setCollapsed(window.innerWidth < 700);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/');
   };
 
+  const toggleDrawer = () => setCollapsed(!collapsed);
+  const toggleMobileDrawer = () => setMobileOpen(!mobileOpen);
+
   const menuItems = [
-    { key: '1', icon: <UserOutlined />, label: 'Logout', onClick: handleLogout },
-    { key: '2', icon: <MoneyCollectTwoTone twoToneColor="#13c2c2" />, label: 'Payments' },
-    { key: '3', icon: <CalendarTwoTone twoToneColor="#fa541c" />, label: 'All Reservations' },
-    { key: '4', icon: <MessageFilled style={{ color: '#fa8c16' }} />, label: 'Messages' },
-    { key: '5', icon: <CustomerServiceFilled style={{ color: '#9254de' }} />, label: 'Support' },
-    { key: '6', icon: <CheckCircleTwoTone twoToneColor="#73d13d" />, label: 'Validated Reservation' },
-    { key: '7', icon: <CloseSquareTwoTone twoToneColor="#ff4d4f" />, label: 'Disvalidated Reservation' },
-    { key: '8', icon: <WarningTwoTone twoToneColor="#faad14" />, label: 'Reclamation' },
-    { key: '9', icon: <CarTwoTone twoToneColor="#1890ff" />, label: 'All Cars' },
-    { key: '10', icon: <CloudUploadOutlined style={{ color: '#722ed1' }} />, label: 'Upload New Car' },
-    { key: '11', icon: <CloseCircleTwoTone twoToneColor="#f5222d" />, label: 'Unavailable Cars' },
-    { key: '12', icon: <CheckCircleTwoTone twoToneColor="#52c41a" />, label: 'Available Cars' },
+    { key: '1', icon: <UploadIcon color="primary" />, label: 'Upload New Car' },
+    { key: '2', icon: <LogoutIcon />, label: 'Logout', onClick: handleLogout },
+    { key: '3', icon: <CalendarIcon color="warning" />, label: 'All Reservations' },
+    { key: '4', icon: <CheckCircleIcon color="success" />, label: 'Validated Reservation' },
+    { key: '5', icon: <DisvalidateIcon color="error" />, label: 'Disvalidated Reservation' },
+    { key: '6', icon: <ChatIcon color="primary" />, label: 'Messages' },
+    { key: '7', icon: <SupportIcon sx={{ color: '#9254de' }} />, label: 'Support' },
+    { key: '8', icon: <WarningIcon color="warning" />, label: 'Reclamation' },
+    { key: '9', icon: <CarIcon color="info" />, label: 'My Cars' },
+    { key: '10', icon: <CancelIcon color="error" />, label: 'Unavailable Cars' },
+    { key: '11', icon: <CheckCircleIcon color="success" />, label: 'Available Cars' },
   ];
 
-  const getFilteredMenuItems = () => {
-    if (profileType === 'buyer') {
-      return menuItems.slice(0, 8); // Items 1 to 8
-    }
-    return menuItems;
-  };
+  const getFilteredMenuItems = () =>
+    profileType === 'buyer' ? menuItems.slice(1, 8) : menuItems;
+
+  const renderMenu = () => (
+    <Box sx={{ width: collapsed ? collapsedWidth : drawerWidth }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+        <IconButton onClick={isMobile ? toggleMobileDrawer : toggleDrawer}>
+          {collapsed ? <MenuIcon /> : <CloseIcon />}
+        </IconButton>
+      </Box>
+      <Divider />
+      <List>
+        {getFilteredMenuItems().map(({ key, icon, label, onClick }) => (
+          <ListItem
+            button
+            key={key}
+            onClick={() => {
+              if (label === 'Upload New Car') setUploadOpen(true);
+              else if (label === 'Logout') handleLogout();
+              else onClick?.();
+              if (isMobile) setMobileOpen(false);
+            }}
+          >
+            <ListItemIcon>{icon}</ListItemIcon>
+            {!collapsed && <ListItemText primary={label} />}
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  const DetailItem = ({ label, value }) => (
+    <Box
+      sx={{
+        p: 2,
+        borderRadius: 2,
+        bgcolor: '#ffffff',
+        boxShadow: 1,
+        border: '1px solid #e0e0e0',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <Typography variant="body1" fontWeight="bold" color="primary">
+        {label}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {value || 'N/A'}
+      </Typography>
+    </Box>
+  );
 
   const renderUserDetails = () => {
     if (!userSession) return null;
 
     const commonFields = (
       <>
-        <p>Firstname: {userSession.firstname}</p>
-        <p>Lastname: {userSession.lastname}</p>
-        <p>Email: {userSession.email}</p>
-        <p>Phone: {userSession.phone}</p>
+        <DetailItem label="Firstname" value={userSession.firstname} />
+        <DetailItem label="Lastname" value={userSession.lastname} />
+        <DetailItem label="Email" value={userSession.email} />
+        <DetailItem label="Phone" value={userSession.phone} />
       </>
     );
 
-    if (profileType === 'buyer') {
-      return commonFields;
-    }
+    if (profileType === 'buyer') return commonFields;
 
     if (profileType === 'seller') {
       return (
         <>
           {commonFields}
-          <p>Address: {userSession.address}</p>
-          <p>Plan: {userSession.plan}</p>
-          <p>Company Name: {userSession.companyName}</p>
-          <p>Company Address: {userSession.companyAddress}</p>
-          <p>Company Phone: {userSession.companyPhone}</p>
-          <p>Company Email: {userSession.companyEmail}</p>
+          <DetailItem label="Address" value={userSession.address} />
+          <DetailItem label="Plan" value={userSession.plan} />
+          <DetailItem label="Company Name" value={userSession.companyName} />
+          <DetailItem label="Company Address" value={userSession.companyAddress} />
+          <DetailItem label="Company Phone" value={userSession.companyPhone} />
+          <DetailItem label="Company Email" value={userSession.companyEmail} />
         </>
       );
     }
@@ -120,60 +166,88 @@ const UserProfile = () => {
     return null;
   };
 
-  const renderLayout = () => (
-    <Layout style={{ marginTop: '0px' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={getFilteredMenuItems()}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{ fontSize: '16px', width: 64, height: 64 }}
-          />
-        </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 29,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-            fontFamily: 'sans-serif',
-            fontSize: '20px',
-            color: '#333',
+  return profileType ? (
+    <Box sx={{ flexGrow: 1,  }}>
+      {/* Mobile Swipe Drawer */}
+      {isMobile ? (
+        <SwipeableDrawer
+          anchor="left"
+          open={mobileOpen}
+          onOpen={toggleMobileDrawer}
+          onClose={toggleMobileDrawer}
+        >
+          {renderMenu()}
+        </SwipeableDrawer>
+      ) : (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: collapsed ? collapsedWidth : drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: collapsed ? collapsedWidth : drawerWidth,
+              transition: 'width 0.3s ease',
+              overflowX: 'hidden',
+              boxSizing: 'border-box',
+              bgcolor: '#f8f9fa',
+              cursor: 'pointer',
+            },
+          }}
+          open
+        >
+          {renderMenu()}
+        </Drawer>
+      )}
+ 
+      {/* Main Content Area */}
+      <Box
+        component="main"
+        sx={{
+          ml: isMobile ? 0 : collapsed ? `${collapsedWidth}px` : `${drawerWidth}px`,
+          p: 3,
+        }}
+      >
+        
+ {/* Toggle button on top for mobile */}
+        {isMobile && (
+          <IconButton onClick={toggleMobileDrawer} sx={{ mb: 2 }}>
+            <MenuIcon
+            sx={{
+              position: 'absolute',
+              top: -125,
+              left: -16,
+              fontSize: 23,
+              fontWeight: 'bold',
+              bgcolor: 'rgba(23, 24, 24, 0.43)',
+              borderRadius: '50%',
+             color: 'rgb(255, 255, 255)',
+            }}/>
+          </IconButton>
+        )}
+        
+        <Typography variant="h6" gutterBottom>
+          {profileType === 'seller' && `You are subscribed as a ${userSession?.userType}`}
+        </Typography>
+
+        <Box
+          sx={{
+            mt: 2,
+            display: 'grid',
+            gap: 2,
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: '1fr 1fr',
+              md: '1fr 1fr',
+            },
           }}
         >
-          <div>
-            <strong>Your Information:</strong>{' '}
-            {profileType === 'seller' && `You are subscribed as a ${userSession?.userType}`}
-          </div>
-          <div
-            style={{
-              marginTop: '20px',
-              display: 'grid',
-              gap: '2em',
-              fontFamily: 'sans-serif',
-              fontSize: '20px',
-              color: '#333',
-            }}
-          >
-            {renderUserDetails()}
-          </div>
-        </Content>
-      </Layout>
-    </Layout>
-  );
+          {renderUserDetails()}
+        </Box>
+      </Box>
 
-  return <div>{profileType ? renderLayout() : null}</div>;
+      <UploadCar open={uploadOpen} handleClose={() => setUploadOpen(false)} />
+    </Box>
+  ) : null;
 };
 
 export default UserProfile;
