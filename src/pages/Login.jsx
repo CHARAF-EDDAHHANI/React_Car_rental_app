@@ -1,90 +1,168 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import AnimLogo from '../component/AnimLogo';
+
 
 const Login = () => {
-  const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [error, setError] = React.useState(null);
 
-  const onFinish = (values) => {
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: '',
+    remember: false,
+  });
+
+  const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formValues.email.trim()) {
+      newErrors.email = 'Please input your email!';
+    } else if (!/\S+@\S+\.\S+/.test(formValues.email)) {
+      newErrors.email = 'Invalid email format!';
+    }
+
+    if (!formValues.password.trim()) {
+      newErrors.password = 'Please input your password!';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
     const storedUser = JSON.parse(localStorage.getItem('user'));
     console.log('Stored user:', storedUser);
-    console.log('Login values:', values);
+    console.log('Login values:', formValues);
 
     if (
       storedUser &&
-      storedUser.email === values.email &&
-      storedUser.password === values.password
+      storedUser.email === formValues.email &&
+      storedUser.password === formValues.password
     ) {
-      console.log('User authorized successfully:', values);
+      console.log('User authorized successfully:', formValues);
       alert('User authorized successfully');
-      setError(null);
+      setErrorMessage(null);
       navigate(`/Profile`);
     } else {
-      setError('Invalid email or password');
+      setErrorMessage('Invalid email or password');
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Login failed:', errorInfo);
-  };
-
   return (
-    <div style={{ padding:'2em', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f2f5' }}>
-      <Form 
-        form={form}
-        name="login"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: '80%', padding: '2em', border: '1px solid #ccc', borderRadius: '5px',  backgroundColor: '#f9f9f9' }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+    <Box
+      sx={{
+        p: 4,
+        bgcolor: '#f0f2f5',
+        minHeight: '100vh',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 4,
+        alignItems: 'center',
+      }}
+    >
+      <Box>
+      <AnimLogo />
+      </Box>
+      <Box>
+      <Box
+        component="form"
+        onSubmit={onSubmit}
+        sx={{
+          maxWidth: 480,
+          width: '100%',
+          bgcolor: '#f9f9f9',
+          p: 4,
+          borderRadius: 2,
+          border: '1px solid #ccc',
+        }}
+        noValidate
         autoComplete="off"
       >
-        <Form.Item
-          label="email"
+        <Typography variant="h5" mb={3} textAlign="center">
+          Login
+        </Typography>
+
+        <TextField
+          label="Email"
           name="email"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input />
-        </Form.Item>
+          value={formValues.email}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          error={Boolean(errors.email)}
+          helperText={errors.email}
+          type="email"
+        />
 
-        <Form.Item
-          label="password"
+        <TextField
+          label="Password"
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          value={formValues.password}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          error={Boolean(errors.password)}
+          helperText={errors.password}
+          type="password"
+        />
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="remember"
+              checked={formValues.remember}
+              onChange={handleChange}
+            />
+          }
+          label="Remember me"
+          sx={{ mt: 2 }}
+        />
 
-        {error && (
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <span style={{ color: 'red' }}>{error}</span>
-          </Form.Item>
+        {errorMessage && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
         )}
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+        <Box textAlign="center" mt={3}>
+          <Button type="submit" variant="contained" size="large" fullWidth>
             Submit
           </Button>
-        </Form.Item>
-      </Form>
+        </Box>
+      </Box>
 
-      <p>Don’t have an account?</p>
-      <Button 
-      type='link'
-      onClick={() => navigate('/signup')}>Sign Up</Button>
-    </div>
+      <Typography mt={3}>Don’t have an account?</Typography>
+      <Button
+        variant="text"
+        onClick={() => navigate('/signup')}
+        sx={{ mt: 1 }}
+      >
+        Sign Up
+      </Button>
+    </Box>
+    </Box>
   );
 };
 
