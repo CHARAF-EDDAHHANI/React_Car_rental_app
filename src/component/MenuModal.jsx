@@ -1,3 +1,5 @@
+// MenuModal.jsx
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,15 +22,19 @@ import {
 } from '@mui/icons-material';
 
 const MenuModal = ({ open, onClose }) => {
+  const navigate = useNavigate();
+
+  // Filter state values
   const [lowPrice, setLowPrice] = React.useState(false);
   const [transmissionBVA, setTransmissionBVA] = React.useState(false);
   const [category, setCategory] = React.useState('');
   const [numberOfSeats, setNumberOfSeats] = React.useState('');
+
+  // Modal toggles for category/seats sub-filters
   const [showCategoryModal, setShowCategoryModal] = React.useState(false);
   const [showSeatsModal, setShowSeatsModal] = React.useState(false);
 
-  const navigate = useNavigate();
-
+  // Button actions dispatcher
   const handleButtonClick = (type) => {
     switch (type) {
       case 'LowPrice':
@@ -62,6 +68,7 @@ const MenuModal = ({ open, onClose }) => {
     }
   };
 
+  // Handlers for category and seats selection
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
     setShowCategoryModal(false);
@@ -72,6 +79,7 @@ const MenuModal = ({ open, onClose }) => {
     setShowSeatsModal(false);
   };
 
+  // Button configuration list
   const buttonConfig = [
     { name: 'Low Price', type: 'LowPrice', btncolor: '#34D399', icon: <AttachMoneyIcon /> },
     { name: 'Category', type: 'Category', btncolor: '#84CC16', icon: <CategoryIcon /> },
@@ -81,6 +89,7 @@ const MenuModal = ({ open, onClose }) => {
     { name: 'Validate', type: 'Validate', btncolor: '#0a87a1', icon: <CheckIcon /> }
   ];
 
+  // Helper to check active button for border highlight
   const isSelected = (type) => {
     if (type === 'LowPrice') return lowPrice;
     if (type === 'Transmission') return transmissionBVA;
@@ -89,7 +98,7 @@ const MenuModal = ({ open, onClose }) => {
 
   return (
     <>
-      {/* Main Filter Modal */}
+      {/* === Main Filter Modal === */}
       <Modal open={open} onClose={onClose}>
         <Box
           sx={{
@@ -134,7 +143,7 @@ const MenuModal = ({ open, onClose }) => {
         </Box>
       </Modal>
 
-      {/* Category Modal */}
+      {/* === Category Filter Modal === */}
       <Modal open={showCategoryModal} onClose={() => setShowCategoryModal(false)}>
         <Box
           sx={{
@@ -159,7 +168,7 @@ const MenuModal = ({ open, onClose }) => {
         </Box>
       </Modal>
 
-      {/* Seats Modal */}
+      {/* === Seats Filter Modal === */}
       <Modal open={showSeatsModal} onClose={() => setShowSeatsModal(false)}>
         <Box
           sx={{

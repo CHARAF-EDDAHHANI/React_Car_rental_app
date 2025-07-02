@@ -28,9 +28,11 @@ import {
   useTheme,
   IconButton,
 } from '@mui/material';
+
 import { useNavigate } from 'react-router-dom';
 import UploadCar from '../component/UploadCar';
 
+// Drawer dimensions
 const drawerWidth = 240;
 const collapsedWidth = 60;
 
@@ -45,14 +47,13 @@ const UserProfile = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  // Get session from localStorage
   useEffect(() => {
     try {
       const session = JSON.parse(localStorage.getItem('user'));
       if (!session) throw new Error('No session');
       setUserSession(session);
-      if (session.userType === 'seller') setProfileType('seller');
-      else if (session.userType === 'buyer') setProfileType('buyer');
-      else throw new Error('Invalid userType');
+      setProfileType(session.userType);
     } catch (error) {
       console.error('Session error:', error.message);
       localStorage.removeItem('user');
@@ -60,6 +61,7 @@ const UserProfile = () => {
     }
   }, [navigate]);
 
+  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/');
@@ -68,6 +70,7 @@ const UserProfile = () => {
   const toggleDrawer = () => setCollapsed(!collapsed);
   const toggleMobileDrawer = () => setMobileOpen(!mobileOpen);
 
+  // Menu options
   const menuItems = [
     { key: '1', icon: <UploadIcon color="primary" />, label: 'Upload New Car' },
     { key: '2', icon: <LogoutIcon />, label: 'Logout', onClick: handleLogout },
@@ -82,9 +85,11 @@ const UserProfile = () => {
     { key: '11', icon: <CheckCircleIcon color="success" />, label: 'Available Cars' },
   ];
 
+  // Filter menu based on user type
   const getFilteredMenuItems = () =>
     profileType === 'buyer' ? menuItems.slice(1, 8) : menuItems;
 
+  // Drawer contents
   const renderMenu = () => (
     <Box sx={{ width: collapsed ? collapsedWidth : drawerWidth }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
@@ -113,12 +118,13 @@ const UserProfile = () => {
     </Box>
   );
 
+  // Render reusable detail item
   const DetailItem = ({ label, value }) => (
     <Box
       sx={{
         p: 2,
         borderRadius: 2,
-        bgcolor: '#ffffff',
+        bgcolor: '#fff',
         boxShadow: 1,
         border: '1px solid #e0e0e0',
         display: 'flex',
@@ -135,10 +141,11 @@ const UserProfile = () => {
     </Box>
   );
 
+  // Render profile details
   const renderUserDetails = () => {
     if (!userSession) return null;
 
-    const commonFields = (
+    const baseDetails = (
       <>
         <DetailItem label="Firstname" value={userSession.firstname} />
         <DetailItem label="Lastname" value={userSession.lastname} />
@@ -147,12 +154,10 @@ const UserProfile = () => {
       </>
     );
 
-    if (profileType === 'buyer') return commonFields;
-
     if (profileType === 'seller') {
       return (
         <>
-          {commonFields}
+          {baseDetails}
           <DetailItem label="Address" value={userSession.address} />
           <DetailItem label="Plan" value={userSession.plan} />
           <DetailItem label="Company Name" value={userSession.companyName} />
@@ -163,12 +168,12 @@ const UserProfile = () => {
       );
     }
 
-    return null;
+    return baseDetails;
   };
 
   return profileType ? (
-    <Box sx={{ flexGrow: 1,  }}>
-      {/* Mobile Swipe Drawer */}
+    <Box sx={{ flexGrow: 1 }}>
+      {/* Sidebar: Permanent on desktop, swipeable on mobile */}
       {isMobile ? (
         <SwipeableDrawer
           anchor="left"
@@ -198,8 +203,8 @@ const UserProfile = () => {
           {renderMenu()}
         </Drawer>
       )}
- 
-      {/* Main Content Area */}
+
+      {/* Main Content */}
       <Box
         component="main"
         sx={{
@@ -207,11 +212,10 @@ const UserProfile = () => {
           p: 3,
         }}
       >
-        
- {/* Toggle button on top for mobile */}
+        {/* Mobile drawer toggle button */}
         {isMobile && (
           <IconButton onClick={toggleMobileDrawer} sx={{ mb: 2 }}>
-            <MenuIcon
+            <MenuIcon  
             sx={{
               position: 'absolute',
               top: -125,
@@ -224,11 +228,13 @@ const UserProfile = () => {
             }}/>
           </IconButton>
         )}
-        
+
+        {/* Greeting */}
         <Typography variant="h6" gutterBottom>
           {profileType === 'seller' && `You are subscribed as a ${userSession?.userType}`}
         </Typography>
 
+        {/* User details */}
         <Box
           sx={{
             mt: 2,
@@ -245,6 +251,7 @@ const UserProfile = () => {
         </Box>
       </Box>
 
+      {/* Upload modal */}
       <UploadCar open={uploadOpen} handleClose={() => setUploadOpen(false)} />
     </Box>
   ) : null;

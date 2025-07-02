@@ -7,8 +7,12 @@ import {
   Button,
   Input,
   MenuItem,
-  Grid
+  Grid,
+  IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const modalStyle = {
   position: 'absolute',
@@ -19,7 +23,6 @@ const modalStyle = {
   bgcolor: 'background.paper',
   borderRadius: 2,
   boxShadow: 10,
-  p: 1,
 };
 
 const generateVehicleId = () => `VH-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -31,6 +34,9 @@ const availabilityOptions = ['Available', 'Not Available'];
 const transmissionTypes = ['Automatic', 'Manual'];
 
 const UploadCar = ({ open, handleClose, onSubmit }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [formData, setFormData] = useState({
     photo: null,
     model: '',
@@ -98,99 +104,130 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={modalStyle}>
-        <Typography variant="h6" textAlign="center" mb={1}>
+      <Box
+        sx={{
+          ...modalStyle,
+          maxHeight: isMobile ? '90vh' : 'auto',
+          overflowY: isMobile ? 'auto' : 'visible',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarGutter: 'stable',
+          p: 2,
+        }}
+      >
+        {/* Top Close Button (for mobile) */}
+        {isMobile && (
+          <Box textAlign="right">
+            <IconButton  onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        )}
+
+        <Typography variant="h6" textAlign="center" mb={2}>
           Upload Car Details
         </Typography>
-        <Grid item xs={10} sm={6} md={3} mx="auto" mb={1}>
-            <Input 
+
+        <Grid item xs={12} sm={6} md={3} mx="auto" mb={2}>
+          <Input
             type="file"
-             name="photo" 
-             onChange={handleChange} 
-             fullWidth
-              sx={{
-            width: {
-            xs: '100%', 
-            md: '100%'},
-          paddingY:'1rem'}}
-             />
-          </Grid>
-        <Grid container spacing={1}
+            name="photo"
+            onChange={handleChange}
+            fullWidth
+            sx={{
+              width: '100%',
+              paddingY: '1rem',
+            }}
+          />
+        </Grid>
+
+        <Grid
+          container
+          spacing={1}
           sx={{
             display: 'grid',
-           gridTemplateColumns: {
-            xs: 'repeat(3, 1fr)', 
-            md: 'repeat(5, 1fr)' },
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              md: 'repeat(5, 1fr)',
+            },
             gap: 2,
-          }}>
-          
-          <Grid item xs={12} sm={6} md={2.4}>
+          }}
+        >
+          <Grid item>
             <TextField select label="Category" name="category" value={formData.category} onChange={handleChange} fullWidth>
               {categories.map((cat) => <MenuItem key={cat} value={cat}>{cat}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField select label="Availability" name="availability" value={formData.availability} onChange={handleChange} fullWidth>
               {availabilityOptions.map((opt) => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField select label="Transmission" name="transmission_type" value={formData.transmission_type} onChange={handleChange} fullWidth>
               {transmissionTypes.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField label="Model" name="model" value={formData.model} onChange={handleChange} fullWidth />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField label="Year" name="year" value={formData.year} onChange={handleChange} fullWidth />
           </Grid>
-             <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField label="Location" name="location" value={formData.location} onChange={handleChange} fullWidth />
           </Grid>
-
-          <Grid item xs={12} sm={4} md={2.4}>
+          <Grid item>
             <TextField label="Seats" name="seats" value={formData.seats} onChange={handleChange} fullWidth />
           </Grid>
-          <Grid item xs={12} sm={4} md={2.4}>
+          <Grid item>
             <TextField label="Daily Price" name="daily_price" value={formData.daily_price} onChange={handleChange} fullWidth />
           </Grid>
-          <Grid item xs={12} sm={4} md={2.4}>
+          <Grid item>
             <TextField label="Weekly Price" name="weekly_price" value={formData.weekly_price} onChange={handleChange} fullWidth />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
+          <Grid item>
             <TextField label="Monthly Price" name="monthly_price" value={formData.monthly_price} onChange={handleChange} fullWidth />
           </Grid>
-       
         </Grid>
+
         <Grid item xs={12} spacing={2} sx={{ mt: 2 }}>
-            <TextField
-              label="Description"
-              name="description"
-              multiline
-              rows={2}
-              value={formData.description}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} textAlign="center">
-            <Button
-              variant="contained"
-              onClick={handleSubmit}
-              sx={{
-                backgroundColor: 'rgba(85, 255, 0, 0.88)',
-                color: '#000',
-                padding: '0.5rem 1rem',
-                fontSize: '12px',
-                borderRadius: '4px',
-                transition: 'background-color 0.3s ease',
-                margin: '1rem ',
-              }}
-            >
-              Submit
+          <TextField
+            label="Description"
+            name="description"
+            multiline
+            rows={2}
+            value={formData.description}
+            onChange={handleChange}
+            fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12} textAlign="center">
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              backgroundColor: 'rgba(85, 255, 0, 0.88)',
+              color: '#000',
+              padding: '0.5rem 1rem',
+              fontSize: '12px',
+              borderRadius: '4px',
+              transition: 'background-color 0.3s ease',
+              marginTop: '1.5rem',
+            }}
+          >
+            Submit
+          </Button>
+        </Grid>
+
+        {/* Bottom Close Button for mobile */}
+        {isMobile && (
+          <Grid item xs={12} textAlign="center" mt={2}>
+            <Button onClick={handleClose} color="secondary">
+              Close
             </Button>
           </Grid>
+        )}
       </Box>
     </Modal>
   );

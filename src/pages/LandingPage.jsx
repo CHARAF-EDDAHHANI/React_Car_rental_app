@@ -1,3 +1,5 @@
+// LandingPage.jsx
+
 import React from 'react';
 import {
   Box,
@@ -16,19 +18,21 @@ import {
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+// Custom theme for consistent colors and typography
 const theme = createTheme({
   palette: {
-    primary: { main: 'rgb(12, 174, 96)' },
-    secondary: { main: '#FACC15' },
+    primary: { main: 'rgb(12, 174, 96)' },    // Green
+    secondary: { main: '#FACC15' },           // Yellow
   },
   typography: {
     fontFamily: 'Roboto, sans-serif',
   },
 });
 
+// Car category tags
 const carCategories = ['Economy', 'Van', 'SUV', 'Luxury'];
 
-// Framer Motion Variants
+// Animation variants for Framer Motion
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -38,25 +42,21 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.8 } }
 };
-    
 
 const LandingPage = () => {
+  const navigate = useNavigate();
 
-     const navigate = useNavigate();
-const handleStartBtn = () => {
+  // Navigate user based on login status
+  const handleStartBtn = () => {
     const user = localStorage.getItem('user');
-    if (!user) {
-        navigate('/Login');
-    } else {
-        navigate('/loca');
-    }
-};
+    navigate(user ? '/loca' : '/Login');
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      {/* Hero Section */}
+      {/* === Hero Section === */}
       <motion.div variants={fadeIn} initial="hidden" animate="visible">
         <Box sx={{ backgroundColor: 'rgb(158, 252, 199)', py: 8, textAlign: 'center' }}>
           <Container>
@@ -66,26 +66,26 @@ const handleStartBtn = () => {
             <Typography variant="h6" color="text.secondary" gutterBottom>
               Choose your car, agree on a fair price, and drive with confidence.
             </Typography>
-            <Button 
-             variant="contained"
-             color="secondary" 
-             size="large"
-             onClick={handleStartBtn}>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={handleStartBtn}
+            >
               Get Started
             </Button>
           </Container>
         </Box>
       </motion.div>
 
-      {/* Services Section */}
+      {/* === Services Section === */}
       <Container sx={{ py: 8 }}>
         <Grid container spacing={4}>
           {[
             { title: 'Self-Drive', desc: 'Enjoy with modern rental cars' },
             { title: 'Airport Pickup & Dropoff', desc: 'Timely transport to/from any airport in Morocco' },
             { title: 'Rent Car With Driver', desc: 'Comfortable rides with professional local drivers (Trip Guideness offered)' },
-
-          ].map((service, index) => (
+          ].map((service) => (
             <Grid item xs={12} sm={6} md={4} key={service.title}>
               <motion.div
                 variants={fadeUp}
@@ -109,7 +109,7 @@ const handleStartBtn = () => {
         </Grid>
       </Container>
 
-      {/* Categories Section */}
+      {/* === Car Categories Section === */}
       <Box sx={{ backgroundColor: 'rgba(255, 237, 44, 0.72)', py: 6 }}>
         <Container>
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -130,7 +130,7 @@ const handleStartBtn = () => {
         </Container>
       </Box>
 
-      {/* Stats Section */}
+      {/* === Stats Section === */}
       <Container sx={{ py: 8, textAlign: 'center' }}>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <Typography variant="h5" fontWeight="bold" color="primary" gutterBottom>
@@ -151,10 +151,11 @@ const handleStartBtn = () => {
         </motion.div>
       </Container>
 
-      {/* Footer */}
+      {/* === Footer Section === */}
       <Box sx={{ backgroundColor: '#064E3B', color: 'white', py: 6, px: 2 }}>
         <Container>
           <Grid container spacing={4}>
+            {/* Services */}
             <Grid item xs={12} md={3}>
               <Typography variant="h6">Services</Typography>
               <ul>
@@ -165,6 +166,8 @@ const handleStartBtn = () => {
                 <li>Airport Pickup</li>
               </ul>
             </Grid>
+
+            {/* Company Info */}
             <Grid item xs={12} md={3}>
               <Typography variant="h6">Company</Typography>
               <ul>
@@ -173,6 +176,8 @@ const handleStartBtn = () => {
                 <li>Blog</li>
               </ul>
             </Grid>
+
+            {/* Support */}
             <Grid item xs={12} md={3}>
               <Typography variant="h6">Support</Typography>
               <ul>
@@ -181,6 +186,8 @@ const handleStartBtn = () => {
                 <li>Safety</li>
               </ul>
             </Grid>
+
+            {/* Social Media */}
             <Grid item xs={12} md={3}>
               <Typography variant="h6">Follow Us</Typography>
               <Box mt={1} display="flex" gap={2}>
@@ -190,6 +197,8 @@ const handleStartBtn = () => {
               </Box>
             </Grid>
           </Grid>
+
+          {/* Footer Copyright */}
           <Typography variant="caption" display="block" textAlign="center" mt={4}>
             © 2025 Your Car Rental App. All rights reserved.
           </Typography>

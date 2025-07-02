@@ -20,6 +20,7 @@ const SignUp = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // Handle all input changes (text, radio, checkbox)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormValues((prev) => ({
@@ -28,10 +29,9 @@ const SignUp = () => {
     }));
   };
 
+  // Validation for required fields
   const validate = () => {
     const newErrors = {};
-
-    // Basic required fields
     const requiredFields = userType === 'seller'
       ? [
           'firstname',
@@ -53,11 +53,15 @@ const SignUp = () => {
       }
     });
 
-    // Simple email validation
+    // Email format validation
     if (formValues.email && !/\S+@\S+\.\S+/.test(formValues.email)) {
       newErrors.email = 'Invalid email format';
     }
-    if (userType === 'seller' && formValues.companyEmail && !/\S+@\S+\.\S+/.test(formValues.companyEmail)) {
+    if (
+      userType === 'seller' &&
+      formValues.companyEmail &&
+      !/\S+@\S+\.\S+/.test(formValues.companyEmail)
+    ) {
       newErrors.companyEmail = 'Invalid email format';
     }
 
@@ -65,19 +69,16 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Form submission handler
   const onSubmit = (e) => {
     e.preventDefault();
 
     if (!userType) {
-      alert(
-        'Please select a user type (Seller or Buyer) and fill out the form, to profit from our services. or contact us for more information.'
-      );
+      alert('Please select a user type (Seller or Buyer) to proceed.');
       return;
     }
 
-    if (!validate()) {
-      return;
-    }
+    if (!validate()) return;
 
     const userData = {
       ...formValues,
@@ -86,14 +87,13 @@ const SignUp = () => {
     };
 
     localStorage.setItem('user', JSON.stringify(userData));
-    console.log('User registered successfully:', userData);
     alert('User registered successfully in the local storage');
     navigate('/Profile');
   };
 
   return (
     <Box sx={{ p: 4, bgcolor: '#f0f2f5', minHeight: '100vh' }}>
-      {/* User type selector */}
+      {/* User type toggle */}
       <Box textAlign="center" mb={4}>
         <Button
           variant={userType === 'seller' ? 'contained' : 'outlined'}
@@ -110,7 +110,8 @@ const SignUp = () => {
         </Button>
       </Box>
 
-      {(userType === 'seller' || userType === 'buyer') && (
+      {/* Form only visible after selecting user type */}
+      {userType && (
         <Box
           component="form"
           onSubmit={onSubmit}
@@ -123,16 +124,15 @@ const SignUp = () => {
             boxShadow: 1,
           }}
           noValidate
-          autoComplete="off"
         >
           <Typography variant="h5" mb={3}>
             {userType === 'seller' ? 'Seller Registration' : 'Buyer Registration'}
           </Typography>
 
-          {/* Plan selector only for seller */}
+          {/* Plan selection (for sellers only) */}
           {userType === 'seller' && (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
-              <FormLabel component="legend">Plan</FormLabel>
+              <FormLabel component="legend">Choose Plan</FormLabel>
               <RadioGroup
                 row
                 value={plan}
@@ -145,7 +145,7 @@ const SignUp = () => {
             </FormControl>
           )}
 
-          {/* Input fields */}
+          {/* Common + conditional seller fields */}
           {[
             { name: 'firstname', label: 'First Name' },
             { name: 'lastname', label: 'Last Name' },
@@ -196,6 +196,7 @@ const SignUp = () => {
         </Box>
       )}
 
+      {/* Redirect to Login */}
       <Box textAlign="center" mt={4}>
         <Typography>Already have an account?</Typography>
         <Button variant="text" onClick={() => navigate('/Login')} sx={{ mt: 1 }}>

@@ -1,23 +1,31 @@
+// Header.jsx
+
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+  styled,
+  alpha,
+} from '@mui/material';
+import {
+  Menu as MenuIcon,
+  Search as SearchIcon,
+  AccountCircle,
+  Mail as MailIcon,
+  Notifications as NotificationsIcon,
+  MoreVert as MoreIcon,
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import MenuModal from './Menumodal';
 
+// Styled Components
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -48,6 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
+    // Padding left for search icon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -58,36 +67,30 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  // Local state
+  const [searchTerm, setSearchTerm] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const navigate = useNavigate();
 
+  // Menu state
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  // Handle navigation to profile or login
   const handleProfileMenuOpen = () => {
-    const userSession = JSON.parse(localStorage.getItem('user'));
     try {
-      if (userSession?.email) {
-        navigate(`/Profile`);
-      } else {
-        navigate(`/Login`);
-      }
+      const userSession = JSON.parse(localStorage.getItem('user'));
+      userSession?.email ? navigate(`/Profile`) : navigate(`/Login`);
     } catch (error) {
       alert('Error opening profile, please contact support');
       console.error('Error opening profile:', error);
     }
   };
 
-  const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
-  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
+  // Search input logic
   const handleInputChange = (e) => setSearchTerm(e.target.value);
 
   const handleSearch = (e) => {
@@ -98,6 +101,15 @@ const Header = () => {
     }
   };
 
+  // Menu open/close handlers
+  const handleMobileMenuOpen = (e) => setMobileMoreAnchorEl(e.currentTarget);
+  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  // Desktop Menu
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -114,6 +126,7 @@ const Header = () => {
     </Menu>
   );
 
+  // Mobile Menu
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -156,28 +169,35 @@ const Header = () => {
         position="static"
         sx={{
           background: 'url(/images/header-img.jpg) no-repeat center center / cover',
-          color:'#fff',
+          color: '#fff',
           boxShadow: 'none',
           backdropFilter: 'blur(10px)',
         }}
       >
-        <Toolbar sx={{ flexDirection: 'column', alignItems: 'stretch', p:1 , color: '#D1FAE5'}}>
-          {/* Row 1: Top Bar for mobile, normal bar for desktop */}
+        <Toolbar
+          sx={{
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            p: 1,
+            color: '#D1FAE5',
+          }}
+        >
+          {/* === Row 1: Top Bar === */}
           <Box
             sx={{
               display: 'flex',
               width: '100%',
               alignItems: 'center',
-              justifyContent: { xs: 'space-between', md: 'space-between' },
-              flexDirection: { xs: 'row', md: 'row' },
+              justifyContent: 'space-between',
+              flexDirection: 'row',
             }}
           >
-            {/* Left: Menu + Logo */}
+            {/* === Left Side: Menu + Logo === */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 1 }}>
                 <MenuIcon onClick={() => setIsModalOpen(true)} />
-                <MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
               </IconButton>
+              <MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
               <img
                 src="/images/loca-logo.png"
                 alt="logo"
@@ -185,7 +205,7 @@ const Header = () => {
                   width: '50px',
                   height: '50px',
                   position: 'absolute',
-                  left : '47%',
+                  left: '47%',
                   borderRadius: '30%',
                   padding: '5px',
                   backgroundColor: '#fff',
@@ -195,13 +215,16 @@ const Header = () => {
               />
             </Box>
 
-            {/* Right side icons (desktop visible, mobile inline here) */}
-            <Box sx={{ display: { xs: 'flex', md: 'flex' }, alignItems: 'center' }}>
+            {/* === Right Side Icons === */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {/* Mobile icon */}
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton size="large" onClick={handleMobileMenuOpen} color="inherit">
                   <MoreIcon />
                 </IconButton>
               </Box>
+
+              {/* Desktop icons */}
               <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                 <IconButton size="large" color="inherit">
                   <Badge badgeContent={4} color="error">
@@ -228,12 +251,12 @@ const Header = () => {
             </Box>
           </Box>
 
-          {/* Row 2: Search bar (mobile below top bar, desktop centered) */}
+          {/* === Row 2: Search Bar === */}
           <Box
             sx={{
               mt: { xs: 2, md: 1 },
               width: { xs: '100%', md: '60%' },
-              alignSelf: { xs: 'center', md: 'center' },
+              alignSelf: 'center',
             }}
           >
             <Search
@@ -258,6 +281,8 @@ const Header = () => {
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Mobile and Desktop Menus */}
       {renderMobileMenu}
       {renderMenu}
     </Box>

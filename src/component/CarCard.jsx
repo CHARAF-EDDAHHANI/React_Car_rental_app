@@ -1,3 +1,5 @@
+// CarCard.jsx
+
 import { Grid, Paper, Typography, Box, Rating } from "@mui/material";
 import {
   AccessTime,
@@ -5,36 +7,34 @@ import {
   Settings as TransmissionIcon,
   EventSeat as SeatsIcon,
   MonetizationOn as PriceIcon,
-  CalendarToday as WeeklyIcon,
-  DateRange as MonthlyIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
 
-  // Navigate to booking page
+  // Navigate to booking page using car.vehicle_id
   const handleBooking = (vehicle_id) => {
     if (vehicle_id) {
       navigate(`/carbooking/${vehicle_id}`);
     }
   };
 
-  // Reusable icon style
+  // Reusable icon style for consistency
   const iconStyle = { fontSize: 16, mr: 0.5, color: "#333" };
 
-  // Car info badges
+  // Key car specs
   const carDetails = [
     { icon: <CategoryIcon sx={iconStyle} />, label: car.category || "N/A" },
     { icon: <TransmissionIcon sx={iconStyle} />, label: car.transmission_type || "N/A" },
-    { icon: <SeatsIcon sx={iconStyle} />, label: car.seats || "N/A" }
+    { icon: <SeatsIcon sx={iconStyle} />, label: car.seats || "N/A" },
   ];
 
-  // Price badges
+  // Price options
   const carPrices = [
     { icon: <PriceIcon sx={iconStyle} />, label: `${car.daily_price}/Day` },
     { icon: <PriceIcon sx={iconStyle} />, label: `${car.weekly_price}/Week` },
-    { icon: <PriceIcon sx={iconStyle} />, label: `${car.monthly_price}/Month` }
+    { icon: <PriceIcon sx={iconStyle} />, label: `${car.monthly_price}/Month` },
   ];
 
   return (
@@ -43,14 +43,15 @@ const CarCard = ({ car }) => {
         onClick={() => handleBooking(car.vehicle_id)}
         elevation={3}
         sx={{
-          padding: { xs: 2, sm: 2, md: 2 },
+          p: 2,
           fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.8rem" },
           borderRadius: 2,
           cursor: "pointer",
           transition: "0.3s",
-          "&:hover": { boxShadow: 8 }
+          "&:hover": { boxShadow: 8 },
         }}
       >
+        {/* Car Image */}
         <Box
           component="img"
           src={car.image}
@@ -59,26 +60,28 @@ const CarCard = ({ car }) => {
             width: "100%",
             height: 200,
             objectFit: "cover",
-            borderRadius: 1
+            borderRadius: 1,
           }}
         />
+
+        {/* Car Info */}
         <Box sx={{ mt: 2 }}>
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
             {car.model} ({car.year})
           </Typography>
 
-          {/* Car spec badges */}
+          {/* Car Specifications */}
           <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
             {carDetails.map((item, index) => (
               <Box
-                key={index}
+                key={`spec-${index}`}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   px: 2,
                   py: 0.3,
                   backgroundColor: "rgba(41, 217, 126, 0.64)",
-                  borderRadius: 2.5
+                  borderRadius: 2.5,
                 }}
               >
                 {item.icon}
@@ -89,13 +92,13 @@ const CarCard = ({ car }) => {
             ))}
           </Box>
 
-          {/* Booking info */}
+          {/* Booking Availability */}
           <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
             <AccessTime sx={iconStyle} />
             <Typography variant="body2">Ready for booking</Typography>
           </Box>
 
-          {/* Ratings */}
+          {/* Rating */}
           <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
             <Rating
               name="car-rating"
@@ -104,26 +107,26 @@ const CarCard = ({ car }) => {
               precision={0.25}
               readOnly
             />
-            <Typography variant="body3" sx={{ ml: 0.5 }}>
+            <Typography variant="body2" sx={{ ml: 0.5 }}>
               {car.rating?.toFixed(1) || "N/A"}
             </Typography>
-            <Typography variant="body3" sx={{ ml: 0.3 }}>
+            <Typography variant="body2" sx={{ ml: 0.5 }}>
               ({car.numberOfReviews || 0} reviews)
             </Typography>
           </Box>
 
-          {/* Pricing badges */}
+          {/* Price Options */}
           <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 1 }}>
             {carPrices.map((price, index) => (
               <Box
-                key={index}
+                key={`price-${index}`}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   px: 1,
                   py: 0.3,
-                  backgroundColor: "#FFD700", // golden background
-                  borderRadius: 2.5
+                  backgroundColor: "#FFD700",
+                  borderRadius: 2.5,
                 }}
               >
                 {price.icon}

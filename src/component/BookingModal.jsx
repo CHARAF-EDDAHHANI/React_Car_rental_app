@@ -1,100 +1,128 @@
 // BookNowModal.jsx
-import React, { useState } from 'react';
-import { Modal, Form, Radio } from 'antd';
-import BookingDate from './BookingDate';
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+  Typography,
+} from "@mui/material";
+import BookingDate from "./BookingDate";
 
 const BookNowModal = ({ open, onOk, onCancel }) => {
+  // Local state for booking inputs
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [pickupLocation, setPickupLocation] = useState('');
-  const [dropoffLocation, setDropoffLocation] = useState('');
-  const [driver, setDriver] = useState('withDriver');
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [dropoffLocation, setDropoffLocation] = useState("");
+  const [driver, setDriver] = useState("withDriver");
 
+  // Update dates in YYYY-MM-DD format from BookingDate component
   const handleDateChange = (date, role) => {
     if (!date) return;
 
     const formattedDate = date.format("YYYY-MM-DD");
-
-    if (role === 'start') {
-      setStartDate(formattedDate);
-    } else if (role === 'end') {
-      setEndDate(formattedDate);
-    }
+    if (role === "start") setStartDate(formattedDate);
+    else if (role === "end") setEndDate(formattedDate);
   };
 
-  const handleOk = () => {
+  // Validate inputs and call onOk callback with booking info
+  const handleConfirm = () => {
     if (!startDate || !endDate || !pickupLocation || !dropoffLocation) {
       alert("Please select a date range and both pickup & dropoff locations.");
       return;
     }
 
-    localStorage.setItem('pickupLocation', pickupLocation);
-    localStorage.setItem('dropoffLocation', dropoffLocation);
-    localStorage.setItem('selectedDates', JSON.stringify([startDate, endDate]));
-    localStorage.setItem('driver', driver);
+    // Store booking info in localStorage (optional)
+    localStorage.setItem("pickupLocation", pickupLocation);
+    localStorage.setItem("dropoffLocation", dropoffLocation);
+    localStorage.setItem("selectedDates", JSON.stringify([startDate, endDate]));
+    localStorage.setItem("driver", driver);
 
     console.log("Booking Info:", {
       pickupLocation,
       dropoffLocation,
       startDate,
       endDate,
-      driver
+      driver,
     });
 
-    onOk({ startDate, endDate, pickupLocation, dropoffLocation });
+    onOk({ startDate, endDate, pickupLocation, dropoffLocation, driver });
   };
 
   return (
-    <Modal
-      open={open}
-      title="Choose Your Dates and Location for advance booking:"
-      onOk={handleOk}
-      onCancel={onCancel}
-      style={{ top: 20 }}
-    >
-      <BookingDate onDateChange={handleDateChange} role="start" />
-      <BookingDate onDateChange={handleDateChange} role="end" />
+    <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth>
+      <DialogTitle>Choose Your Dates and Location for Advance Booking</DialogTitle>
 
-      <div style={{ display: 'grid', gap: '1em', marginTop: '1em' }}>
-        <h4>Selected Location:</h4>
-        <p style={{ color: '#888' }}>
-          Please ensure the location is accurate for a smooth booking experience.
-        </p>
+      <DialogContent dividers>
+        {/* Date pickers for start and end */}
+        <BookingDate onDateChange={handleDateChange} role="start" />
+        <BookingDate onDateChange={handleDateChange} role="end" />
 
-        <input
-          type="text"
-          value={pickupLocation}
-          onChange={(e) => setPickupLocation(e.target.value)}
-          placeholder="Enter the Pickup Location"
-          style={{
-            width: '100%',
-            padding: '8px',
-            borderRadius: '4px',
-            border: '1px solid #d9d9d9',
-          }}
-        />
+        {/* Pickup and Dropoff Location Inputs */}
+        <Box mt={3} display="flex" flexDirection="column" gap={2}>
+          <FormLabel sx={{ fontWeight: "bold" }}>Selected Location</FormLabel>
+          <Typography variant="body2" color="text.secondary">
+            Please ensure the location is accurate for a smooth booking experience.
+          </Typography>
 
-        <input
-          type="text"
-          value={dropoffLocation}
-          onChange={(e) => setDropoffLocation(e.target.value)}
-          placeholder="Enter the Dropoff Location"
-          style={{
-            width: '100%',
-            padding: '8px',
-            borderRadius: '4px',
-            border: '1px solid #d9d9d9',
-          }}
-        />
-         <div style={{ marginTop: '1em' }}>
-          <label style={{ display: 'block', marginBottom: '0.5em' }}>Select choice for Driver :</label>
-            <Radio.Group onChange={(e) => setDriver(e.target.value)} value={driver}>
-              <Radio value="withDriver">With Driver</Radio>
-              <Radio value="NoDriver">No Driver</Radio>
-            </Radio.Group>
-          </div>
-      </div>
-    </Modal>
+          <TextField
+            label="Pickup Location"
+            variant="outlined"
+            value={pickupLocation}
+            onChange={(e) => setPickupLocation(e.target.value)}
+            fullWidth
+            size="small"
+          />
+
+          <TextField
+            label="Dropoff Location"
+            variant="outlined"
+            value={dropoffLocation}
+            onChange={(e) => setDropoffLocation(e.target.value)}
+            fullWidth
+            size="small"
+          />
+
+          {/* Driver Selection */}
+          <FormLabel sx={{ mt: 2, fontWeight: "bold" }}>
+            Select choice for Driver
+          </FormLabel>
+          <RadioGroup
+            row
+            value={driver}
+            onChange={(e) => setDriver(e.target.value)}
+            aria-label="driver-choice"
+            name="driver-choice"
+          >
+            <FormControlLabel
+              value="withDriver"
+              control={<Radio />}
+              label="With Driver"
+            />
+            <FormControlLabel
+              value="NoDriver"
+              control={<Radio />}
+              label="No Driver"
+            />
+          </RadioGroup>
+        </Box>
+      </DialogContent>
+
+      <DialogActions>
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button variant="contained" onClick={handleConfirm}>
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
