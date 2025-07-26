@@ -52,6 +52,7 @@ const UserProfile = () => {
  
 useEffect(() => {
   const credentials = JSON.parse(localStorage.getItem('credentials'));
+  console.log('Credentials from localStorage:', credentials);
 
   if (!credentials || !location.state) {
     console.error('Missing credentials or user data');
@@ -63,8 +64,9 @@ useEffect(() => {
   const fullUser = {
     ...credentials,
     ...location.state,
-    userType: 'seller', // ou 'buyer' si tu veux le rendre dynamique plus tard
+    userType: location.state.userType || credentials.userType,
   };
+  console.log('Full user data:', fullUser);
 
   setUserSession(fullUser);
   setProfileType(fullUser.userType);

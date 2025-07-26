@@ -92,6 +92,7 @@ const SignUp = () => {
             userType === 'seller' ? newUser.sellerId : newUser.buyerId,
           userToken:
             userType === 'seller' ? newUser.sellerToken : newUser.buyerToken,
+            userType,
         })
       );
 

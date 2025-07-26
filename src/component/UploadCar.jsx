@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   Modal,
@@ -25,13 +26,11 @@ const modalStyle = {
   borderRadius: 2,
   boxShadow: 10,
 };
-
 const categories = ['Economy', 'Van', 'SUV', 'Luxury', 'Modern'];
 const availabilityOptions = ['Available', 'Not Available'];
 const transmissionTypes = ['Automatic', 'Manual'];
-const storedCredentials = localStorage.getItem("credentials");
-const sellerId = storedCredentials ? JSON.parse(storedCredentials).sellerId : null;
-
+const credentials = localStorage.getItem("credentials");
+const userId = credentials ? JSON.parse(credentials).userId : null;
 
 const UploadCar = ({ open, handleClose, onSubmit }) => {
   const theme = useTheme();
@@ -49,7 +48,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       location: '',
       description: '',
       image: null,
-      sellerId: sellerId
+      sellerId: userId,
     });
   
     const handleChange = (e) => {
@@ -92,8 +91,8 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
         location: '',
         description: '',
         image: null,
+        sellerId: userId,
       });
-      // Close the modal after submission
       handleClose();
     };
   
