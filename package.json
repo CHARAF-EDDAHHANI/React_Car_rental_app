@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "node server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/server.js",
+    "client": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .jsx,.js --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,23 +20,32 @@
     "@mui/material": "^7.1.1",
     "@mui/system": "^7.1.0",
     "@mui/x-date-pickers": "^8.6.0",
-    "antd": "^5.25.2",
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.13",
+    "express": "^5.1.0",
     "framer-motion": "^12.18.1",
+    "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
+    "multer": "^2.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "sharp": "^0.34.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.2.0",
     "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.0.0",
+    "nodemon": "^3.1.10",
     "vite": "^6.3.1"
   }
 }

@@ -1,12 +1,12 @@
 // Header.jsx
 
 import * as React from 'react';
+import { AuthenticateUser } from '../Axios/userAxios';
 import {
   AppBar,
   Box,
   Toolbar,
   IconButton,
-  Typography,
   InputBase,
   Badge,
   MenuItem,
@@ -80,24 +80,30 @@ const Header = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   // Handle navigation to profile or login
-  const handleProfileMenuOpen = () => {
+  const handleProfileMenuOpen = async () => {
     try {
-      const userSession = JSON.parse(localStorage.getItem('user'));
-      userSession?.email ? navigate(`/Profile`) : navigate(`/Login`);
+      const response = await AuthenticateUser();
+      const { user } = response;
+
+      navigate('/Profile', {
+        state: {
+          firstname: user.firstname,
+          lastname: user.lastname,
+          userType: user.userType,
+          phone: user.phone,
+          email: user.email,
+          adress: user.adress,
+          companyName: user.companyName || '',
+          companyAddress: user.companyAddress || '',
+          companyPhone: user.companyPhone || '',
+          companyEmail: user.companyEmail || '',
+          plan: user.plan || '',
+        },
+      });
     } catch (error) {
-      alert('Error opening profile, please contact support');
-      console.error('Error opening profile:', error);
-    }
-  };
-
-  // Search input logic
-  const handleInputChange = (e) => setSearchTerm(e.target.value);
-
-  const handleSearch = (e) => {
-    if (e.key === 'Enter' || e.type === 'click') {
-      const location = searchTerm.trim().toLowerCase();
-      if (!location) return alert('Please enter a search term');
-      navigate(`/CarSearch/${encodeURIComponent(location)}`);
+      console.log('Error please try again later');
+      console.error(error);
+      navigate('/Login');
     }
   };
 
@@ -163,6 +169,17 @@ const Header = () => {
     </Menu>
   );
 
+  // Search input logic
+  const handleInputChange = (e) => setSearchTerm(e.target.value);
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' || e.type === 'click') {
+      const location = searchTerm.trim().toLowerCase();
+      if (!location) return alert('Please enter a search term');
+      navigate(`/CarSearch/${encodeURIComponent(location)}`);
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -194,8 +211,15 @@ const Header = () => {
           >
             {/* === Left Side: Menu + Logo === */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 1 }}>
-                <MenuIcon onClick={() => setIsModalOpen(true)} />
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 1 }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                <MenuIcon />
               </IconButton>
               <MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
               <img

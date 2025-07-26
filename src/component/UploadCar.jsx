@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Modal,
   Box,
@@ -25,63 +26,17 @@ const modalStyle = {
   boxShadow: 10,
 };
 
-const generateVehicleId = () => `VH-${Math.floor(100000 + Math.random() * 900000)}`;
-const generateRating = () => (Math.random() * (5 - 3) + 3).toFixed(1);
-const generateReviews = () => Math.floor(Math.random() * 490 + 10);
-
 const categories = ['Economy', 'Van', 'SUV', 'Luxury', 'Modern'];
 const availabilityOptions = ['Available', 'Not Available'];
 const transmissionTypes = ['Automatic', 'Manual'];
+const storedCredentials = localStorage.getItem("credentials");
+const sellerId = storedCredentials ? JSON.parse(storedCredentials).sellerId : null;
+
 
 const UploadCar = ({ open, handleClose, onSubmit }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [formData, setFormData] = useState({
-    photo: null,
-    model: '',
-    year: '',
-    category: '',
-    availability: '',
-    transmission_type: '',
-    seats: '',
-    daily_price: '',
-    weekly_price: '',
-    monthly_price: '',
-    location: '',
-    image: '',
-    description: '',
-    vehicle_id: '',
-    rating: '',
-    numberOfReviews: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
-  };
-
-  const handleSubmit = () => {
-    const updatedData = {
-      ...formData,
-      vehicle_id: generateVehicleId(),
-      rating: generateRating(),
-      numberOfReviews: generateReviews(),
-    };
-
-    if (onSubmit) {
-      const dataToSend = new FormData();
-      for (const key in updatedData) {
-        dataToSend.append(key, updatedData[key]);
-      }
-      onSubmit(dataToSend);
-    }
-
-    setFormData({
-      photo: null,
       model: '',
       year: '',
       category: '',
@@ -92,15 +47,56 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       weekly_price: '',
       monthly_price: '',
       location: '',
-      image: '',
       description: '',
-      vehicle_id: '',
-      rating: '',
-      numberOfReviews: '',
+      image: null,
+      sellerId: sellerId
     });
+  
+    const handleChange = (e) => {
+      const { name, value, files } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files ? files[0] : value,
+      }));
+    };
+  
+    const handleSubmit = async () => {
+      const carData = new FormData();
+  
+      for (const key in formData) {
+        if (formData[key]) {
+          carData.append(key, formData[key]);
+        }
+      }
+  
+      try {
+        await axios.post('http://localhost:5000/api/cars/uploadCar', carData);
 
-    handleClose();
-  };
+        if (onSubmit) onSubmit(carData);
+        handleClose();
+      } catch (err) {
+        console.error('Upload error:', err);
+      }
+
+
+      setFormData({
+        model: '',
+        year: '',
+        category: '',
+        availability: '',
+        transmission_type: '',
+        seats: '',
+        daily_price: '',
+        weekly_price: '',
+        monthly_price: '',
+        location: '',
+        description: '',
+        image: null,
+      });
+      // Close the modal after submission
+      handleClose();
+    };
+  
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -114,10 +110,9 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
           p: 2,
         }}
       >
-        {/* Top Close Button (for mobile) */}
         {isMobile && (
           <Box textAlign="right">
-            <IconButton  onClick={handleClose}>
+            <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -130,13 +125,10 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
         <Grid item xs={12} sm={6} md={3} mx="auto" mb={2}>
           <Input
             type="file"
-            name="photo"
+            name="image"
             onChange={handleChange}
             fullWidth
-            sx={{
-              width: '100%',
-              paddingY: '1rem',
-            }}
+            sx={{ width: '100%', paddingY: '1rem' }}
           />
         </Grid>
 
@@ -152,41 +144,116 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
             gap: 2,
           }}
         >
-          <Grid item>
-            <TextField select label="Category" name="category" value={formData.category} onChange={handleChange} fullWidth>
-              {categories.map((cat) => <MenuItem key={cat} value={cat}>{cat}</MenuItem>)}
+          <Grid item>s
+            <TextField
+              select
+              label="Category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              fullWidth
+            >
+              {categories.map((cat) => (
+                <MenuItem key={cat} value={cat}>
+                  {cat}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
           <Grid item>
-            <TextField select label="Availability" name="availability" value={formData.availability} onChange={handleChange} fullWidth>
-              {availabilityOptions.map((opt) => <MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+            <TextField
+              select
+              label="Availability"
+              name="availability"
+              value={formData.availability}
+              onChange={handleChange}
+              fullWidth
+            >
+              {availabilityOptions.map((opt) => (
+                <MenuItem key={opt} value={opt}>
+                  {opt}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
           <Grid item>
-            <TextField select label="Transmission" name="transmission_type" value={formData.transmission_type} onChange={handleChange} fullWidth>
-              {transmissionTypes.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
+            <TextField
+              select
+              label="Transmission"
+              name="transmission_type"
+              value={formData.transmission_type}
+              onChange={handleChange}
+              fullWidth
+            >
+              {transmissionTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  {type}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
           <Grid item>
-            <TextField label="Model" name="model" value={formData.model} onChange={handleChange} fullWidth />
+            <TextField
+              label="Model"
+              name="model"
+              value={formData.model}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Year" name="year" value={formData.year} onChange={handleChange} fullWidth />
+            <TextField
+              label="Year"
+              name="year"
+              value={formData.year}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Location" name="location" value={formData.location} onChange={handleChange} fullWidth />
+            <TextField
+              label="Location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Seats" name="seats" value={formData.seats} onChange={handleChange} fullWidth />
+            <TextField
+              label="Seats"
+              name="seats"
+              value={formData.seats}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Daily Price" name="daily_price" value={formData.daily_price} onChange={handleChange} fullWidth />
+            <TextField
+              label="Daily Price"
+              name="daily_price"
+              value={formData.daily_price}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Weekly Price" name="weekly_price" value={formData.weekly_price} onChange={handleChange} fullWidth />
+            <TextField
+              label="Weekly Price"
+              name="weekly_price"
+              value={formData.weekly_price}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
           <Grid item>
-            <TextField label="Monthly Price" name="monthly_price" value={formData.monthly_price} onChange={handleChange} fullWidth />
+            <TextField
+              label="Monthly Price"
+              name="monthly_price"
+              value={formData.monthly_price}
+              onChange={handleChange}
+              fullWidth
+            />
           </Grid>
         </Grid>
 
@@ -220,7 +287,6 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
           </Button>
         </Grid>
 
-        {/* Bottom Close Button for mobile */}
         {isMobile && (
           <Grid item xs={12} textAlign="center" mt={2}>
             <Button onClick={handleClose} color="secondary">

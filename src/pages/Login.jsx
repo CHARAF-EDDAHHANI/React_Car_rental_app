@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AnimLogo from '../component/AnimLogo';
+import { loginUserAxios } from '../Axios/userAxios';
 
 const Login = () => {
   const navigate = useNavigate();
-
   // Form state
   const [formValues, setFormValues] = useState({
     email: '',
@@ -51,25 +51,42 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+  // Form submission handler
+ const onSubmit = async (e) => {
+  e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (
-      storedUser &&
-      storedUser.email === formValues.email &&
-      storedUser.password === formValues.password
-    ) {
-      alert('User authorized successfully');
-      setErrorMessage(null);
-      navigate(`/Profile`);
-    } else {
-      setErrorMessage('Invalid email or password');
-    }
-  };
+  if (!validate()) return;
+  try {
+    const user = await loginUserAxios(formValues.email, formValues.password);
+     localStorage.setItem(
+      'credentials',
+      JSON.stringify({
+        userId: user.userId,
+        userToken: user.userToken,
+        userType: user.userType,
+      })
+    );
+    navigate('/Profile', {
+      state: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        phone: user.phone,
+        email: user.email,
+        adress: user.adress,
+        ...(user.userType === 'seller' && {
+          companyName: user.companyName,
+          companyAddress: user.companyAddress,
+          companyPhone: user.companyPhone,
+          companyEmail: user.companyEmail,
+          plan: user.plan,
+        }),
+      },
+    });
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    console.log('Error: ' + (error.response?.data?.message || 'Login failed'));
+  }
+};
 
   return (
     <Box

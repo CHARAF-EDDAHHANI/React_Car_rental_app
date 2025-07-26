@@ -29,7 +29,7 @@ import {
   IconButton,
 } from '@mui/material';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UploadCar from '../component/UploadCar';
 
 // Drawer dimensions
@@ -44,26 +44,35 @@ const UserProfile = () => {
   const [uploadOpen, setUploadOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // Get session from localStorage
-  useEffect(() => {
-    try {
-      const session = JSON.parse(localStorage.getItem('user'));
-      if (!session) throw new Error('No session');
-      setUserSession(session);
-      setProfileType(session.userType);
-    } catch (error) {
-      console.error('Session error:', error.message);
-      localStorage.removeItem('user');
-      navigate('/Login');
-    }
-  }, [navigate]);
+  // Get session from localStorage and merge with location.state
+ 
+useEffect(() => {
+  const credentials = JSON.parse(localStorage.getItem('credentials'));
+
+  if (!credentials || !location.state) {
+    console.error('Missing credentials or user data');
+    navigate('/Login');
+    return;
+  }
+
+  // Combine credentials + state data
+  const fullUser = {
+    ...credentials,
+    ...location.state,
+    userType: 'seller', // ou 'buyer' si tu veux le rendre dynamique plus tard
+  };
+
+  setUserSession(fullUser);
+  setProfileType(fullUser.userType);
+}, [location.state, navigate]);
 
   // Logout handler
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('credentials');
     navigate('/');
   };
 
@@ -158,7 +167,7 @@ const UserProfile = () => {
       return (
         <>
           {baseDetails}
-          <DetailItem label="Address" value={userSession.address} />
+          <DetailItem label="Address" value={userSession.adress} />
           <DetailItem label="Plan" value={userSession.plan} />
           <DetailItem label="Company Name" value={userSession.companyName} />
           <DetailItem label="Company Address" value={userSession.companyAddress} />
@@ -171,7 +180,9 @@ const UserProfile = () => {
     return baseDetails;
   };
 
-  return profileType ? (
+  if (!profileType) return null; // Or a loader
+
+  return (
     <Box sx={{ flexGrow: 1 }}>
       {/* Sidebar: Permanent on desktop, swipeable on mobile */}
       {isMobile ? (
@@ -215,17 +226,18 @@ const UserProfile = () => {
         {/* Mobile drawer toggle button */}
         {isMobile && (
           <IconButton onClick={toggleMobileDrawer} sx={{ mb: 2 }}>
-            <MenuIcon  
-            sx={{
-              position: 'absolute',
-              top: -125,
-              left: -16,
-              fontSize: 23,
-              fontWeight: 'bold',
-              bgcolor: 'rgba(23, 24, 24, 0.43)',
-              borderRadius: '50%',
-             color: 'rgb(255, 255, 255)',
-            }}/>
+            <MenuIcon
+              sx={{
+                position: 'absolute',
+                top: -125,
+                left: -16,
+                fontSize: 23,
+                fontWeight: 'bold',
+                bgcolor: 'rgba(23, 24, 24, 0.43)',
+                borderRadius: '50%',
+                color: 'rgb(255, 255, 255)',
+              }}
+            />
           </IconButton>
         )}
 
@@ -254,7 +266,7 @@ const UserProfile = () => {
       {/* Upload modal */}
       <UploadCar open={uploadOpen} handleClose={() => setUploadOpen(false)} />
     </Box>
-  ) : null;
+  );
 };
 
 export default UserProfile;

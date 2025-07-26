@@ -2,75 +2,63 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
+  Container,
   TextField,
   Typography,
+  ToggleButton,
+  ToggleButtonGroup,
+  MenuItem,
 } from '@mui/material';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-  const [userType, setUserType] = useState(null);
-  const [plan, setPlan] = useState('basic');
-  const [formValues, setFormValues] = useState({});
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [userType, setUserType] = useState('');
+  const [plan, setPlan] = useState('');
+  const [formValues, setFormValues] = useState({
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email: '',
+    password: '',
+    adress: '',
+    companyName: '',
+    companyAddress: '',
+    companyPhone: '',
+    companyEmail: '',
+  });
 
-  // Handle all input changes (text, radio, checkbox)
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
     setFormValues((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [e.target.name]: e.target.value,
     }));
   };
 
-  // Validation for required fields
-  const validate = () => {
-    const newErrors = {};
-    const requiredFields = userType === 'seller'
-      ? [
-          'firstname',
-          'lastname',
-          'phone',
-          'email',
-          'password',
-          'adress',
-          'companyName',
-          'companyAddress',
-          'companyPhone',
-          'companyEmail',
-        ]
-      : ['firstname', 'lastname', 'phone', 'email', 'password'];
-
-    requiredFields.forEach((field) => {
-      if (!formValues[field] || formValues[field].toString().trim() === '') {
-        newErrors[field] = 'This field is required';
-      }
-    });
-
-    // Email format validation
-    if (formValues.email && !/\S+@\S+\.\S+/.test(formValues.email)) {
-      newErrors.email = 'Invalid email format';
+  const handleUserTypeChange = (event, newType) => {
+    if (newType !== null) {
+      setUserType(newType);
     }
-    if (
-      userType === 'seller' &&
-      formValues.companyEmail &&
-      !/\S+@\S+\.\S+/.test(formValues.companyEmail)
-    ) {
-      newErrors.companyEmail = 'Invalid email format';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
-  // Form submission handler
-  const onSubmit = (e) => {
+  const validate = () => {
+    const { firstname, lastname, phone, email, password } = formValues;
+    if (!firstname || !lastname || !phone || !email || !password) {
+      alert('Please fill all required fields');
+      return false;
+    }
+    if (userType === 'seller') {
+      const { companyName, companyAddress, companyPhone } = formValues;
+      if (!companyName || !companyAddress || !companyPhone || !plan) {
+        alert('Please fill all seller details and select a plan');
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (!userType) {
@@ -86,124 +74,185 @@ const SignUp = () => {
       plan: userType === 'seller' ? plan : null,
     };
 
-    localStorage.setItem('user', JSON.stringify(userData));
-    alert('User registered successfully in the local storage');
-    navigate('/Profile');
+    try {
+      const url =
+        userType === 'seller'
+          ? 'http://localhost:5000/api/register-seller'
+          : 'http://localhost:5000/api/register-buyer';
+
+      const response = await axios.post(url, userData);
+
+      const newUser =
+        userType === 'seller' ? response.data.newSeller : response.data.newBuyer;
+
+      localStorage.setItem(
+        'credentials',
+        JSON.stringify({
+          userId:
+            userType === 'seller' ? newUser.sellerId : newUser.buyerId,
+          userToken:
+            userType === 'seller' ? newUser.sellerToken : newUser.buyerToken,
+        })
+      );
+
+      navigate('/Profile', {
+        state: {
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
+          phone: newUser.phone,
+          email: newUser.email,
+          adress: newUser.adress,
+          ...(userType === 'seller' && {
+            companyName: newUser.companyName,
+            companyAddress: newUser.companyAddress,
+            companyPhone: newUser.companyPhone,
+            companyEmail: newUser.companyEmail,
+            plan: newUser.plan,
+          }),
+        },
+      });
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Something went wrong during registration.');
+    }
   };
 
   return (
-    <Box sx={{ p: 4, bgcolor: '#f0f2f5', minHeight: '100vh' }}>
-      {/* User type toggle */}
-      <Box textAlign="center" mb={4}>
-        <Button
-          variant={userType === 'seller' ? 'contained' : 'outlined'}
-          onClick={() => setUserType('seller')}
-          sx={{ mr: 2 }}
+    <Container maxWidth="sm">
+      <Box sx={{ p: 4, bgcolor: '#f0f2f5', mt: 4, borderRadius: 2 }}>
+        <Typography variant="h4" mb={2} align="center">
+          Sign Up
+        </Typography>
+
+        <ToggleButtonGroup
+          color="primary"
+          value={userType}
+          exclusive
+          onChange={handleUserTypeChange}
+          fullWidth
+          sx={{ mb: 3 }}
         >
-          Seller
-        </Button>
-        <Button
-          variant={userType === 'buyer' ? 'contained' : 'outlined'}
-          onClick={() => setUserType('buyer')}
-        >
-          Buyer
-        </Button>
-      </Box>
+          <ToggleButton value="buyer">Buyer</ToggleButton>
+          <ToggleButton value="seller">Seller</ToggleButton>
+        </ToggleButtonGroup>
 
-      {/* Form only visible after selecting user type */}
-      {userType && (
-        <Box
-          component="form"
-          onSubmit={onSubmit}
-          sx={{
-            maxWidth: 600,
-            mx: 'auto',
-            p: 4,
-            bgcolor: '#fff',
-            borderRadius: 2,
-            boxShadow: 1,
-          }}
-          noValidate
-        >
-          <Typography variant="h5" mb={3}>
-            {userType === 'seller' ? 'Seller Registration' : 'Buyer Registration'}
-          </Typography>
-
-          {/* Plan selection (for sellers only) */}
-          {userType === 'seller' && (
-            <FormControl component="fieldset" sx={{ mb: 3 }}>
-              <FormLabel component="legend">Choose Plan</FormLabel>
-              <RadioGroup
-                row
-                value={plan}
-                onChange={(e) => setPlan(e.target.value)}
-                name="plan"
-              >
-                <FormControlLabel value="basic" control={<Radio />} label="Basic" />
-                <FormControlLabel value="premium" control={<Radio />} label="Premium" />
-              </RadioGroup>
-            </FormControl>
-          )}
-
-          {/* Common + conditional seller fields */}
-          {[
-            { name: 'firstname', label: 'First Name' },
-            { name: 'lastname', label: 'Last Name' },
-            { name: 'phone', label: 'Phone' },
-            { name: 'email', label: 'Email', type: 'email' },
-            { name: 'password', label: 'Password', type: 'password' },
-            ...(userType === 'seller'
-              ? [
-                  { name: 'adress', label: 'Address' },
-                  { name: 'companyName', label: 'Company Name' },
-                  { name: 'companyAddress', label: 'Company Address' },
-                  { name: 'companyPhone', label: 'Company Phone' },
-                  { name: 'companyEmail', label: 'Company Email', type: 'email' },
-                ]
-              : []),
-          ].map(({ name, label, type }) => (
-            <TextField
-              key={name}
-              label={label}
-              name={name}
-              type={type || 'text'}
-              value={formValues[name] || ''}
-              onChange={handleInputChange}
-              fullWidth
-              margin="normal"
-              error={Boolean(errors[name])}
-              helperText={errors[name]}
-            />
-          ))}
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="remember"
-                checked={!!formValues.remember}
-                onChange={handleInputChange}
-              />
-            }
-            label="Remember me"
-            sx={{ mt: 2 }}
+        <form onSubmit={onSubmit}>
+          <TextField
+            label="First Name"
+            name="firstname"
+            fullWidth
+            required
+            margin="normal"
+            value={formValues.firstname}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Last Name"
+            name="lastname"
+            fullWidth
+            required
+            margin="normal"
+            value={formValues.lastname}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Phone"
+            name="phone"
+            fullWidth
+            required
+            margin="normal"
+            value={formValues.phone}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Email"
+            name="email"
+            fullWidth
+            required
+            margin="normal"
+            value={formValues.email}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            fullWidth
+            required
+            margin="normal"
+            value={formValues.password}
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Address"
+            name="adress"
+            fullWidth
+            margin="normal"
+            value={formValues.adress}
+            onChange={handleInputChange}
           />
 
-          <Box textAlign="center" mt={4}>
-            <Button type="submit" variant="contained" size="large">
-              Register as {userType === 'seller' ? 'Seller' : 'Buyer'}
-            </Button>
-          </Box>
-        </Box>
-      )}
+          {userType === 'seller' && (
+            <>
+              <TextField
+                label="Company Name"
+                name="companyName"
+                fullWidth
+                margin="normal"
+                value={formValues.companyName}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Company Address"
+                name="companyAddress"
+                fullWidth
+                margin="normal"
+                value={formValues.companyAddress}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Company Phone"
+                name="companyPhone"
+                fullWidth
+                margin="normal"
+                value={formValues.companyPhone}
+                onChange={handleInputChange}
+              />
+              <TextField
+                label="Company Email"
+                name="companyEmail"
+                fullWidth
+                margin="normal"
+                value={formValues.companyEmail}
+                onChange={handleInputChange}
+              />
+              <TextField
+                select
+                label="Select Plan"
+                fullWidth
+                required
+                margin="normal"
+                value={plan}
+                onChange={(e) => setPlan(e.target.value)}
+              >
+                <MenuItem value="Basic">Basic</MenuItem>
+                <MenuItem value="Standard">Standard</MenuItem>
+                <MenuItem value="Premium">Premium</MenuItem>
+              </TextField>
+            </>
+          )}
 
-      {/* Redirect to Login */}
-      <Box textAlign="center" mt={4}>
-        <Typography>Already have an account?</Typography>
-        <Button variant="text" onClick={() => navigate('/Login')} sx={{ mt: 1 }}>
-          Login
-        </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3 }}
+          >
+            Register
+          </Button>
+        </form>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

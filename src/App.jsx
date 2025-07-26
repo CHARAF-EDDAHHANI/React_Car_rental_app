@@ -32,14 +32,14 @@ const App = () => {
         {/* Error boundary wraps all routes to catch rendering errors */}
         <ErrorBoundary>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+             <Route path="/" element={<LandingPage />} />
             <Route path="/loca" element={<Home />} />
             <Route path="/carbooking/:vehicle_id" element={<CarBook />} />
             <Route path="/CarSearch/:location" element={<CarSearch />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/Login/" element={<Login />} />
-            <Route path="/SignUp/" element={<SignUp />} />
-            <Route path="/Testpage" element={<Testpage />} />
+            <Route path="/SignUp/" element={<SignUp />} /> 
+            <Route path="/testpage" element={<Testpage />} />
           </Routes>
         </ErrorBoundary>
       </Box>
