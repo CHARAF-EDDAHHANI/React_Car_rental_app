@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CarList from '../component/CarList';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Box } from "@mui/material";
+import { fetchAllCars } from '../Axios/carAxios';
 
 const Home = () => {
   const [allCars, setAllCars] = useState([]);
@@ -8,20 +11,34 @@ const Home = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const res = await fetch('/data/cars.json');
-        const data = await res.json();
-        setAllCars(data);
-      } catch (err) {
-        console.error('Error fetching cars:', err);
+        const cars = await fetchAllCars();
+        setAllCars(cars);
+        console.log('Fetched all cars:', cars);
+        console.log('All cars:', cars);
+
+      } catch (error) {
+        console.error('Error fetching all cars:', error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchCars();
   }, []);
 
-  if (loading) return <p>Loading cars...</p>;
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '60vh',
+        }}
+      >
+        <CircularProgress color="primary" size={60} />
+      </Box>
+    );
+  }
 
   return (
     <div>

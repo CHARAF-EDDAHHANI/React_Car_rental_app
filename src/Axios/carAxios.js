@@ -1,0 +1,40 @@
+import axios from 'axios';
+
+
+export const fetchAllCars = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/allcars');
+    console.log('Fetched cars:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all cars:', error);
+    throw error;
+  }
+}
+
+
+//to add after in the upload car
+export const uploadCar = async (carData) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/uploadCar', carData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading car:', error);
+    throw error;
+  }
+};
+
+export const fetchCarById = async (carId) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/car/${carId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching car by ID:', error);
+    throw error;
+  }
+}
+

@@ -1,0 +1,18 @@
+[
+  {
+    "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+    "sellerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4NzNiYi02OTI2LTQ2ZTEtOWJmYy1jYzJhYzZkZGRlZWYiLCJlbWFpbCI6InFxQHFxLmNvbSIsInVzZXJUeXBlIjoic2VsbGVyIiwiaWF0IjoxNzUzNjMyMDkzLCJleHAiOjE3NTM2NjA4OTN9.-RRn12OgCr4KzJycBz-P8U1EtzYDqblHN04w7WgVVpo",
+    "firstname": "yaser",
+    "lastname": "amani",
+    "phone": "062544558",
+    "email": "qq@qq.com",
+    "password": "$2b$05$/GPme5htWEZsJU3XrI5n8eddydXyxKls032qaLFslYVu9LnXU6WJy",
+    "adress": "Morocco Road, Lagos, Nigeria, 101245",
+    "companyName": "europcar",
+    "companyAddress": "tanger",
+    "companyPhone": "0565445554",
+    "companyEmail": "qq@qq.com",
+    "plan": "Premium",
+    "userType": "seller"
+  }
+]

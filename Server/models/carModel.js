@@ -23,11 +23,15 @@ export const createCar = async (carData) => {
     sellerId
   } = carData;
 
+  // Check if sellerId is provided and valid
+  if (!sellerId || typeof sellerId !== 'string' || sellerId.trim() === '') {
+    throw new Error('Invalid or missing sellerId');
+  }
   const carId = uuidv4();
 
   const newCar = {
   carId,
-  sellerId,
+  sellerId: sellerId.trim(),
   model: String(model),
   year: String(year),
   category,

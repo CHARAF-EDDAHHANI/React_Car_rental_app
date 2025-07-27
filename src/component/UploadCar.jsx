@@ -32,6 +32,7 @@ const transmissionTypes = ['Automatic', 'Manual'];
 const credentials = localStorage.getItem("credentials");
 const userId = credentials ? JSON.parse(credentials).userId : null;
 
+
 const UploadCar = ({ open, handleClose, onSubmit }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -69,7 +70,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       }
   
       try {
-        await axios.post('http://localhost:5000/api/cars/uploadCar', carData);
+        await axios.post('http://localhost:5000/api/uploadCar', carData);
 
         if (onSubmit) onSubmit(carData);
         handleClose();

@@ -16,11 +16,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploadedImages', express.static(path.join('server', 'engine', 'db_storage', 'uploadedImages')));
-
+// Serve uploaded images statically
+app.use('/images', express.static(path.join('server', 'engine', 'uploadedImages')));
 
 // Routes
-app.use('/api/cars', carRoutes);        
+app.use('/api', carRoutes);        
 app.use('/api', authRoutes);     
 
 // Serve static files from the React app in production
@@ -43,3 +43,5 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+//access the apis here 

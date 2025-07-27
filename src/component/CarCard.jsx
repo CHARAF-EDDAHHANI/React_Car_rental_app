@@ -12,11 +12,13 @@ import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
+  console.log("Image URL:", `${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`);
 
-  // Navigate to booking page using car.vehicle_id
-  const handleBooking = (vehicle_id) => {
-    if (vehicle_id) {
-      navigate(`/carbooking/${vehicle_id}`);
+
+  // Navigate to booking page using car.carId
+  const handleBooking = (carId) => {
+    if (carId) {
+      navigate(`/carbooking/${carId}`);
     }
   };
 
@@ -40,7 +42,7 @@ const CarCard = ({ car }) => {
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <Paper
-        onClick={() => handleBooking(car.vehicle_id)}
+        onClick={() => handleBooking(car.carId)}
         elevation={3}
         sx={{
           p: 2,
@@ -54,7 +56,7 @@ const CarCard = ({ car }) => {
         {/* Car Image */}
         <Box
           component="img"
-          src={car.image}
+          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`}  // protected image path and dev server and port
           alt={car.model}
           sx={{
             width: "100%",
@@ -108,7 +110,7 @@ const CarCard = ({ car }) => {
               readOnly
             />
             <Typography variant="body2" sx={{ ml: 0.5 }}>
-              {car.rating?.toFixed(1) || "N/A"}
+              {car.rating || "N/A"}
             </Typography>
             <Typography variant="body2" sx={{ ml: 0.5 }}>
               ({car.numberOfReviews || 0} reviews)

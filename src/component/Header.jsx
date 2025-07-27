@@ -235,7 +235,7 @@ const Header = () => {
                   backgroundColor: '#fff',
                   cursor: 'pointer',
                 }}
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/loca')}
               />
             </Box>
 

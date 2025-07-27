@@ -31,7 +31,7 @@ export const createCarController = async (req, res) => {
       fs.unlinkSync(req.file.path);
 
       // Save image path in the car object
-      newCar.image = `/uploadedImages/${newFileName}`;
+      newCar.image = `${newFileName}`;
       await carModel.updateCar(carId, { image: newCar.image });
     }
 
@@ -43,4 +43,26 @@ export const createCarController = async (req, res) => {
 };
 
 
-// no handle for file(image) upload here ????
+export const  getAllCarsController = async (req, res) => {
+  try {
+    const cars = await carModel.getAllCars();
+    res.status(200).json(cars);
+  } catch (err) {
+    console.error('Error fetching all cars:', err.message);
+    res.status(500).json({ message: 'Failed to fetch cars' });
+  }
+}
+
+export const getCarByIdController = async (req, res) => {
+  const carId = req.params.carId;
+  try {
+    const car = await carModel.getCarById(carId);
+    if (!car) {
+      return res.status(404).json({ message: 'Car not found' });
+    }
+    res.status(200).json(car);
+  } catch (err) {
+    console.error('Error fetching car by ID:', err.message);
+    res.status(500).json({ message: 'Failed to fetch car' });
+  }
+}

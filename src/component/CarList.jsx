@@ -18,7 +18,7 @@ const theme = createTheme({
 
 /**
  * CarList component to display a grid of CarCards
- * @param {Array} cars - Array of car objects to display
+ * @param {Array} cars- Array of car objects to display
  */
 const CarList = ({ cars = [] }) => {
   return (
@@ -39,7 +39,7 @@ const CarList = ({ cars = [] }) => {
           }}
         >
           {cars.map((car) => (
-            <CarCard key={car.vehicle_id} car={car} />
+            <CarCard key={car.carId} car={car} />
           ))}
         </Grid>
       </Box>
