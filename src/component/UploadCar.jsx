@@ -46,6 +46,9 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       daily_price: '',
       weekly_price: '',
       monthly_price: '',
+      driver_daily_price: '',
+      driver_weekly_price: '',
+      driver_monthly_price: '',
       location: '',
       description: '',
       image: null,
@@ -89,6 +92,9 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
         daily_price: '',
         weekly_price: '',
         monthly_price: '',
+        driver_daily_price: '',
+        driver_weekly_price: '',
+        driver_monthly_price: '',
         location: '',
         description: '',
         image: null,
@@ -255,9 +261,34 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
               fullWidth
             />
           </Grid>
-        </Grid>
-
-        <Grid item xs={12} spacing={2} sx={{ mt: 2 }}>
+          <Grid item>
+            <TextField
+              label="Driver Daily Price"
+              name="driver_daily_price"
+              value={formData.driver_daily_price}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="Driver Weekly Price"
+              name="driver_weekly_price"
+              value={formData.driver_weekly_price}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="Driver Monthly Price"
+              name="driver_monthly_price"
+              value={formData.driver_monthly_price}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} spacing={2} sx={{ mt: 2 }}>
           <TextField
             label="Description"
             name="description"
@@ -294,6 +325,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
             </Button>
           </Grid>
         )}
+        </Grid>
       </Box>
     </Modal>
   );

@@ -31,6 +31,7 @@ export const uploadCar = async (carData) => {
 export const fetchCarById = async (carId) => {
   try {
     const response = await axios.get(`http://localhost:5000/api/car/${carId}`);
+    console.log('Fetched car by ID:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching car by ID:', error);

@@ -4,96 +4,164 @@ import {
   Typography,
   Box,
   Paper,
+  Divider,
   BottomNavigation,
   BottomNavigationAction,
 } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 import RestoreIcon from "@mui/icons-material/Restore";
 import ControlledAccordions from "../component/Accordion";
-import QuiltedImageList from "../component/ImageLists";
+//import QuiltedImageList from "../component/ImageLists";
 import BookingModal from "../component/BookingModal";
+import { fetchCarById } from "../Axios/carAxios";
+import { createOrder } from "../Axios/orderAxios";
+import OrderTicker from "../component/OrderTicker";
+
+
+
 
 export default function CarBook() {
-  // State for BottomNavigation active tab
-  const [value, setValue] = useState(0);
+ 
+  const [value, setValue] = useState(0);  // State for BottomNavigation active tab
+  const [car, setCar] = useState({});  // Currently selected car details
+  const [confirmationData, setConfirmationData] = useState(null); // State to store created order
+  const [loading, setLoading] = useState(true); // Loading state for car data
 
-  // List of cars (loaded from JSON)
-  const [cars, setCars] = useState([]);
-
-  // Currently selected car details
-  const [car, setCar] = useState({});
-
-  // Modal open state
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Extract vehicle_id from the URL path
-  // Assumes URL ends with vehicle_id as integer
-  const vehicle_id = parseInt(window.location.pathname.split("/").pop(), 10);
-
+  // Extract carId from the URL path  ends with carId as string
+ const carId = window.location.pathname.split("/").pop();
+ 
   useEffect(() => {
-    // Fetch car data from JSON file
-    fetch("/data/cars.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-        // Find car matching vehicle_id from URL
-        const foundCar = data.find((c) => c.vehicle_id === vehicle_id);
-        if (foundCar) {
-          setCar(foundCar);
-        } else {
-          console.error("Car not found");
-        }
-      })
-      .catch((err) => console.error("Failed to load car data:", err));
-  }, [vehicle_id]);
+    const fetchCarDataById = async () => {
+      try {
+        const car = await fetchCarById(carId);
+        console.log('this is carData fetched from the backend', car);
+        setCar(car);
+      } catch (error) {
+        console.error("Error fetching car data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCarDataById();
+  }, [carId]);
+
+ if (loading) {
+     return (
+       <Box
+         sx={{
+           display: 'flex',
+           justifyContent: 'center',
+           alignItems: 'center',
+           height: '60vh',
+         }}
+       >
+         <CircularProgress color="primary" size={60} />
+       </Box>
+     );
+   }
+
+// Function to handle booking confirmation and post the order
+// This will be called from BookingModal when the user confirms the booking
+const handleBookingConfirmed = async ({ bookingInfo }) => {
+let response = null;
+  try {
+    const credentials = localStorage.getItem("credentials");
+    const userId = credentials ? JSON.parse(credentials).userId : null;
+    const userType = credentials ? JSON.parse(credentials).userType : null;
+
+    if (!userId) {
+      alert("You must be logged in to book a car.");
+      return;
+    }
+
+    const orderData = {
+      ...bookingInfo,
+      userId,
+      carId,
+      userType
+    };
+    console.log("Full Order Data:", orderData);
+    const response = await createOrder(orderData);
+    console.log("Order created:", response);
+    if (response && response.order) {
+      setConfirmationData(response.order);
+      alert("Booking confirmed! Check your order details below.");
+    } else {
+      alert("Failed to create order. Please try again.");
+    }
+  } catch (error) {
+    console.error("Order creation failed:", error);
+    alert("Failed to create order.");
+  } finally {
+    setIsModalOpen(false);
+  }
+};
+
+
+
+
 
   return (
     <Container maxWidth="lg" sx={{ width: "auto" }}>
       {/* Car Title */}
-      <Typography variant="h3" component="h1" mt={3}>
+      <Typography variant="h3" component="h1" mt={3} bgcolor={"#ccf8dbff"} p={2} borderRadius={2} textAlign="center" sx={{ color: "#2f5939ff" }}>
         {car.model} - {car.year} in {car.location}
       </Typography>
+      <Divider sx={{ mt: 1, mb: 0, borderColor: '#0eff06ff' }} />
 
+      <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
       {/* Car Images */}
-      <Box mt={3} display="flex" gap={2} flexWrap="wrap">
+      <Box >
         <img
-          src={car.image}
+          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`} // protected image path and dev server and port
           alt={car.model}
-          height={325}
-          style={{ borderRadius: 8 }}
+          style={{ width: '100%', height: 'auto', borderRadius: 1, boxShadow: '0 10px 10px rgba(0,0,0,0.1)' }}
         />
       {/*<QuiltedImageList />   for further use of many photos of the cars */}
       </Box>
 
+      {confirmationData && <OrderTicker orderticketData={confirmationData} />}
+       </Box>
+      <Divider sx={{ mt: 4, mb: 2, borderColor: '#1cf723ff' }} />
+       
       {/* About this Car Section */}
-      <Typography variant="h6" component="h4" mt={3}>
+      <Typography variant="h6"  bgcolor={"#daf3d8ff"} p={1}  width={'50%'} textAlign="left" sx={{ color: "#2f5939ff"  }}>
         About this Car
       </Typography>
-      <Box>
-        <Typography component="p" my={3}>
-          {car.description}
-        </Typography>
-      </Box>
+       {/* conditionally display description  */}
+      {car.description && (
+        <Box>
+          <Typography component="p" variant="body1" mt={2} mb={3} sx={{ color: "#333" }}>
+            {car.description}
+          </Typography>
+        </Box>
+      )}
+
 
       {/* Rules and Policies Section with Booking Modal */}
-      <Typography variant="h6" component="h4" mb={3}>
+      <Typography variant="h6"  bgcolor={"#daf3d8ff"} p={1} mb={3} width={'50%'} textAlign="left" sx={{ color: "#2f5939ff"  }}>
         Rules and Policies
       </Typography>
       <ControlledAccordions />
       <BookingModal
         open={isModalOpen}
-        onOk={() => setIsModalOpen(false)}
+        onOk={handleBookingConfirmed} // Pass the booking confirmation handler
         onCancel={() => setIsModalOpen(false)}
       />
 
       {/* Fixed Bottom Navigation for booking */}
       <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0  }}
         elevation={3}
       >
         <BottomNavigation
           showLabels
           value={value}
           onChange={(event, newValue) => setValue(newValue)}
+          sx={{ backgroundColor: "#56c1ff5f", borderTop: "1px solid #ccc" }}
         >
           <BottomNavigationAction
             label="Book Now"

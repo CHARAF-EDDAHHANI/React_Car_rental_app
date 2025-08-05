@@ -5,7 +5,7 @@ import path from 'path';
 import cors from 'cors';
 import carRoutes from './routes/carRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-//import orderRoutes from './routes/orderRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 // Simulate __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +21,8 @@ app.use('/images', express.static(path.join('server', 'engine', 'uploadedImages'
 
 // Routes
 app.use('/api', carRoutes);        
-app.use('/api', authRoutes);     
+app.use('/api', authRoutes);  
+app.use('/api', orderRoutes);
 
 // Serve static files from the React app in production
 //if (process.env.NODE_ENV === 'production') {

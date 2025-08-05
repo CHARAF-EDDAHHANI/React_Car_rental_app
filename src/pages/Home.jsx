@@ -13,9 +13,6 @@ const Home = () => {
       try {
         const cars = await fetchAllCars();
         setAllCars(cars);
-        console.log('Fetched all cars:', cars);
-        console.log('All cars:', cars);
-
       } catch (error) {
         console.error('Error fetching all cars:', error);
       } finally {

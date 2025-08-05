@@ -26,8 +26,9 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
 
   // Update dates in YYYY-MM-DD format from BookingDate component
   const handleDateChange = (date, role) => {
-    if (!date) return;
 
+    if (!date) return;
+    
     const formattedDate = date.format("YYYY-MM-DD");
     if (role === "start") setStartDate(formattedDate);
     else if (role === "end") setEndDate(formattedDate);
@@ -39,22 +40,8 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
       alert("Please select a date range and both pickup & dropoff locations.");
       return;
     }
-
-    // Store booking info in localStorage (optional)
-    localStorage.setItem("pickupLocation", pickupLocation);
-    localStorage.setItem("dropoffLocation", dropoffLocation);
-    localStorage.setItem("selectedDates", JSON.stringify([startDate, endDate]));
-    localStorage.setItem("driver", driver);
-
-    console.log("Booking Info:", {
-      pickupLocation,
-      dropoffLocation,
-      startDate,
-      endDate,
-      driver,
-    });
-
-    onOk({ startDate, endDate, pickupLocation, dropoffLocation, driver });
+    const bookingInfo = { pickupLocation, dropoffLocation, startDate, endDate, driver };
+    onOk({ bookingInfo });
   };
 
   return (
@@ -71,6 +58,7 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
           <FormLabel sx={{ fontWeight: "bold" }}>Selected Location</FormLabel>
           <Typography variant="body2" color="text.secondary">
             Please ensure the location is accurate for a smooth booking experience.
+            Also Airports, maritime and train stations locations are available.
           </Typography>
 
           <TextField

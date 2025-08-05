@@ -20,7 +20,10 @@ export const createCar = async (carData) => {
     monthly_price,
     location,
     description,
-    sellerId
+    sellerId,
+    driver_daily_price,
+    driver_weekly_price,
+    driver_monthly_price
   } = carData;
 
   // Check if sellerId is provided and valid
@@ -41,9 +44,12 @@ export const createCar = async (carData) => {
   daily_price: String(daily_price),
   weekly_price: String(weekly_price),
   monthly_price: String(monthly_price),
+  driver_daily_price: String(driver_daily_price),
+  driver_weekly_price: String(driver_weekly_price),
+  driver_monthly_price: String(driver_monthly_price),
   location,
   description,
-    rating: generateRating(),           
+  rating: generateRating(),           
   numberOfReviews: generateReviews() 
 };
 
