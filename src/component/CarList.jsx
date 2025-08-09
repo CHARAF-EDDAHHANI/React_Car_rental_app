@@ -1,4 +1,3 @@
-// CarList.jsx
 import React from "react";
 import { Box, Grid, createTheme, ThemeProvider } from "@mui/material";
 import CarCard from "./CarCard";
@@ -9,7 +8,6 @@ const theme = createTheme({
     MuiTypography: {
       variants: [
         { props: { variant: "body2" }, style: { fontSize: 11 } },
-        // Note: 'body3' is not a standard MUI variant; consider removing or replacing if unused
         { props: { variant: "body3" }, style: { fontSize: 9 } },
       ],
     },

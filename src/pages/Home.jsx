@@ -22,6 +22,8 @@ const Home = () => {
     fetchCars();
   }, []);
 
+
+  //handle loading icon display
   if (loading) {
     return (
       <Box

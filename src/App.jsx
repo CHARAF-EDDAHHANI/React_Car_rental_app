@@ -16,8 +16,6 @@ import CarSearch from './pages/CarSearch';
 import UserProfile from './pages/UserProfile';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import Testpage from './pages/Testpage';
-
 const App = () => {
   // State for managing the search input (shared with Header)
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -39,7 +37,6 @@ const App = () => {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/Login/" element={<Login />} />
             <Route path="/SignUp/" element={<SignUp />} /> 
-            <Route path="/testpage" element={<Testpage />} />
           </Routes>
         </ErrorBoundary>
       </Box>

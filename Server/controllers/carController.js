@@ -66,3 +66,19 @@ export const getCarByIdController = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch car' });
   }
 }
+
+
+export const getCarsByLocationController = async (req, res) => {
+  const location = req.params.location;
+  console.log('Location from request:', location);
+  try {
+    const cars = await carModel.getCarsByLocation(location);
+    if (!cars || cars.length === 0) {
+      return res.status(404).json({ message: 'No cars found in this location' });
+    }
+    res.status(200).json(cars);
+  } catch (err) {
+    console.error('Error fetching cars by location:', err.message);
+    res.status(500).json({ message: 'Failed to fetch cars' });
+  }
+}

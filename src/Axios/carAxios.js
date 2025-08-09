@@ -1,3 +1,4 @@
+import { Message } from '@mui/icons-material';
 import axios from 'axios';
 
 
@@ -38,4 +39,15 @@ export const fetchCarById = async (carId) => {
     throw error;
   }
 }
+
+export const fetchCarsByLocation = async (location) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/cars/${location}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching cars by location:', error);
+    throw error;
+  }
+  return [];
+};
 

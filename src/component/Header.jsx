@@ -175,7 +175,6 @@ const Header = () => {
   const handleSearch = (e) => {
     if (e.key === 'Enter' || e.type === 'click') {
       const location = searchTerm.trim().toLowerCase();
-      if (!location) return alert('Please enter a search term');
       navigate(`/CarSearch/${encodeURIComponent(location)}`);
     }
   };

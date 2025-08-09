@@ -48,8 +48,11 @@ const LandingPage = () => {
 
   // Navigate user based on login status
   const handleStartBtn = () => {
-    const user = localStorage.getItem('user');
-    navigate(user ? '/loca' : '/Login');
+    if (user) {
+      navigate('/');
+    } else {
+      navigate('/Login');
+    }
   };
 
   return (

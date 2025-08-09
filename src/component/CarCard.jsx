@@ -56,7 +56,7 @@ const CarCard = ({ car }) => {
         {/* Car Image */}
         <Box
           component="img"
-          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`}  // protected image path and dev server and port
+          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`}  // protected image path
           alt={car.model}
           sx={{
             width: "100%",

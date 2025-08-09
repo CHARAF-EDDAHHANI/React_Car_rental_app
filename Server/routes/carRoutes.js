@@ -8,6 +8,7 @@ const router = express.Router();
 router.post('/uploadCar', upload.single('image'), carController.createCarController);
 router.get('/allcars', carController.getAllCarsController);
 router.get('/car/:carId', carController.getCarByIdController);
+router.get('/cars/:location', carController.getCarsByLocationController);
 
 
 export default router;

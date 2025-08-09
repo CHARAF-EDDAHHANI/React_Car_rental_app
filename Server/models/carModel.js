@@ -96,14 +96,22 @@ export const deleteCar = async (carId) => {
   return { message: 'Car deleted successfully' };
 };
 
-export const searchCars = async (searchParams) => {
-  const cars = await getAllCars();
-  return cars.filter(car => {
-    return Object.keys(searchParams).every(key => {
-      const val = searchParams[key];
-      if (key === 'year' || key === 'seats') return car[key] === val;
-      return car[key]?.toLowerCase().includes(val.toLowerCase());
-    });
-  });
+export const getCarsByLocation = async (location) => {
+  if (!location || typeof location !== 'string' || location.trim() === '') {
+    throw new Error('Invalid or missing location');
+  }
+  const allCars = await getAllCars();
+  if (!allCars || allCars.length === 0) {
+    return [];
+  }
+  location = location.trim().toLowerCase();
+  console.log('Location for filtering:', location);
+  // Filter cars by location
+  const cars = allCars.filter(car => car.location.toLowerCase() === location);
+  console.log('Filtered cars:', cars);
+  if (!cars || cars.length === 0) {
+    throw new Error('No cars found in this location');
+  }
+  return cars;
 };
 

@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import BookingDate from "./BookingDate";
 
-const BookNowModal = ({ open, onOk, onCancel }) => {
+const BookingModal = ({ open, onOk, onCancel }) => {
   // Local state for booking inputs
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -114,4 +114,4 @@ const BookNowModal = ({ open, onOk, onCancel }) => {
   );
 };
 
-export default BookNowModal;
+export default BookingModal;

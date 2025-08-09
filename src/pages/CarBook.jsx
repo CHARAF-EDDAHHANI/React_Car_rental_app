@@ -17,9 +17,6 @@ import { fetchCarById } from "../Axios/carAxios";
 import { createOrder } from "../Axios/orderAxios";
 import OrderTicker from "../component/OrderTicker";
 
-
-
-
 export default function CarBook() {
  
   const [value, setValue] = useState(0);  // State for BottomNavigation active tab
@@ -100,25 +97,33 @@ let response = null;
   }
 };
 
-
-
-
-
   return (
     <Container maxWidth="lg" sx={{ width: "auto" }}>
       {/* Car Title */}
-      <Typography variant="h3" component="h1" mt={3} bgcolor={"#ccf8dbff"} p={2} borderRadius={2} textAlign="center" sx={{ color: "#2f5939ff" }}>
+      <Typography variant="h3" component="h1" mt={3} bgcolor={"#ccf8dbff"} p={2} borderRadius={1} textAlign="center" sx={{ color: "#2f5939ff" }}>
         {car.model} - {car.year} in {car.location}
       </Typography>
       <Divider sx={{ mt: 1, mb: 0, borderColor: '#0eff06ff' }} />
-
-      <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+      {/* Car & Booking Details Sections For responsiveness */}
+      <Box 
+      sx={{
+            mt: 2,
+            display: "grid",
+            gap: 1,
+            gridTemplateColumns: {
+              xs: "repeat(1, 1fr)", // <600px
+              sm: "repeat(1, 1fr)", // 600px+
+              md: "repeat(2, 1fr)", // 900px+
+              lg: "repeat(2, 1fr)", // 1200px+
+            },
+          }}
+      >
       {/* Car Images */}
       <Box >
         <img
-          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`} // protected image path and dev server and port
+          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`} // protected image path
           alt={car.model}
-          style={{ width: '100%', height: 'auto', borderRadius: 1, boxShadow: '0 10px 10px rgba(0,0,0,0.1)' }}
+          style={{ width: '100%', height: 'auto', borderRadius: 4, boxShadow: '0 4px 4px rgba(0,0,0,0.1)' }}
         />
       {/*<QuiltedImageList />   for further use of many photos of the cars */}
       </Box>
@@ -139,8 +144,6 @@ let response = null;
           </Typography>
         </Box>
       )}
-
-
       {/* Rules and Policies Section with Booking Modal */}
       <Typography variant="h6"  bgcolor={"#daf3d8ff"} p={1} mb={3} width={'50%'} textAlign="left" sx={{ color: "#2f5939ff"  }}>
         Rules and Policies
@@ -151,7 +154,6 @@ let response = null;
         onOk={handleBookingConfirmed} // Pass the booking confirmation handler
         onCancel={() => setIsModalOpen(false)}
       />
-
       {/* Fixed Bottom Navigation for booking */}
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0  }}
@@ -161,7 +163,7 @@ let response = null;
           showLabels
           value={value}
           onChange={(event, newValue) => setValue(newValue)}
-          sx={{ backgroundColor: "#56c1ff5f", borderTop: "1px solid #ccc" }}
+          sx={{ backgroundColor: "#ffffffff", borderTop: "1px solid #ccc" }}
         >
           <BottomNavigationAction
             label="Book Now"
