@@ -59,12 +59,10 @@ const OrderTicker = ({ orderticketData }) => {
   ];
 
   return (
-    <Box  pl={2} width="100%" >
-      <Card sx={{ p: 2, width: '100%', boxShadow: 1, borderRadius: 1, backgroundColor: '#f8f9fa', border: '1px solid #bec7bf' }}>
+    <Box>
+      <Card sx={{ width: '100%', p:'0.5em'}}>
         <Typography
           variant="h5"
-          component="h3"
-          bgcolor="#ccf8db"
           p={1}
           mb={1}
           borderRadius={1}
@@ -87,7 +85,7 @@ const OrderTicker = ({ orderticketData }) => {
                   p: 0.7,
                   borderRadius: 1,
                   backgroundColor: '#ffffff',
-                  borderLeft: '3px solid #98ea93ff',
+                  borderLeft: '3px solid #7fff78ff',
                   height: '100%',
                 }}
               >
