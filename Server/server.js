@@ -17,8 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Serve uploaded images statically
-app.use('/images', express.static(path.join('server', 'engine', 'uploadedImages')));
-
+app.use('/images', express.static(path.join(__dirname, 'engine', 'uploadedImages')));
 // Routes
 app.use('/api', carRoutes);        
 app.use('/api', authRoutes);  

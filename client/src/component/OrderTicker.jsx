@@ -60,15 +60,12 @@ const OrderTicker = ({ orderticketData }) => {
 
   return (
     <Box  pl={2} width="100%" >
-      <Card sx={{ p: 2, width: '100%', boxShadow: 1, borderRadius: 1, backgroundColor: '#f8f9fa', border: '1px solid #bec7bf' }}>
+      <Card sx={{ p: 2, width: '100%',  borderRadius: 1,  }}>
         <Typography
           variant="h5"
           component="h3"
-          bgcolor="#ccf8db"
-          p={1}
-          mb={1}
-          borderRadius={1}
           textAlign="center"
+          mb={2}
           sx={{ color: '#2f5939' }}
         >
           Booking Confirmation Ticket
@@ -76,25 +73,22 @@ const OrderTicker = ({ orderticketData }) => {
    {/* ticket details */}
         <Grid container sx={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '1em',
+            gridTemplateColumns: 'repeat(1, 1fr)',
+            gap: '0.5em',
           }} >
           {ticketList.map((item) => (
             <Grid item xs={2} sm={2} key={item.key}>
               <Paper
-                elevation={1}
                 sx={{
-                  p: 0.7,
-                  borderRadius: 1,
-                  backgroundColor: '#ffffff',
-                  borderLeft: '3px solid #98ea93ff',
+                  p: 0.5,
+                  backgroundColor: '#f3f3f3ff',
                   height: '100%',
                 }}
               >
-                <Typography variant="subtitle3" fontWeight="bold" color="textSecondary">
+                <Typography variant="subtitle3"  color="textPrimary" fontSize="0.8em">
                   {item.label}
                 </Typography>
-                <Typography variant="subtitle3"  color="textSecondary">
+                <Typography variant="subtitle3"  color="textSecondary" fontSize="0.8rem">
                   {item.value}
                 </Typography>
               </Paper>
