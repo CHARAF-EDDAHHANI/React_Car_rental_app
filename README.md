@@ -1,3 +1,5 @@
+Here's the updated README reflecting your new professional structure:
+
 # CarRentalHub
 
 A modern full-stack car rental platform built with React, Vite, Material UI, Express, and MongoDB.  
@@ -40,30 +42,71 @@ It offers a seamless car booking experience for customers and powerful managemen
 
 **Development Tools:**
 - ESLint for code quality.
+- Jest/Vitest for comprehensive testing
 - Nodemon for live server reload.
 - Concurrently to run client & server together.
 
 ---
 
-## Project Structure
+## Project Structure (Modern Monorepo Style)
 
 ```plaintext
 carrentalhub/
 │
-├── Server/                 # Backend API
-│   ├── controllers/        # Request handlers
-│   ├── engine/             # Database storage & assets
-│   ├── models/              # Mongoose models
+├── client/                  # Frontend React Application
+│   ├── src/
+│   │   ├── component/       # Reusable UI components
+│   │   ├── pages/           # Page-level components
+│   │   ├── utils/           # Helper functions
+│   │   ├── Axios/           # API client configuration
+│   │   ├── App.jsx          # Main app layout
+│   │   └── main.jsx         # Entry point
+│   ├── public/              # Static assets
+│   ├── package.json         # Frontend dependencies
+│   └── vite.config.js       # Vite configuration
+│
+├── server/                  # Backend API
+│   ├── controllers/         # Request handlers
+│   ├── engine/              
+│   │   ├── db_storage/      # JSON database files
+│   │   ├── uploadedImages/  # Uploaded car images
+│   │   └── Agents/          # Business logic modules
+│   ├── models/              # Data models
 │   ├── routes/              # API routes
+│   ├── package.json         # Backend dependencies
 │   └── server.js            # Express app entry point
 │
-├── src/                     # Frontend (React)
-│   ├── component/           # Reusable UI components
-│   ├── pages/               # Page-level components
-│   ├── utils/               # Helper functions
-│   ├── App.jsx              # Main app layout
-│   └── main.jsx             # Entry point
+├── tests/                   # Comprehensive test suite
+│   ├── frontend/            # React component tests
+│   └── backend/             # API and unit tests
 │
-├── public/                  # Static assets
-├── package.json
-└── vite.config.js
+├── package.json             # Root scripts & dev tools
+├── .gitignore              # Professional git exclusion rules
+└── README.md
+
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+---
+
+## Key Features Implemented
+
+- ✅ **Professional Project Structure** with separated client/server
+- ✅ **Comprehensive Testing Suite** for both frontend and backend
+- ✅ **Secure File Upload** with proper static file serving
+- ✅ **Modern Development Workflow** with hot reloading
+- ✅ **Production-Ready Configuration** with optimized builds
+- ✅ **Clean Git Management** with proper `.gitignore` rules
+
+---
+
+## License
+
+This project is licensed under the MIT License.

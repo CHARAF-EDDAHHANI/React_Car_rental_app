@@ -44,6 +44,7 @@ export const verifyToken = (token) => {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch (err) {
+    console.error('Token verification failed:', err.message);
     throw new Error('Invalid or expired token');
   }
 };

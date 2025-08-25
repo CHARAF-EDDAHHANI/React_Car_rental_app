@@ -4,7 +4,14 @@ import path from 'path';
 import fs from 'fs';
 import sharp from 'sharp';
 
-const uploadDir = path.join('server', 'engine', 'uploadedImages');
+
+
+// go up one level from controllers directory
+const uploadDir = path.join(process.cwd(), 'server', 'engine', 'uploadedImages');
+if(!fs.existsSync(uploadDir)){
+  fs.mkdirSync(uploadDir, { recursive: true});
+}
+
 
 export const createCarController = async (req, res) => {
   try {

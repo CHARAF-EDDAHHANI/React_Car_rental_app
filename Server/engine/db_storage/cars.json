@@ -37,7 +37,7 @@
     "rating": "4.2",
     "numberOfReviews": "37",
     "image": "a611c6b8-efaf-4342-b8f6-b9da74e226f8.jpg",
-        "driver_daily_price": "30",
+    "driver_daily_price": "30",
     "driver_weekly_price": "25",
     "driver_monthly_price": "20"
   },
@@ -58,7 +58,7 @@
     "rating": "3.6",
     "numberOfReviews": "266",
     "image": "72ccfec2-f30a-4e26-9d37-a2dd51d2e5fb.jpg",
-        "driver_daily_price": "30",
+    "driver_daily_price": "30",
     "driver_weekly_price": "25",
     "driver_monthly_price": "20"
   },
@@ -79,7 +79,7 @@
     "rating": "3.2",
     "numberOfReviews": "241",
     "image": "61a4e582-16e3-4782-95f3-a1f3741e1dcf.jpg",
-        "driver_daily_price": "30",
+    "driver_daily_price": "30",
     "driver_weekly_price": "25",
     "driver_monthly_price": "20"
   },
@@ -103,7 +103,6 @@
     "driver_daily_price": "30",
     "driver_weekly_price": "25",
     "driver_monthly_price": "20"
-
   },
   {
     "carId": "1c097c51-962e-462d-a967-257ab8468093",
@@ -146,5 +145,67 @@
     "rating": "4.1",
     "numberOfReviews": "231",
     "image": "eeb695c1-22a5-4762-9857-09e73c6a3af4.jpg"
+  },
+  {
+    "carId": "47203110-a4b6-4294-ac98-1682523cbe3a",
+    "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+    "model": "Dacia Duster",
+    "year": "2222",
+    "category": "Economy",
+    "availability": "Available",
+    "transmission_type": "Automatic",
+    "seats": "5",
+    "daily_price": "120",
+    "weekly_price": "360",
+    "monthly_price": "2000",
+    "driver_daily_price": "30",
+    "driver_weekly_price": "25",
+    "driver_monthly_price": "20",
+    "location": "hh",
+    "description": ";lpooii",
+    "rating": "3.0",
+    "numberOfReviews": "295"
+  },
+  {
+    "carId": "b76066b9-db2f-4ecf-961e-ff703202e823",
+    "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+    "model": "Brabus",
+    "year": "2023",
+    "category": "Van",
+    "availability": "Available",
+    "transmission_type": "Automatic",
+    "seats": "7",
+    "daily_price": "90",
+    "weekly_price": "800",
+    "monthly_price": "2100",
+    "driver_daily_price": "30",
+    "driver_weekly_price": "25",
+    "driver_monthly_price": "20",
+    "location": "eer",
+    "description": "kk",
+    "rating": "4.8",
+    "numberOfReviews": "15",
+    "image": "b76066b9-db2f-4ecf-961e-ff703202e823.jpg"
+  },
+  {
+    "carId": "49646d31-c4ce-4e91-a462-d57bebed1098",
+    "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+    "model": "kia picanto",
+    "year": "2024",
+    "category": "Economy",
+    "availability": "Available",
+    "transmission_type": "Automatic",
+    "seats": "5",
+    "daily_price": "60",
+    "weekly_price": "800",
+    "monthly_price": "1800",
+    "driver_daily_price": "30",
+    "driver_weekly_price": "25",
+    "driver_monthly_price": "20",
+    "location": "hh",
+    "description": "lkk",
+    "rating": "4.8",
+    "numberOfReviews": "393",
+    "image": "49646d31-c4ce-4e91-a462-d57bebed1098.jpg"
   }
 ]
