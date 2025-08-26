@@ -7,9 +7,10 @@ import sharp from 'sharp';
 
 
 // go up one level from controllers directory
-const uploadDir = path.join(process.cwd(), 'server', 'engine', 'uploadedImages');
+const uploadDir = path.join(process.cwd(), 'engine', 'uploadedImages');
 if(!fs.existsSync(uploadDir)){
-  fs.mkdirSync(uploadDir, { recursive: true});
+  console.log('this is carController uploadDir doesnt exist');
+  //fs.mkdirSync(uploadDir, { recursive: true});
 }
 
 
