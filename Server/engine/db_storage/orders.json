@@ -1362,5 +1362,85 @@
       "email": "qq@qq.com",
       "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
     }
+  },
+  {
+    "numberOfDays": "3",
+    "totalPrice": "390",
+    "orderId": "efa5aa00-081b-4c0e-bb9b-9884606ce696",
+    "orderDate": "2025-08-26 At 19h44min00s",
+    "pickupLocation": "kj",
+    "dropoffLocation": "kj",
+    "startDate": "2025-08-26T00:00:00.000Z",
+    "endDate": "2025-08-29T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Brabus",
+      "year": "2024",
+      "category": "Luxury",
+      "seats": "5",
+      "image": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9.jpg",
+      "location": "Tangier",
+      "daily_price": "100",
+      "weekly_price": "650",
+      "monthly_price": "2500",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "firstname": "yaser",
+      "lastname": "amani",
+      "phone": "062544558",
+      "email": "qq@qq.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
+  },
+  {
+    "numberOfDays": "4",
+    "totalPrice": "520",
+    "orderId": "9e6afb60-f87b-4158-8bab-cfc41b40fc71",
+    "orderDate": "2025-08-29 At 18h13min01s",
+    "pickupLocation": "kj",
+    "dropoffLocation": "kj",
+    "startDate": "2025-09-02T00:00:00.000Z",
+    "endDate": "2025-09-06T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "1c097c51-962e-462d-a967-257ab8468093",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Mercedes AMG",
+      "year": "2024",
+      "category": "Luxury",
+      "seats": "5",
+      "image": "1c097c51-962e-462d-a967-257ab8468093.jpg",
+      "location": "Rabat",
+      "daily_price": "100",
+      "weekly_price": "650",
+      "monthly_price": "2500",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "firstname": "yaser",
+      "lastname": "amani",
+      "phone": "062544558",
+      "email": "qq@qq.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
   }
 ]

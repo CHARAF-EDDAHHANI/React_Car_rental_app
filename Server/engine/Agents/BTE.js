@@ -1,10 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
- 
-// Hashing function using bcrypt with const
+// Hashing function using bcrypt
 export async function Encryption(password) {
-  const saltRounds = 5; // Set salt rounds (work factor)
+  const saltRounds = 5; 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds); 
     return hashedPassword;
@@ -19,6 +18,7 @@ export async function comparePWD(password, hashedPassword) {
     const match = await bcrypt.compare(password, hashedPassword);
     return match;
   } catch (err) {
+    console.error('Error comparing passwords:', err.message);
     throw new Error('Error comparing passwords: ' + err.message);
   }
 };
@@ -26,13 +26,13 @@ export async function comparePWD(password, hashedPassword) {
 
 
 // Create JWT token with a 8hours expiry
-const JWT_SECRET = 'WORKITOWNIT';
+const JWT_SECRET = process.env.JWT_SECRET;
 export const TokenGenerate = (userId, email, userType) => {
   try {
     return jwt.sign(
       { userId, email, userType }, // Payload containing userId and email
-      JWT_SECRET,        // Secret key for signing
-      { expiresIn: '08h' }
+      JWT_SECRET,        
+      { expiresIn: '72h' }
     );
   } catch (err) {
     throw new Error("Error generating JWT for seller: " + err.message);

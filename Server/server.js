@@ -7,7 +7,6 @@ import carRoutes from './routes/carRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 
-// Simulate __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -16,12 +15,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Serve uploaded images statically
-app.use('/images', express.static(path.join(__dirname, 'engine', 'uploadedImages')));
+app.use('/images', express.static(path.join(__dirname, 'engine', 'uploadedImages'))); // Serve uploaded images statically
+
 // Routes
 app.use('/api', carRoutes);        
 app.use('/api', authRoutes);  
 app.use('/api', orderRoutes);
+app.get('/', (req, res) => {  // handle default route
+  res.send('API is running...');
+});
+
+// Server setup
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 
 // Serve static files from the React app in production
 //if (process.env.NODE_ENV === 'production') {
@@ -32,16 +41,3 @@ app.use('/api', orderRoutes);
     //res.sendFile(path.resolve(__dirname, '../../client/dist/index.html'));
   //});
 //}
-
-// Default route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
-
-// Server setup
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-//access the apis here 

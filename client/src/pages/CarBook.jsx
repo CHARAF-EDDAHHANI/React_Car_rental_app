@@ -70,7 +70,9 @@ let response = null;
     const userType = credentials ? JSON.parse(credentials).userType : null;
 
     if (!userId) {
-      alert("You must be logged in to book a car.");
+      console.warn("User is not logged in. Cannot book a car.");
+      alert("You must be logged in to book a car Click Below to Login.");
+      // Implement logic to call login and redirect to booking page using the same Url after login
       return;
     }
 
