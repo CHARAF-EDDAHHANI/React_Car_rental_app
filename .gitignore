@@ -38,5 +38,5 @@ coverage/
 ehthumbs.db
 Thumbs.db
 
-.vite
+.vite/
 deps
