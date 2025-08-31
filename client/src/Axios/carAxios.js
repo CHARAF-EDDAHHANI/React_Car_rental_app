@@ -1,10 +1,14 @@
 import { Message } from '@mui/icons-material';
 import axios from 'axios';
 
+const API_BASE =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_API_LOCAL
+    : import.meta.env.VITE_API_PROD;
 
 export const fetchAllCars = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/allcars');
+    const response = await axios.get(`${API_BASE}/allcars`);
     console.log('Fetched cars:', response.data);
     return response.data;
   } catch (error) {
@@ -17,7 +21,7 @@ export const fetchAllCars = async () => {
 //to add after in the upload car
 export const uploadCar = async (carData) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/uploadCar', carData, {
+    const response = await axios.post(`${API_BASE}/uploadCar`, carData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -31,7 +35,7 @@ export const uploadCar = async (carData) => {
 
 export const fetchCarById = async (carId) => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/car/${carId}`);
+    const response = await axios.get(`${API_BASE}/car/${carId}`);
     console.log('Fetched car by ID:', response.data);
     return response.data;
   } catch (error) {
@@ -42,7 +46,7 @@ export const fetchCarById = async (carId) => {
 
 export const fetchCarsByLocation = async (location) => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/cars/${location}`);
+    const response = await axios.get(`${API_BASE}/cars/${location}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching cars by location:', error);

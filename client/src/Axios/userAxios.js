@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
+const API_BASE =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_API_LOCAL
+    : import.meta.env.VITE_API_PROD;
+    
 //authentication
 export const AuthenticateUser = async () => {
   const credentials = JSON.parse(localStorage.getItem('credentials'));
@@ -12,7 +16,7 @@ export const AuthenticateUser = async () => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:5000/api/auth/${id}`, {
+    const response = await axios.get(`${API_BASE}/auth/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`}
     });
@@ -32,7 +36,7 @@ export const loginUserAxios = async (email, password) => {
   }
 
   try {
-    const response = await axios.post('http://localhost:5000/api/login', { email, password });
+    const response = await axios.post(`${API_BASE}/login`, { email, password });
     const user = response.data.user;
     return user; // return the user so Login.jsx can navigate
   } catch (error) {
