@@ -5,6 +5,9 @@ const API_BASE =
   import.meta.env.MODE === "development"
     ? import.meta.env.VITE_API_LOCAL
     : import.meta.env.VITE_API_PROD;
+//debug statement
+console.log('API_BASE:', API_BASE);
+console.log('Environment mode:', import.meta.env.MODE);
 
 export const fetchAllCars = async () => {
   try {
@@ -54,4 +57,5 @@ export const fetchCarsByLocation = async (location) => {
   }
   return [];
 };
+
 
