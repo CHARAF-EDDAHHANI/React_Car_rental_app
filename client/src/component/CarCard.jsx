@@ -9,6 +9,7 @@ import {
   MonetizationOn as PriceIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import {getImageUrl} from '../Axios/carAxios';
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const CarCard = ({ car }) => {
         {/* Car Image */}
         <Box
           component="img"
-          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`}  // protected image path
+          src={getImageUrl(car.image)}  // protected image path
           alt={car.model}
           sx={{
             width: "100%",
