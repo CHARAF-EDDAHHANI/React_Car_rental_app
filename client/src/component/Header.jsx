@@ -1,4 +1,3 @@
-// Header.jsx
 
 import * as React from 'react';
 import { AuthenticateUser } from '../Axios/userAxios';
@@ -23,7 +22,7 @@ import {
   MoreVert as MoreIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import MenuModal from './Menumodal';
+import MenuModal from './MenuModal';
 
 // Styled Components
 const Search = styled('div')(({ theme }) => ({
@@ -313,3 +312,4 @@ const Header = () => {
 };
 
 export default Header;
+
