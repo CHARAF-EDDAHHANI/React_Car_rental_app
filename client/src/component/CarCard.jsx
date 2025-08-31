@@ -13,12 +13,13 @@ import {getImageUrl} from '../Axios/carAxios';
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
-  console.log("Image URL:", `${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`);
 
 
   // Navigate to booking page using car.carId
   const handleBooking = (carId) => {
     if (carId) {
+      console.log("Navigating to booking page for car ID:", carId);
+      console.log("carurl:", getImageUrl(car.image));
       navigate(`/carbooking/${carId}`);
     }
   };
