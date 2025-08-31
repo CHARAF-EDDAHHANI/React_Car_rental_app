@@ -10,7 +10,7 @@ import ErrorBoundary from './component/ErrorBoundary';
 
 // Import page components
 import LandingPage from './pages/LandingPage';
-import Home from './pages/home';
+import Home from './pages/Home';
 import CarBook from './pages/CarBook';
 import CarSearch from './pages/CarSearch';
 import UserProfile from './pages/UserProfile';
