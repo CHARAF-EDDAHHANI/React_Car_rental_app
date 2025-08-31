@@ -16,6 +16,7 @@ import BookingModal from "../component/BookingModal";
 import { fetchCarById } from "../Axios/carAxios";
 import { createOrder } from "../Axios/orderAxios";
 import OrderTicker from "../component/OrderTicker";
+import {getImageUrl} from "../Axios/carAxios";
 
 export default function CarBook() {
  
@@ -123,7 +124,7 @@ let response = null;
       {/* Car Images */}
       <Box >
         <img
-          src={`${import.meta.env.VITE_API_BASE_URL}/images/${car.image}`} // protected image path
+          src={getImageUrl(car.image)} // protected image path
           alt={car.model}
           style={{ width: '100%', height: 'auto', borderRadius: 4, boxShadow: '0 4px 4px rgba(0,0,0,0.1)' }}
         />
@@ -177,3 +178,4 @@ let response = null;
     </Container>
   );
 }
+
