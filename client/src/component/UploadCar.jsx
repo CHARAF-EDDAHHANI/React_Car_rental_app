@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { uploadCar } from '../Axios/carAxios'; 
+import { uploadCar } from '../Axios/carAxios';
 import {
   Modal,
   Box,
@@ -332,3 +332,4 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
 };
 
 export default UploadCar;
+
