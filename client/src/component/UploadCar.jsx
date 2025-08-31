@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { uploadCar } from '../Axios/carAxios';
 import {
   Modal,
   Box,
@@ -73,7 +73,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       }
   
       try {
-        await axios.post('http://localhost:5000/api/uploadCar', carData);
+        await uploadCar(carData);
 
         if (onSubmit) onSubmit(carData);
         handleClose();
@@ -332,3 +332,4 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
 };
 
 export default UploadCar;
+
