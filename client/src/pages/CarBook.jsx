@@ -16,7 +16,7 @@ import BookingModal from "../component/BookingModal";
 import { fetchCarById } from "../Axios/carAxios";
 import { createOrder } from "../Axios/orderAxios";
 import OrderTicker from "../component/OrderTicker";
-import {getImageUrl} from '../Axios/carAxios';
+import {getImageUrl} from "../Axios/carAxios";
 
 export default function CarBook() {
  
@@ -178,3 +178,4 @@ let response = null;
     </Container>
   );
 }
+
