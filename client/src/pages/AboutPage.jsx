@@ -43,7 +43,7 @@ const fadeIn = {
   visible: { opacity: 1, transition: { duration: 0.8 } }
 };
 
-const LandingPage = () => {
+const AboutPage = () => {
   const navigate = useNavigate();
 
   // Navigate user based on login status
@@ -211,4 +211,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default AboutPage;

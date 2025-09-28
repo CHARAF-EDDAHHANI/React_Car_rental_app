@@ -7,7 +7,9 @@ const API_BASE =
     
 export const createOrder = async (orderData) => {
     try {
+      console.log('Creating order in AXIOSORDER with data:', orderData);
     const response = await axios.post(`${API_BASE}/createOrder`, orderData);
+    console.log('Response from createOrder:', response);
     console.log('Order created successfully');
     return response.data;
     }catch(error){

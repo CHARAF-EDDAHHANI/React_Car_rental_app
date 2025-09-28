@@ -26,7 +26,7 @@ export async function comparePWD(password, hashedPassword) {
 
 
 // Create JWT token with a 8hours expiry
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = 'helloyeaaah';
 export const TokenGenerate = (userId, email, userType) => {
   try {
     return jwt.sign(

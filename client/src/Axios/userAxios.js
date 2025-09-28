@@ -41,6 +41,38 @@ export const loginUserAxios = async (email, password) => {
     return user; // return the user so Login.jsx can navigate
   } catch (error) {
   const errorMsg = error.response?.data?.message || error.message || 'Login failed';
-  setErrorMessage(errorMsg);
-}
+    throw new Error(errorMsg);}
 };
+
+//fetch user data
+export const getUserById = async (userId, userType) => {
+  if (!userId || !userType) {
+    throw new Error("Invalid user ID or user type");
+  }
+  try {
+    const response = await axios.get(`${API_BASE}/users/${userId}/${userType}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw new Error('Failed to fetch user data');
+  }
+};
+
+//Signup user
+export const RegisterUser = async (userType, userData) => {
+  if(!userData || !userType){
+    console.log('userData Missing, please fill your Information');
+  }
+  const url =
+        userType === 'seller'
+          ? 'http://localhost:5000/api/register-seller'
+          : 'http://localhost:5000/api/register-buyer';
+  try {
+      const response = await axios.post(url, userData);
+      const newUser = userType === 'seller' ? response.data.newSeller : response.data.newBuyer;
+      return newUser;
+   }catch (error){
+     console.error('this is Axios : error registering user:', error);
+   }
+};
+

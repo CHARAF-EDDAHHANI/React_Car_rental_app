@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Box, Drawer, SwipeableDrawer, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  SwipeableDrawer,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SidebarMenu from "../component/SidebarMenu";
 import UserDetails from "../component/UserDetails";
 import UploadCar from "../component/UploadCar";
+import { getUserById } from "../Axios/userAxios";
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
@@ -17,27 +26,39 @@ export default function UserProfile() {
   const [uploadOpen, setUploadOpen] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // Fetch user data on mount
   useEffect(() => {
     const credentials = JSON.parse(localStorage.getItem("credentials"));
-    if (!credentials || !location.state) {
-      navigate("/Login");
+    if (!credentials) {
+      console.log("No credentials found, redirecting to home.");
+      navigate("/Authentication");
       return;
     }
-    const fullUser = { ...credentials, ...location.state, userType: location.state.userType || credentials.userType };
-    setUserSession(fullUser);
-    setProfileType(fullUser.userType);
-  }, [location.state, navigate]);
 
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserById(credentials.userId, credentials.userType);
+        console.log("Fetched user data:", data);
+        setUserSession(data);
+        setProfileType(data.userType);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+
+  if (!profileType) return null;
+
+  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("credentials");
     navigate("/");
   };
-
-  if (!profileType) return null;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -102,7 +123,8 @@ export default function UserProfile() {
         )}
 
         <Typography variant="h6" gutterBottom>
-          {profileType === "seller" && `You are subscribed as a ${userSession?.userType}`}
+          {profileType === "seller" &&
+            `You are subscribed as a ${userSession?.userType}`}
         </Typography>
 
         <UserDetails user={userSession} profileType={profileType} />

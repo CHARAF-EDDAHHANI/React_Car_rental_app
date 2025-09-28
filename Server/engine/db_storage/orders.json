@@ -1442,5 +1442,164 @@
       "email": "qq@qq.com",
       "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
     }
+  },
+  {
+    "numberOfDays": "24",
+    "totalPrice": "2415",
+    "orderId": "c898206c-a991-4d96-9b06-7578243be447",
+    "pickupLocation": "tangier",
+    "dropoffLocation": "casa",
+    "startDate": "2025-09-06T00:00:00.000Z",
+    "endDate": "2025-09-30T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Brabus",
+      "year": "2024",
+      "category": "Luxury",
+      "seats": "5",
+      "image": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9.jpg",
+      "location": "Tangier",
+      "daily_price": "100",
+      "weekly_price": "650",
+      "monthly_price": "2500",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "firstname": "yaser",
+      "lastname": "amani",
+      "phone": "062544558",
+      "email": "qq@qq.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
+  },
+  {
+    "numberOfDays": "7",
+    "totalPrice": "585",
+    "orderId": "67771cc1-ac82-45fb-a32c-a2d75ae952e8",
+    "orderDate": "2025-09-05 At 11h13min31s",
+    "pickupLocation": "kj",
+    "dropoffLocation": "kj",
+    "startDate": "2025-09-06T00:00:00.000Z",
+    "endDate": "2025-09-13T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "a611c6b8-efaf-4342-b8f6-b9da74e226f8",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Kia Sportage",
+      "year": "2025",
+      "category": "SUV",
+      "seats": "5",
+      "image": "a611c6b8-efaf-4342-b8f6-b9da74e226f8.jpg",
+      "location": "Casablanca",
+      "daily_price": "80",
+      "weekly_price": "600",
+      "monthly_price": "2000",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "firstname": "yaser",
+      "lastname": "amani",
+      "phone": "062544558",
+      "email": "qq@qq.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
+  },
+  {
+    "numberOfDays": "0",
+    "totalPrice": "0",
+    "orderId": "86aa008c-b1e4-40eb-a8e3-9bf3fff0a62e",
+    "orderDate": "2025-09-05 At 11h42min11s",
+    "pickupLocation": "dd",
+    "dropoffLocation": "dd",
+    "startDate": "2025-09-06T00:00:00.000Z",
+    "endDate": "2025-09-06T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "1c097c51-962e-462d-a967-257ab8468093",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Mercedes AMG",
+      "year": "2024",
+      "category": "Luxury",
+      "seats": "5",
+      "image": "1c097c51-962e-462d-a967-257ab8468093.jpg",
+      "location": "Rabat",
+      "daily_price": "100",
+      "weekly_price": "650",
+      "monthly_price": "2500",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "buyer",
+    "buyerInfo": {
+      "userId": "b255fcd5-6ea1-4390-81ea-40067646f7dd",
+      "firstname": "charaf",
+      "lastname": "الدحاني",
+      "phone": "0680571827",
+      "email": "charaf.fgdm@gmail.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
+  },
+  {
+    "numberOfDays": "4",
+    "totalPrice": "440",
+    "orderId": "7deeb693-f759-448e-ab33-6487618e06e2",
+    "orderDate": "2025-09-25 At 17h44min",
+    "pickupLocation": "hj",
+    "dropoffLocation": "ss",
+    "startDate": "2025-09-26T00:00:00.000Z",
+    "endDate": "2025-09-30T00:00:00.000Z",
+    "driver": "withDriver",
+    "carInfo": {
+      "carId": "a611c6b8-efaf-4342-b8f6-b9da74e226f8",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Kia Sportage",
+      "year": "2025",
+      "category": "SUV",
+      "seats": "5",
+      "image": "a611c6b8-efaf-4342-b8f6-b9da74e226f8.jpg",
+      "location": "Casablanca",
+      "daily_price": "80",
+      "weekly_price": "600",
+      "monthly_price": "2000",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "buyer",
+    "buyerInfo": {
+      "userId": "12d9da8d-1a73-49d2-876b-6b7c817a7f1d",
+      "firstname": "Charaf",
+      "lastname": "eddahhani",
+      "phone": "0680571827",
+      "email": "hh@hh.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
   }
 ]

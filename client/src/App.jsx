@@ -3,19 +3,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
-
-// Import shared components
 import Header from './component/Header';
 import ErrorBoundary from './component/ErrorBoundary';
-
-// Import page components
-import LandingPage from './pages/LandingPage';
+import AboutPage from './pages/AboutPage';
 import Home from './pages/Home';
 import CarBook from './pages/CarBook';
 import CarSearch from './pages/CarSearch';
 import UserProfile from './pages/UserProfile';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import AuthPage from './pages/AuthPage';
 const App = () => {
   // State for managing the search input (shared with Header)
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -30,13 +25,12 @@ const App = () => {
         {/* Error boundary wraps all routes to catch rendering errors */}
         <ErrorBoundary>
           <Routes>
-             <Route path="/" element={<Home />} />
-            <Route path="/loca" element={<LandingPage />}/>
+             <Route path="/" element={<Home />}/>
+            <Route path="/About-loca" element={<AboutPage />}/>
+            <Route path="/Authentication" element={<AuthPage />} />
             <Route path="/carbooking/:vehicle_id" element={<CarBook />} />
             <Route path="/CarSearch/:location" element={<CarSearch />} />
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/Login/" element={<Login />} />
-            <Route path="/SignUp/" element={<SignUp />} /> 
           </Routes>
         </ErrorBoundary>
       </Box>

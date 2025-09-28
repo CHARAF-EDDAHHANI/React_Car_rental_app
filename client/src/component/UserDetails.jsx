@@ -4,7 +4,10 @@ import { Box } from "@mui/material";
 import DetailItem from "./DetailItem";
 
 export default function UserDetails({ user, profileType }) {
-  if (!user) return null;
+  if (!user) {
+    console.log("No user data available please check your login process USERDETAILS 8.");
+    return null;
+  } 
 
   const baseDetails = (
     <>

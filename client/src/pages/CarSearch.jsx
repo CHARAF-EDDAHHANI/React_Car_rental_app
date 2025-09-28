@@ -16,7 +16,7 @@ const CarSearch = () => {
       try {
         const cars = await fetchCarsByLocation(location);
         if (!cars || cars.length === 0) {
-          setNoCarsFound(true); // 🆕
+          setNoCarsFound(true); 
         } else {
           setFilteredCars(cars);
           setNoCarsFound(false); // reset if cars found

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { uploadCar } from '../Axios/carAxios';
 import {
   Modal,
@@ -30,8 +29,11 @@ const categories = ['Economy', 'Van', 'SUV', 'Luxury', 'Modern'];
 const availabilityOptions = ['Available', 'Not Available'];
 const transmissionTypes = ['Automatic', 'Manual'];
 const credentials = localStorage.getItem("credentials");
-const userId = credentials ? JSON.parse(credentials).userId : null;
+const sellerId = credentials ? JSON.parse(credentials).userId : null;
 
+if (!sellerId) {
+  alert('User ID not Found please Contact Support for solve the issue.');
+}
 
 const UploadCar = ({ open, handleClose, onSubmit }) => {
   const theme = useTheme();
@@ -52,7 +54,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       location: '',
       description: '',
       image: null,
-      sellerId: userId,
+      sellerId: sellerId,
     });
   
     const handleChange = (e) => {
@@ -65,13 +67,13 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
   
     const handleSubmit = async () => {
       const carData = new FormData();
+      console.log('this is carData to submit', carData);
   
       for (const key in formData) {
         if (formData[key]) {
           carData.append(key, formData[key]);
         }
       }
-  
       try {
         await uploadCar(carData);
 
@@ -80,8 +82,6 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
       } catch (err) {
         console.error('Upload error:', err);
       }
-
-
       setFormData({
         model: '',
         year: '',
@@ -98,7 +98,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
         location: '',
         description: '',
         image: null,
-        sellerId: userId,
+        sellerId: sellerId,
       });
       handleClose();
     };
@@ -128,16 +128,15 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
           Upload Car Details
         </Typography>
 
-        <Grid item xs={12} sm={6} md={3} mx="auto" mb={2}>
+        <Grid item xs={12} sm={6} mb={3} mx="auto">
           <Input
             type="file"
             name="image"
             onChange={handleChange}
-            fullWidth
-            sx={{ width: '100%', paddingY: '1rem' }}
+            sx={{ width: '100%' }}
           />
         </Grid>
-
+      <Grid>
         <Grid
           container
           spacing={1}
@@ -145,9 +144,9 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
             display: 'grid',
             gridTemplateColumns: {
               xs: 'repeat(2, 1fr)',
-              md: 'repeat(5, 1fr)',
+              md: 'repeat(6, 1fr)',
             },
-            gap: 2,
+            gap: 1,
           }}
         >
           <Grid item>s
@@ -288,6 +287,8 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
               fullWidth
             />
           </Grid>
+          </Grid>
+          <Grid>
           <Grid item xs={12} spacing={2} sx={{ mt: 2 }}>
           <TextField
             label="Description"
@@ -299,7 +300,7 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
             fullWidth
           />
         </Grid>
-
+        </Grid>
         <Grid item xs={12} textAlign="center">
           <Button
             variant="contained"
@@ -317,7 +318,6 @@ const UploadCar = ({ open, handleClose, onSubmit }) => {
             Submit
           </Button>
         </Grid>
-
         {isMobile && (
           <Grid item xs={12} textAlign="center" mt={2}>
             <Button onClick={handleClose} color="secondary">

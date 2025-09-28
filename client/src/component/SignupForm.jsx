@@ -9,14 +9,13 @@ import {
   ToggleButtonGroup,
   MenuItem,
 } from '@mui/material';
-import axios from 'axios';
+import { RegisterUser } from '../Axios/userAxios';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
-  const navigate = useNavigate();
+const SignUpForm = ({ onSuccess, onSwitchToLogin }) => {
   const [userType, setUserType] = useState('');
   const [plan, setPlan] = useState('');
-  const [formValues, setFormValues] = useState({
+  const [userData, setUserData] = useState({
     firstname: '',
     lastname: '',
     phone: '',
@@ -29,27 +28,23 @@ const SignUp = () => {
     companyEmail: '',
   });
 
-  const handleInputChange = (e) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleUserTypeChange = (event, newType) => {
+    if (newType !== null) setUserType(newType);
   };
 
-  const handleUserTypeChange = (event, newType) => {
-    if (newType !== null) {
-      setUserType(newType);
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
-    const { firstname, lastname, phone, email, password } = formValues;
+    const { firstname, lastname, phone, email, password } = userData;
     if (!firstname || !lastname || !phone || !email || !password) {
       alert('Please fill all required fields');
       return false;
     }
     if (userType === 'seller') {
-      const { companyName, companyAddress, companyPhone } = formValues;
+      const { companyName, companyAddress, companyPhone } = userData;
       if (!companyName || !companyAddress || !companyPhone || !plan) {
         alert('Please fill all seller details and select a plan');
         return false;
@@ -60,61 +55,51 @@ const SignUp = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     if (!userType) {
-      alert('Please select a user type (Seller or Buyer) to proceed.');
+      alert('Please select a user type (Seller or Buyer)');
       return;
     }
-
     if (!validate()) return;
 
-    const userData = {
-      ...formValues,
-      userType,
-      plan: userType === 'seller' ? plan : null,
-    };
-
     try {
-      const url =
-        userType === 'seller'
-          ? 'http://localhost:5000/api/register-seller'
-          : 'http://localhost:5000/api/register-buyer';
+      const newUser = await RegisterUser(userType, userData);
+      console.log('Registered user response:', newUser);
 
-      const response = await axios.post(url, userData);
+      // Check that the response contains the necessary data
+      if (!newUser) {
+        alert('Registration failed: no user data returned.');
+        return;
+      }
 
-      const newUser =
-        userType === 'seller' ? response.data.newSeller : response.data.newBuyer;
-
+      // Store credentials in localStorage safely
       localStorage.setItem(
         'credentials',
         JSON.stringify({
-          userId:
-            userType === 'seller' ? newUser.sellerId : newUser.buyerId,
-          userToken:
-            userType === 'seller' ? newUser.sellerToken : newUser.buyerToken,
-            userType,
+          userId: userType === 'seller' ? newUser.sellerId : newUser.buyerId,
+          userToken: userType === 'seller' ? newUser.sellerToken : newUser.buyerToken,
+          userType,
         })
       );
 
-      navigate('/Profile', {
-        state: {
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
-          phone: newUser.phone,
-          email: newUser.email,
-          adress: newUser.adress,
-          ...(userType === 'seller' && {
-            companyName: newUser.companyName,
-            companyAddress: newUser.companyAddress,
-            companyPhone: newUser.companyPhone,
-            companyEmail: newUser.companyEmail,
-            plan: newUser.plan,
-          }),
-        },
+      // Call onSuccess with safe destructuring
+      onSuccess?.({
+        firstname: newUser.firstname || '',
+        lastname: newUser.lastname || '',
+        phone: newUser.phone || '',
+        email: newUser.email || '',
+        adress: newUser.adress || '',
+        ...(userType === 'seller' && {
+          companyName: newUser.companyName || '',
+          companyAddress: newUser.companyAddress || '',
+          companyPhone: newUser.companyPhone || '',
+          companyEmail: newUser.companyEmail || '',
+          plan: newUser.plan || plan,
+        }),
       });
+
     } catch (error) {
-      console.error('Registration error:', error);
-      alert('Something went wrong during registration.');
+      console.error('Error registering user:', error);
+      alert('An error occurred during registration.');
     }
   };
 
@@ -144,7 +129,7 @@ const SignUp = () => {
             fullWidth
             required
             margin="normal"
-            value={formValues.firstname}
+            value={userData.firstname}
             onChange={handleInputChange}
           />
           <TextField
@@ -153,7 +138,7 @@ const SignUp = () => {
             fullWidth
             required
             margin="normal"
-            value={formValues.lastname}
+            value={userData.lastname}
             onChange={handleInputChange}
           />
           <TextField
@@ -162,7 +147,7 @@ const SignUp = () => {
             fullWidth
             required
             margin="normal"
-            value={formValues.phone}
+            value={userData.phone}
             onChange={handleInputChange}
           />
           <TextField
@@ -171,7 +156,7 @@ const SignUp = () => {
             fullWidth
             required
             margin="normal"
-            value={formValues.email}
+            value={userData.email}
             onChange={handleInputChange}
           />
           <TextField
@@ -181,7 +166,7 @@ const SignUp = () => {
             fullWidth
             required
             margin="normal"
-            value={formValues.password}
+            value={userData.password}
             onChange={handleInputChange}
           />
           <TextField
@@ -189,7 +174,7 @@ const SignUp = () => {
             name="adress"
             fullWidth
             margin="normal"
-            value={formValues.adress}
+            value={userData.adress}
             onChange={handleInputChange}
           />
 
@@ -200,7 +185,7 @@ const SignUp = () => {
                 name="companyName"
                 fullWidth
                 margin="normal"
-                value={formValues.companyName}
+                value={userData.companyName}
                 onChange={handleInputChange}
               />
               <TextField
@@ -208,7 +193,7 @@ const SignUp = () => {
                 name="companyAddress"
                 fullWidth
                 margin="normal"
-                value={formValues.companyAddress}
+                value={userData.companyAddress}
                 onChange={handleInputChange}
               />
               <TextField
@@ -216,7 +201,7 @@ const SignUp = () => {
                 name="companyPhone"
                 fullWidth
                 margin="normal"
-                value={formValues.companyPhone}
+                value={userData.companyPhone}
                 onChange={handleInputChange}
               />
               <TextField
@@ -224,7 +209,7 @@ const SignUp = () => {
                 name="companyEmail"
                 fullWidth
                 margin="normal"
-                value={formValues.companyEmail}
+                value={userData.companyEmail}
                 onChange={handleInputChange}
               />
               <TextField
@@ -243,13 +228,12 @@ const SignUp = () => {
             </>
           )}
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
             Register
+          </Button>
+
+          <Button onClick={onSwitchToLogin} fullWidth sx={{ mt: 1 }}>
+            Already have an account? Login
           </Button>
         </form>
       </Box>
@@ -257,4 +241,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

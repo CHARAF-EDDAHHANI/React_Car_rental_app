@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Encryption } from '../helpers/BTE.js';
+import { Encryption } from '../engine/Agents/BTE.js';
 import { readJSON, writeJSON } from '../engine/Agents/RWJ.js';
 
 // Create User (buyer or seller)
@@ -51,11 +51,6 @@ export const createUser = async (userData) => {
 export const getUserByEmail = async (email, userType) => {
   const users = await readJSON(userType === 'seller' ? 'sellers' : 'buyers');
   return users.find((user) => user.email === email);
-};
-
-export const getUserById = async (userId, userType) => {
-  const users = await readJSON(userType === 'seller' ? 'sellers' : 'buyers');
-  return users.find((user) => user.userId === userId);
 };
 
 export const updateUser = async (userId, userType, updates) => {

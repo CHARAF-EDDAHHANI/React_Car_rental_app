@@ -102,7 +102,7 @@ const Header = () => {
     } catch (error) {
       console.log('Error please try again later');
       console.error(error);
-      navigate('/Login');
+      navigate('/Authentication');
     }
   };
 
@@ -219,7 +219,7 @@ const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+             {/*<MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />*/}
               <img
                 src="/images/loca-logo.png"
                 alt="logo"
@@ -233,7 +233,7 @@ const Header = () => {
                   backgroundColor: '#fff',
                   cursor: 'pointer',
                 }}
-                onClick={() => navigate('/loca')}
+                onClick={() => navigate('/')}
               />
             </Box>
 

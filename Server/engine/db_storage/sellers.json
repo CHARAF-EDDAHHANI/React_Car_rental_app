@@ -1,7 +1,7 @@
 [
   {
     "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
-    "sellerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4NzNiYi02OTI2LTQ2ZTEtOWJmYy1jYzJhYzZkZGRlZWYiLCJlbWFpbCI6InFxQHFxLmNvbSIsInVzZXJUeXBlIjoic2VsbGVyIiwiaWF0IjoxNzU2MjM3MzQxLCJleHAiOjE3NTYyNjYxNDF9.3ucxUlX5J-_gd_88LQ2FD8N9A44SjSCcj3h_epNajLQ",
+    "sellerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4NzNiYi02OTI2LTQ2ZTEtOWJmYy1jYzJhYzZkZGRlZWYiLCJlbWFpbCI6InFxQHFxLmNvbSIsInVzZXJUeXBlIjoic2VsbGVyIiwiaWF0IjoxNzU4NTY1NDY0LCJleHAiOjE3NTg4MjQ2NjR9.6rZj5QHX-AyTepjMKzvWieBTycLEN9YWhQ59EnI0cCU",
     "firstname": "yaser",
     "lastname": "amani",
     "phone": "062544558",
@@ -13,6 +13,37 @@
     "companyPhone": "0565445554",
     "companyEmail": "qq@qq.com",
     "plan": "Premium",
+    "userType": "seller"
+  },
+  {
+    "sellerId": "424ed0fb-4b37-436f-a096-eef838765771",
+    "sellerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjRlZDBmYi00YjM3LTQzNmYtYTA5Ni1lZWY4Mzg3NjU3NzEiLCJlbWFpbCI6InFxcUBxcXEuY29tIiwidXNlclR5cGUiOiJzZWxsZXIiLCJpYXQiOjE3NTY5Mjc5NTMsImV4cCI6MTc1NzE4NzE1M30.cRSjCu87f6PZWitMDbM6wYakljqdWrPZXSN4NyWBZd4",
+    "firstname": "qqqqqqqqqqqqqqqqqqqq",
+    "lastname": "qq",
+    "phone": "2222",
+    "email": "qqq@qqq.com",
+    "password": "$2b$05$q2ZSUlh6iUSMJGPoysIIn.9Jx9mBgMjjdXTpYhE6NXHChrI211kfC",
+    "adress": "qqq",
+    "companyName": "qqq",
+    "companyAddress": "ww",
+    "companyPhone": "222",
+    "companyEmail": "qqq@qqq.com",
+    "plan": "Standard",
+    "userType": "seller"
+  },
+  {
+    "sellerId": "044ab24a-b5d6-428e-9073-3b1454df9fb3",
+    "sellerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwNDRhYjI0YS1iNWQ2LTQyOGUtOTA3My0zYjE0NTRkZjlmYjMiLCJlbWFpbCI6ImtrQGtrLmNvbSIsInVzZXJUeXBlIjoic2VsbGVyIiwiaWF0IjoxNzU4OTkxMTQzLCJleHAiOjE3NTkyNTAzNDN9.1ULqNrsvGg5Qk5MjoNAbgAumJp290l0XctvXXMweZ8Q",
+    "firstname": "Charaf",
+    "lastname": "eddahhani",
+    "phone": "0680571827",
+    "email": "kk@kk.com",
+    "password": "$2b$05$QnQOCK1lzZLumUTLZf9jJeviyUbk1wKaObhRr9K3l.HwHg7rsjz9.",
+    "adress": "Casablanca",
+    "companyName": "nkh",
+    "companyAddress": "kk",
+    "companyPhone": "jj",
+    "companyEmail": "ww",
     "userType": "seller"
   }
 ]

@@ -127,11 +127,11 @@ export const createOrder = async (orderData) => {
     email: seller.email,
     sellerId: seller.sellerId,
   };
+
  //generate universal orderId and date 
   const orderId = uuidv4();
-  // Use UTC to ensure consistent date handling across time zones
   dayjs.extend(utc);
-  const orderDate = dayjs().utc().format('YYYY-MM-DD [At] HH[h]mm[min]ss[s]');
+  const orderDate = dayjs().utc().format('YYYY-MM-DD [At] HH[h]mm[min]');
   // Create the new order object
   const newOrder = {
     numberOfDays: String(numberOfDays),
@@ -148,11 +148,6 @@ export const createOrder = async (orderData) => {
     buyerInfo,
     sellerInfo,
   };
-
-  // Optional debug logs
-  console.log("Driver cost:", driverCost);
-  console.log("Car cost:", carCost);
-  console.log("Total price:", totalPrice);
 
   const orders = await readJSON('orders');
   orders.push(newOrder);

@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import cors from 'cors';
 import carRoutes from './routes/carRoutes.js';
-import authRoutes from './routes/authRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/images', express.static(path.join(__dirname, 'engine', 'uploadedImages'))); // Serve uploaded images statically
 
 // Routes
-app.use('/api', carRoutes);        
-app.use('/api', authRoutes);  
+app.use('/api', carRoutes);
 app.use('/api', orderRoutes);
+app.use('/api', userRoutes);
 app.get('/', (req, res) => {  // handle default route
   res.send('API is running...');
 });

@@ -6,11 +6,6 @@ const API_BASE =
     ? import.meta.env.VITE_API_LOCAL
     : import.meta.env.VITE_API_PROD;
 
-
-//debug statement
-console.log('API_BASE:', API_BASE);
-console.log('Environment mode:', import.meta.env.MODE);
-
 export const fetchAllCars = async () => {
   try {
     const response = await axios.get(`${API_BASE}/allcars`);
@@ -25,12 +20,18 @@ export const fetchAllCars = async () => {
 
 //to add after in the upload car
 export const uploadCar = async (carData) => {
+  if (!carData){
+    console.log('missing carData');
+  }else {
+    console.log('this is carData to be submited', carData);
+  }
   try {
     const response = await axios.post(`${API_BASE}/uploadCar`, carData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log('response of upload acar', response);
     return response.data;
   } catch (error) {
     console.error('Error uploading car:', error);

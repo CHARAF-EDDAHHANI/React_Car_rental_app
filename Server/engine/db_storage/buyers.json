@@ -1,0 +1,101 @@
+[
+  {
+    "buyerId": "52a86671-abbf-42c0-8a21-b3d42adb849f",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MmE4NjY3MS1hYmJmLTQyYzAtOGEyMS1iM2Q0MmFkYjg0OWYiLCJlbWFpbCI6ImNoYXJhZi5nZG1AZ21haWwuY29tIiwidXNlclR5cGUiOiJidXllciIsImlhdCI6MTc1NzA3MjI2OCwiZXhwIjoxNzU3MzMxNDY4fQ.O7awt7q_sDtYCrLSaXuZYRMrX0Kg-gAYBpyGrHBC76Q",
+    "firstname": "Charaf",
+    "lastname": "eddahhani",
+    "phone": "0680571827",
+    "email": "charaf.gdm@gmail.com",
+    "password": "$2b$05$nDmZ5oTm3xG6LPQalzYX1eynKtiz3c9G8vwOFljCH9aEdEYtiCsR6",
+    "adress": "aa",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "b255fcd5-6ea1-4390-81ea-40067646f7dd",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMjU1ZmNkNS02ZWExLTQzOTAtODFlYS00MDA2NzY0NmY3ZGQiLCJlbWFpbCI6ImNoYXJhZi5mZ2RtQGdtYWlsLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTcwNzI1MTQsImV4cCI6MTc1NzMzMTcxNH0.Y2cWvPACVTXtplTOdJic7zEz5fpgAeHlzVVDScaCfH8",
+    "firstname": "charaf",
+    "lastname": "الدحاني",
+    "phone": "0680571827",
+    "email": "charaf.fgdm@gmail.com",
+    "password": "$2b$05$g2hS2yRQujeDDH2fiZZc/uraXO/Kd5UkcMB7w/9CAZaLT889lj/RC",
+    "adress": "RUE plage Dalia 107  2B ET 2 APP 3 , Tangier , Morocco",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "33146288-ff10-4b30-ade4-58d7be407280",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMzE0NjI4OC1mZjEwLTRiMzAtYWRlNC01OGQ3YmU0MDcyODAiLCJlbWFpbCI6InNpbW9hOTQwM0BnbWFpbC5jb20iLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNzU3MDc0MDUzLCJleHAiOjE3NTczMzMyNTN9.gmzJqCQdlW1KRlNPhdkbHQEosvDql4oxNdMNy52qMTk",
+    "firstname": "Charaf",
+    "lastname": "الدحاني",
+    "phone": "0680571827",
+    "email": "simoa9403@gmail.com",
+    "password": "$2b$05$iM/I49yslXqOVGiJbWvwQeMP8bjtH1Ds7Kn5JrUC3zIHc./P.NHl.",
+    "adress": "s",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "12d9da8d-1a73-49d2-876b-6b7c817a7f1d",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMmQ5ZGE4ZC0xYTczLTQ5ZDItODc2Yi02YjdjODE3YTdmMWQiLCJlbWFpbCI6ImhoQGhoLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg4MjIyNDksImV4cCI6MTc1OTA4MTQ0OX0.FKCqzTbO6ksdkax9T0IBkHFokq8EhSWrgYR37BG6dLo",
+    "firstname": "Charaf",
+    "lastname": "eddahhani",
+    "phone": "0680571827",
+    "email": "hh@hh.com",
+    "password": "$2b$05$uOe7beMrEpTSj3yvIaTGSO6gU7NvrVRU/dVVXFhiPRyQxiSUIx8q.",
+    "adress": "Casablanca",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "4a280fd0-eb88-429c-9098-0c99fb0dba6a",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0YTI4MGZkMC1lYjg4LTQyOWMtOTA5OC0wYzk5ZmIwZGJhNmEiLCJlbWFpbCI6ImpqQGpqLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg5ODY3MjQsImV4cCI6MTc1OTI0NTkyNH0.CviFWdipkJ5CUhzE3o6mQf7jrxkLOcCbc9-lEBO1JV0",
+    "firstname": "Charaf",
+    "lastname": "eddahhani",
+    "phone": "0680571827",
+    "email": "jj@jj.com",
+    "password": "$2b$05$3uu46AOduu8ZcbkYlC/Kr.oovw.mSXDJMQW3R5ZVeEkW5JGGZjiDO",
+    "adress": "Casablanca",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "44ab4635-86a4-469a-a135-94861928c2e4",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0NGFiNDYzNS04NmE0LTQ2OWEtYTEzNS05NDg2MTkyOGMyZTQiLCJlbWFpbCI6ImxsQGxsLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg5ODY4MDMsImV4cCI6MTc1OTI0NjAwM30.avF2oBuAwJdq7-lMH3uM4der4cXo9D-GQwsrGLJk1Mk",
+    "firstname": "ll",
+    "lastname": "ll",
+    "phone": "ll",
+    "email": "ll@ll.com",
+    "password": "$2b$05$B5pQuitJf7yKxHnfRYOqBugE7Ym87I4Qs46iYpLpbSQ34LZRkjKiG",
+    "adress": "ll",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "56355dc6-b38e-420b-a3e2-3836513203fa",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NjM1NWRjNi1iMzhlLTQyMGItYTNlMi0zODM2NTEzMjAzZmEiLCJlbWFpbCI6Im1tQG1tLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg5ODcyNDQsImV4cCI6MTc1OTI0NjQ0NH0.KO46yDRIDqQEV-yXUnB5kJxQWzRLTYuUsqWCt55cD_Y",
+    "firstname": "mm",
+    "lastname": "mm",
+    "phone": "mm",
+    "email": "mm@mm.com",
+    "password": "$2b$05$ccGQA7N7GnK65C8MA6eg9uU1QSEDpa4/7uP8QIFRqTlY/PpEau946",
+    "adress": "mm",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "d9754771-0650-4dbc-93af-70dbf45d2f85",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkOTc1NDc3MS0wNjUwLTRkYmMtOTNhZi03MGRiZjQ1ZDJmODUiLCJlbWFpbCI6ImdnQGdnLmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg5ODcyOTEsImV4cCI6MTc1OTI0NjQ5MX0.tWgKAD8iWs-98f_Uzgh6wS4pguiuf3927wqc1hBtE1Q",
+    "firstname": "gg",
+    "lastname": "gg",
+    "phone": "gg",
+    "email": "gg@gg.com",
+    "password": "$2b$05$TmBh.cjlGv6DjDlLPRLl/ukTL6XLThnlOORT/liPhopvZvN0J4Dqy",
+    "adress": "gg",
+    "userType": "buyer"
+  },
+  {
+    "buyerId": "155d4a39-cd1f-4d3c-9012-c2f057d30261",
+    "buyerToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNTVkNGEzOS1jZDFmLTRkM2MtOTAxMi1jMmYwNTdkMzAyNjEiLCJlbWFpbCI6Inp6QHp6LmNvbSIsInVzZXJUeXBlIjoiYnV5ZXIiLCJpYXQiOjE3NTg5ODc5ODUsImV4cCI6MTc1OTI0NzE4NX0.BozRI92arcIszkvt6nnr3J2F5QOBW1ogrF27H2lHN3o",
+    "firstname": "zz",
+    "lastname": "zz",
+    "phone": "zz",
+    "email": "zz@zz.com",
+    "password": "$2b$05$n1T5CFz4/jbKw4SQbHoh6u78Dv5juvVrT7v.d592E5cuE6omrv3nq",
+    "adress": "zz",
+    "userType": "buyer"
+  }
+]
