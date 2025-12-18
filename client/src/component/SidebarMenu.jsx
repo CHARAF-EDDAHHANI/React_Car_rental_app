@@ -23,6 +23,7 @@ import {
   DirectionsCarFilled as CarIcon,
   Cancel as CancelIcon,
 } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 const collapsedWidth = 60;
@@ -35,21 +36,25 @@ export default function SidebarMenu({
   profileType,
   setUploadOpen,
   handleLogout,
-}) {
+})
+
+{
+  const { t } = useTranslation();
   // Menu items
   const menuItems = [
-    { key: "1", icon: <UploadIcon color="primary" />, label: "Upload New Car" },
-    { key: "2", icon: <LogoutIcon />, label: "Logout", onClick: handleLogout },
-    { key: "3", icon: <CalendarIcon color="warning" />, label: "All Reservations" },
-    { key: "4", icon: <CheckCircleIcon color="success" />, label: "Validated Reservation" },
-    { key: "5", icon: <DisvalidateIcon color="error" />, label: "Disvalidated Reservation" },
-    { key: "6", icon: <ChatIcon color="primary" />, label: "Messages" },
-    { key: "7", icon: <SupportIcon sx={{ color: "#9254de" }} />, label: "Support" },
-    { key: "8", icon: <WarningIcon color="warning" />, label: "Reclamation" },
-    { key: "9", icon: <CarIcon color="info" />, label: "My Cars" },
-    { key: "10", icon: <CancelIcon color="error" />, label: "Unavailable Cars" },
-    { key: "11", icon: <CheckCircleIcon color="success" />, label: "Available Cars" },
+    { key: "1", icon: <UploadIcon color="primary" />,             label: t("sideBar.upload_Car") },
+    { key: "2", icon: <LogoutIcon />, onClick: handleLogout,      label: t("sideBar.logout") },
+    { key: "3", icon: <CalendarIcon color="warning" />,           label: t("sideBar.all_reservations") },
+    { key: "4", icon: <CheckCircleIcon color="success" />,        label: t("sideBar.validated_Reservation") },
+    { key: "5", icon: <DisvalidateIcon color="error" />,          label: t("sideBar.disvalidated_reservation") },
+    { key: "6", icon: <ChatIcon color="primary" />,               label: t("sideBar.messages") },
+    { key: "7", icon: <SupportIcon sx={{ color: "#9254de" }} />,  label: t("sideBar.support") },
+    { key: "8", icon: <WarningIcon color="warning" />,              label: t("sideBar.reclamation") },
+    { key: "9", icon: <CarIcon color="info" />,                     label: t("sideBar.my_cars") },
+    { key: "10", icon: <CancelIcon color="error" />,                label: t("sideBar.unavailable_cars") },
+    { key: "11", icon: <CheckCircleIcon color="success" />,         label: t("sideBar.available_cars") },
   ];
+   
 
   const getFilteredMenuItems = () =>
     profileType === "buyer" ? menuItems.slice(1, 8) : menuItems;

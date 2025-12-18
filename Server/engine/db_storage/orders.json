@@ -1601,5 +1601,85 @@
       "email": "qq@qq.com",
       "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
     }
+  },
+  {
+    "numberOfDays": "15",
+    "totalPrice": "1400",
+    "orderId": "1a38a097-05f2-42a9-b7bf-f5b1910d34f5",
+    "orderDate": "2025-10-26 At 08h35min",
+    "pickupLocation": "berlin",
+    "dropoffLocation": "hamburg",
+    "startDate": "2025-10-30T00:00:00.000Z",
+    "endDate": "2025-11-14T00:00:00.000Z",
+    "driver": "NoDriver",
+    "carInfo": {
+      "carId": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Brabus",
+      "year": "2024",
+      "category": "Luxury",
+      "seats": "5",
+      "image": "452c4f16-8b08-4bd8-b2a7-e577ba132ed9.jpg",
+      "location": "Tangier",
+      "daily_price": "100",
+      "weekly_price": "650",
+      "monthly_price": "2500",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "044ab24a-b5d6-428e-9073-3b1454df9fb3",
+      "firstname": "Charaf",
+      "lastname": "eddahhani",
+      "phone": "0680571827",
+      "email": "kk@kk.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
+  },
+  {
+    "numberOfDays": "-191",
+    "totalPrice": "Infinity",
+    "orderId": "a35983d8-6d24-49e3-9a36-3144c03db536",
+    "orderDate": "2025-12-17 At 18h58min",
+    "pickupLocation": "casa",
+    "dropoffLocation": "fes",
+    "startDate": "2026-09-01T00:00:00.000Z",
+    "endDate": "2026-02-22T00:00:00.000Z",
+    "driver": "NoDriver",
+    "carInfo": {
+      "carId": "a611c6b8-efaf-4342-b8f6-b9da74e226f8",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "model": "Kia Sportage",
+      "year": "2025",
+      "category": "SUV",
+      "seats": "5",
+      "image": "a611c6b8-efaf-4342-b8f6-b9da74e226f8.jpg",
+      "location": "Casablanca",
+      "daily_price": "80",
+      "weekly_price": "600",
+      "monthly_price": "2000",
+      "driver_daily_price": "30",
+      "driver_weekly_price": "25",
+      "driver_monthly_price": "20"
+    },
+    "buyerType": "seller",
+    "buyerInfo": {
+      "userId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef",
+      "firstname": "yaser",
+      "lastname": "amani",
+      "phone": "062544558",
+      "email": "qq@qq.com"
+    },
+    "sellerInfo": {
+      "phone": "062544558",
+      "email": "qq@qq.com",
+      "sellerId": "dab873bb-6926-46e1-9bfc-cc2ac6dddeef"
+    }
   }
 ]

@@ -16,7 +16,7 @@ import { createOrder } from "../Axios/orderAxios";
 import OrderTicker from "../component/OrderTicker";
 import AuthModal from "../component/AuthModal";
 import BookingModal from "../component/BookingModal";
-
+import { useTranslation } from 'react-i18next';
 
 export default function CarBook() {
   const [value, setValue] = useState(0);
@@ -25,6 +25,8 @@ export default function CarBook() {
   const [loading, setLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+   const {t, i18n } = useTranslation();
+   const isArabic = i18n.language ===  "ar";
 
 const carId = window.location.pathname.split("/").pop();
   useEffect(() => {
@@ -77,6 +79,7 @@ const carId = window.location.pathname.split("/").pop();
   // Handle booking confirmation
   const handleBookingConfirmed = async ({bookingInfo}) => {
     const userData = getAuthUser();
+   
     if (!userData) return; // Auth modal is already shown by getAuthUser
     
     const orderData = {
@@ -110,12 +113,7 @@ const carId = window.location.pathname.split("/").pop();
 
   return (
     <Container maxWidth="lg" sx={{ width: "auto", pb: 10 }}>
-      {/* Car Title */}
-      <Typography variant="h3" component="h1" mt={3} bgcolor={"#ccf8dbff"} p={2} borderRadius={1} textAlign="center" sx={{ color: "#2f5939ff" }}>
-        {car.model} - {car.year} in {car.location}
-      </Typography>
       <Divider sx={{ mt: 1, mb: 0, borderColor: '#0eff06ff' }} />
-      
       {/* Car & Booking Details Sections */}
       <Box sx={{
             mt: 2,
@@ -143,22 +141,14 @@ const carId = window.location.pathname.split("/").pop();
       
       <Divider sx={{ mt: 4, mb: 2, borderColor: '#1cf723ff' }} />
        
-      {/* About this Car Section */}
-      <Typography variant="h6" bgcolor={"#daf3d8ff"} p={1} width={'50%'} textAlign="left" sx={{ color: "#2f5939ff" }}>
-        About this Car
-      </Typography>
-      
-      {car.description && (
-        <Box>
-          <Typography component="p" variant="body1" mt={2} mb={3} sx={{ color: "#333" }}>
-            {car.description}
-          </Typography>
-        </Box>
-      )}
       
       {/* Rules and Policies Section */}
-      <Typography variant="h6" bgcolor={"#daf3d8ff"} p={1} mb={3} width={'50%'} textAlign="left" sx={{ color: "#2f5939ff" }}>
-        Rules and Policies
+      <Typography variant="h6" bgcolor={"#daf3d8ff"} p={1} mb={3} width={'100%'} 
+       sx={{ 
+        color: "#2f5939ff",
+        direction: isArabic ? "rtl" : "ltr",
+        textAlign: isArabic ? "right" : "left",}}>
+        {t("carBook.rules_Rules and_policies")}
       </Typography>
       <ControlledAccordions />
       
@@ -189,7 +179,7 @@ const carId = window.location.pathname.split("/").pop();
           sx={{ backgroundColor: "#ffffffff", borderTop: "1px solid #ccc" }}
         >
           <BottomNavigationAction
-            label="Book Now"
+            label={t("carBook.Book_Now")}
             icon={<RestoreIcon />}
             aria-label="Book this car"
             onClick={handleBookNowClick}

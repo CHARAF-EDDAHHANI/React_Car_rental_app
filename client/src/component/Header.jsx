@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+
 import { AuthenticateUser } from '../Axios/userAxios';
 import {
   AppBar,
@@ -12,6 +13,7 @@ import {
   Menu,
   styled,
   alpha,
+  Select,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -22,9 +24,12 @@ import {
   MoreVert as MoreIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import MenuModal from './MenuModal';
+import LangBtn from '../Translation/LangBtn';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 // Styled Components
+// 1 searchBAr
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -67,7 +72,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header = () => {
   const navigate = useNavigate();
-
+   //language selector
+  const {i18n} = useTranslation();
+ 
   // Local state
   const [searchTerm, setSearchTerm] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -178,23 +185,21 @@ const Header = () => {
     }
   };
 
+//'url(/images/header-img.jpg) no-repeat center center / cover' for AppBar background as image
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
         sx={{
-          background: 'url(/images/header-img.jpg) no-repeat center center / cover',
-          color: '#fff',
+          background: 'white',
           boxShadow: 'none',
-          backdropFilter: 'blur(10px)',
         }}
       >
         <Toolbar
           sx={{
             flexDirection: 'column',
             alignItems: 'stretch',
-            p: 1,
-            color: '#D1FAE5',
+            color: '#269b5eff',
           }}
         >
           {/* === Row 1: Top Bar === */}
@@ -209,34 +214,52 @@ const Header = () => {
           >
             {/* === Left Side: Menu + Logo === */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 1 }}
-                onClick={() => setIsModalOpen(true)}
+              <Box
+              sx={{
+               width: '70px',
+               height: '70px',
+               position: 'relative',
+               cursor: 'pointer',
+               left: { xs: '1em', md: '5em' }
+                  }}
+              onClick={() => navigate('/')}
               >
-                <MenuIcon />
-              </IconButton>
-             {/*<MenuModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />*/}
               <img
                 src="/images/loca-logo.png"
                 alt="logo"
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  position: 'absolute',
-                  left: '47%',
-                  borderRadius: '30%',
-                  padding: '5px',
-                  backgroundColor: '#fff',
-                  cursor: 'pointer',
-                }}
-                onClick={() => navigate('/')}
+                style={{ width: '100%', height: '100%' }}
               />
             </Box>
-
+            </Box>
+                      {/* === Row 2: Search Bar === */}
+          <Box
+            sx={{
+              mt: { xs: 2, md: 1 },
+              width: { xs: '40%', md: '40%' },
+              alignSelf: 'center',
+            }}
+          >
+            <Search
+              sx={{
+                width: '100%',
+                borderRadius: '30px',
+                color: '#26982bff',
+                border: '1px solid #4ee837ff',
+              }}
+            >
+              <SearchIconWrapper>
+                <SearchIcon style={{ cursor: 'pointer' }} onClick={handleSearch} />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder={t("header.search_by_city")}
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleInputChange}
+                onKeyPress={handleSearch}
+              />
+            </Search>
+          </Box>
+            <LangBtn />
             {/* === Right Side Icons === */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {/* Mobile icon */}
@@ -271,35 +294,6 @@ const Header = () => {
                 </IconButton>
               </Box>
             </Box>
-          </Box>
-
-          {/* === Row 2: Search Bar === */}
-          <Box
-            sx={{
-              mt: { xs: 2, md: 1 },
-              width: { xs: '100%', md: '60%' },
-              alignSelf: 'center',
-            }}
-          >
-            <Search
-              sx={{
-                width: '100%',
-                borderRadius: '30px',
-                color: '#fff',
-                border: '1px solid #84CC16',
-              }}
-            >
-              <SearchIconWrapper>
-                <SearchIcon style={{ cursor: 'pointer' }} onClick={handleSearch} />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search by city"
-                inputProps={{ 'aria-label': 'search' }}
-                value={searchTerm}
-                onChange={handleInputChange}
-                onKeyPress={handleSearch}
-              />
-            </Search>
           </Box>
         </Toolbar>
       </AppBar>

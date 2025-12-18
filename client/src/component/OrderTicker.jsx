@@ -9,8 +9,11 @@ import {
   Paper
 } from '@mui/material';
 import generateBookingPDF from '../utils/generateBookingPDF';
+import { useTranslation } from 'react-i18next';
 
 const OrderTicker = ({ orderticketData }) => {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   if (!orderticketData) {
     return (
       <Box p={2}>
@@ -42,19 +45,19 @@ const OrderTicker = ({ orderticketData }) => {
   } = orderticketData;
 
   const ticketList = [
-    { key: 1, label: ' Desired Car : ', value: `${carName || ''} (${carYear || ''}) - ${carCategory || ''}` },
-    { key: 2, label: 'Number of Days : ', value: numberOfDays },
-    { key: 3, label: 'Car Cost : ', value: `$${carCost}` },
-    { key: 4, label: 'Driver Cost : ', value: `$${driverCost || '' }` },
-    { key: 5, label: 'Total Price : ', value: `$${totalPrice}` },
-    { key: 6, label: 'Pickup Location : ', value: pickupLocation },
-    { key: 7, label: 'Dropoff Location : ', value: dropoffLocation },
-    { key: 8, label: 'Start Date : ', value: new Date(startDate).toLocaleDateString() },
-    { key: 9, label: 'End Date : ', value: new Date(endDate).toLocaleDateString() },
-    { key: 10, label: 'Car Agency Phone : ', value: carAgencyPhone },
-    { key: 11, label: 'Car Agency Email : ', value: carAgencyEmail },
-    { key: 12, label: 'Ticket Date : ', value: orderDate },
-    { key: 13, label: 'Ticket ID : ', value: orderId },
+    { key: 1, label: t(' Desired Car : '), value: `${carName || ''} (${carYear || ''}) - ${carCategory || ''}` },
+    { key: 2, label: t('Number of Days : '), value: numberOfDays },
+    { key: 3, label: t('Car Cost : '), value: `$${carCost}` },
+    { key: 4, label: t('Driver Cost : '), value: `$${driverCost || '' }`},
+    { key: 5, label: t('Total Price : '), value: `$${totalPrice}` },
+    { key: 6, label: t('Pickup Location : '), value: pickupLocation },
+    { key: 7, label: t('Dropoff Location : '), value: dropoffLocation },
+    { key: 8, label: t('Start Date : '), value: new Date(startDate).toLocaleDateString() },
+    { key: 9, label: t('End Date : '), value: new Date(endDate).toLocaleDateString() },
+    { key: 10, label: t('Car Agency Phone : '), value: carAgencyPhone },
+    { key: 11, label: t('Car Agency Email : '), value: carAgencyEmail },
+    { key: 12, label: t('Ticket Date : '), value: orderDate },
+    { key: 13, label: t('Ticket ID : '), value: orderId },
 
   ];
 

@@ -1,0 +1,131 @@
+{
+  "car": {
+    "seats": "Asientos",
+    "daily_price": "Precio diario",
+    "weekly_price": "Precio semanal",
+    "transmission": "Transmisión",
+    "monthly_price": "Precio mensual",
+    "location": "Ubicación",
+    "rating": "Calificación",
+    "reviews": "Reseñas",
+    "driver_daily_price": "Precio diario con conductor",
+    "driver_weekly_price": "Precio semanal con conductor",
+    "driver_monthly_price": "Precio mensual con conductor",
+    "Ready_for_booking": "Listo para reservar"
+  },
+
+  "availability_values": {
+    "Available": "Disponible",
+    "Unavailable": "No disponible"
+  },
+
+  "category_values": {
+    "SUV": "SUV",
+    "Sedan": "Sedán",
+    "Compact": "Compacto",
+    "Van": "Van",
+    "Luxury":"Lujo"
+  },
+  
+  "header": {
+    "search_by_city": "Buscar por ciudad"
+  },
+
+  "carBook": {
+    "rules_Rules and_policies": "Reglas y Políticas",
+    "about_this_car": "Acerca de este coche",
+    "confirm_booking": "Confirmar reserva",
+    "booking_successful": "¡Reserva exitosa!",
+    "booking_failed": "Reserva fallida. Inténtalo de nuevo.",
+    "ok": "OK",
+    "Book_Now": "Reservar ahora"
+  },
+
+  "accordion": {
+    "No_shows_or_late_cancellations_may_incur_a_fee": "No presentarse o cancelar tarde puede generar una tarifa.",
+    "Vehicle_Return": "Devolución del vehículo",
+    "Return_the_car_on_time_to_avoid_late_fees": "Devuelve el coche a tiempo para evitar cargos por retraso.",
+    "Cleanliness_fee_may_apply_if_excessively_dirty": "Se puede aplicar una tarifa de limpieza si el coche se devuelve extremadamente sucio.",
+    "Breakdowns_And_Accidents": "Averías y accidentes",
+    "In_case_of_accident_contact_company": "En caso de accidente, contacte a la empresa de alquiler de inmediato.",
+    "Roadside_assistance_available_24_7": "Asistencia en carretera disponible 24/7 para problemas mecánicos.",
+    "Free_cancellation_up_to_24_hours_before_pickup": "Cancelación gratuita hasta 24 horas antes de la recogida.",
+    "cancellation_policy": "Política de cancelación",
+    "No_unauthorized_drivers_only_listed_renters_are_insured": "No se permiten conductores no autorizados; solo los arrendatarios registrados están asegurados.",
+    "No_off-road_driving_racing_or_towing_unless_approved": "No conducir fuera de carretera, carreras o remolque a menos que esté aprobado.",
+    "Prohibited_Uses": "Usos prohibidos",
+    "Payment_methods_Credit_debit_cards_cash_(prepaid_cards_not_accepted)": "Métodos de pago: tarjetas de crédito/débito, efectivo (tarjetas prepagas no aceptadas).",
+    "A_security_deposit_is_required_at_pickup": "Se requiere un depósito de seguridad al recoger el vehículo.", 
+    "payment_methods": "Métodos de pago",
+    "Reservations_can_be_made_online_by_phone_or_in_person": "Las reservas se pueden hacer en línea, por teléfono o en persona.",
+    "Tourist_and_International_renters_must_present_a_passport": "Los turistas y arrendatarios internacionales deben presentar un pasaporte.",
+    "A_valid_driver's_license_is_required_at_pickup": "Se requiere una licencia de conducir válida al recoger el vehículo.",
+    "renters_must_be_at_least_18_years_old_some_vehicles_may_require_25_plus": "Los arrendatarios deben tener al menos 18 años (algunos vehículos requieren 25+). Se requiere licencia de conducir y tarjeta de crédito a nombre del arrendatario.",
+    "eligibility_requirements": "Requisitos de elegibilidad",
+    "additional_fees": "Cargos adicionales"
+  },
+
+  "bookingModal": {
+    "choose_dates_and_location": "Elige fechas y ubicación",
+    "selected_location": "Ubicación seleccionada",
+    "location_accuracy_note": "Puedes elegir ubicaciones de recogida y entrega con precisión.",
+    "airports_maritime_train_stations_available": "Aeropuertos, puertos marítimos y estaciones de tren disponibles.",
+    "select_choice_for_driver": "Selecciona tu opción de conductor",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "no_driver": "Sin conductor",
+    "with_driver": "Con conductor",
+    "pickup_location": "Lugar de recogida",
+    "dropoff_location": "Lugar de entrega",
+    "start": "Inicio",
+    "end": "Fin"
+  },
+
+  "user": {
+    "firstname": "Nombre",
+    "lastname": "Apellido",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "plan": "Plan",
+    "companyName": "Nombre de la empresa",
+    "companyAddress": "Dirección de la empresa",
+    "companyPhone": "Teléfono de la empresa",
+    "companyEmail": "Correo electrónico de la empresa"
+  },
+
+  "sideBar":{
+    "upload_Car": "Publicar coche nuevo",
+    "logout": "Cerrar sesión",
+    "all_reservations": "Todas las reservas",
+    "validated_Reservation":"Reservas validadas",
+    "disvalidated_reservation": "Reservas no validadas",
+    "messages":"Mensajes",
+    "support":"Soporte",
+    "reclamation":"Reclamaciones",
+    "my_cars": "Mis coches",
+    "unavailable_cars": "Coches no disponibles",
+    "available_cars": "Coches disponibles"
+  },
+
+  "uploadcar": {
+    "Upload_Car_Details": "publicar coche",
+    "file": "Archivo",
+    "image": "Imagen",
+    "model": "Modelo",
+    "year": "Año",
+    "seats": "Asientos",
+    "daily_price": "Precio diario",
+    "weekly_price": "Precio semanal",
+    "monthly_price": "Precio mensual",
+    "driver_daily_price": "Precio diario con conductor",
+    "driver_weekly_price": "Precio semanal con conductor",
+    "driver_monthly_price": "Precio mensual con conductor",
+    "location": "Ubicación",
+    "category": "Categoría",
+    "availability": "Disponibilidad",
+    "transmission": "Transmisión",
+    "submit": "Enviar",
+    "close": "Cerrar"
+  }
+}

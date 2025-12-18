@@ -4,7 +4,6 @@ import {
   Drawer,
   SwipeableDrawer,
   IconButton,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -14,7 +13,6 @@ import SidebarMenu from "../component/SidebarMenu";
 import UserDetails from "../component/UserDetails";
 import UploadCar from "../component/UploadCar";
 import { getUserById } from "../Axios/userAxios";
-
 const drawerWidth = 240;
 const collapsedWidth = 60;
 
@@ -29,40 +27,52 @@ export default function UserProfile() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Fetch user data on mount
+  // Fetch User Data
   useEffect(() => {
     const credentials = JSON.parse(localStorage.getItem("credentials"));
+
     if (!credentials) {
-      console.log("No credentials found, redirecting to home.");
       navigate("/Authentication");
       return;
     }
 
-    const fetchUserData = async () => {
+    const loadUser = async () => {
       try {
         const data = await getUserById(credentials.userId, credentials.userType);
-        console.log("Fetched user data:", data);
         setUserSession(data);
         setProfileType(data.userType);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+      } catch (err) {
+        console.error("Error loading user:", err);
       }
     };
 
-    fetchUserData();
+    loadUser();
   }, [navigate]);
 
+  // Still loading user type
   if (!profileType) return null;
 
-  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("credentials");
     navigate("/");
   };
 
+  // Drawer Component (Mobile + Desktop)
+  const DrawerContent = (
+    <SidebarMenu
+      collapsed={collapsed}
+      setCollapsed={setCollapsed}
+      isMobile={isMobile}
+      setMobileOpen={setMobileOpen}
+      profileType={profileType}
+      setUploadOpen={setUploadOpen}
+      handleLogout={handleLogout}
+    />
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* Sidebar */}
+      {/* Mobile Drawer */}
       {isMobile ? (
         <SwipeableDrawer
           anchor="left"
@@ -70,50 +80,36 @@ export default function UserProfile() {
           onOpen={() => setMobileOpen(true)}
           onClose={() => setMobileOpen(false)}
         >
-          <SidebarMenu
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            isMobile={isMobile}
-            setMobileOpen={setMobileOpen}
-            profileType={profileType}
-            setUploadOpen={setUploadOpen}
-            handleLogout={handleLogout}
-          />
+          {DrawerContent}
         </SwipeableDrawer>
       ) : (
+        // Desktop Drawer
         <Drawer
           variant="permanent"
+          open
           sx={{
             width: collapsed ? collapsedWidth : drawerWidth,
             "& .MuiDrawer-paper": {
               width: collapsed ? collapsedWidth : drawerWidth,
               transition: "width 0.3s ease",
               overflowX: "hidden",
-              boxSizing: "border-box",
-              bgcolor: "#f8f9fa",
-              cursor: "pointer",
+              bgcolor: "#ffffffff",
+              position: "absolute",
+              height: "80vh",
+              top: "83px",
             },
           }}
-          open
         >
-          <SidebarMenu
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            isMobile={isMobile}
-            setMobileOpen={setMobileOpen}
-            profileType={profileType}
-            setUploadOpen={setUploadOpen}
-            handleLogout={handleLogout}
-          />
+          {DrawerContent}
         </Drawer>
       )}
 
-      {/* Main content */}
+      {/* Main Content */}
       <Box
         component="main"
         sx={{
           ml: isMobile ? 0 : collapsed ? `${collapsedWidth}px` : `${drawerWidth}px`,
-          p: 3,
+          p: 2,
         }}
       >
         {isMobile && (
@@ -121,11 +117,6 @@ export default function UserProfile() {
             <MenuIcon />
           </IconButton>
         )}
-
-        <Typography variant="h6" gutterBottom>
-          {profileType === "seller" &&
-            `You are subscribed as a ${userSession?.userType}`}
-        </Typography>
 
         <UserDetails user={userSession} profileType={profileType} />
       </Box>

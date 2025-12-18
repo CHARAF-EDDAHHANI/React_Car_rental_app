@@ -10,9 +10,11 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {getImageUrl} from '../Axios/carAxios';
+import { useTranslation } from "react-i18next";
 
 const CarCard = ({ car }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
 
   // Navigate to booking page using car.carId
@@ -29,30 +31,30 @@ const CarCard = ({ car }) => {
 
   // Key car specs
   const carDetails = [
-    { icon: <CategoryIcon sx={iconStyle} />, label: car.category || "N/A" },
-    { icon: <TransmissionIcon sx={iconStyle} />, label: car.transmission_type || "N/A" },
-    { icon: <SeatsIcon sx={iconStyle} />, label: car.seats || "N/A" },
+    { icon: <CategoryIcon sx={iconStyle} />, label: t(`category_values.${car.category}`||"N/A")},
+    { icon: <TransmissionIcon sx={iconStyle} />, label: `${car.transmission_type} ${t("car.transmission")}`},
+    { icon: <SeatsIcon sx={iconStyle} />, label: `${car.seats} ${t("car.seats")}`|| "N/A" },
   ];
 
   // Price options
   const carPrices = [
-    { icon: <PriceIcon sx={iconStyle} />, label: `${car.daily_price}/Day` },
-    { icon: <PriceIcon sx={iconStyle} />, label: `${car.weekly_price}/Week` },
-    { icon: <PriceIcon sx={iconStyle} />, label: `${car.monthly_price}/Month` },
+    { icon: <PriceIcon sx={iconStyle} />, label: `${car.daily_price} ${t("car.daily_price")}` },
+    { icon: <PriceIcon sx={iconStyle} />, label: `${car.weekly_price} ${t("car.weekly_price")}` },
+    { icon: <PriceIcon sx={iconStyle} />, label: `${car.monthly_price} ${t("car.monthly_price")}` },
   ];
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <Paper
         onClick={() => handleBooking(car.carId)}
-        elevation={3}
+        elevation={1}
         sx={{
           p: 2,
           fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.8rem" },
-          borderRadius: 2,
+          borderRadius: 1,
           cursor: "pointer",
           transition: "0.3s",
-          "&:hover": { boxShadow: 8 },
+          "&:hover": { boxShadow: 2 },
         }}
       >
         {/* Car Image */}
@@ -99,7 +101,9 @@ const CarCard = ({ car }) => {
           {/* Booking Availability */}
           <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
             <AccessTime sx={iconStyle} />
-            <Typography variant="body2">Ready for booking</Typography>
+            <Typography variant="body2">
+            {t("car.Ready_for_booking")}
+            </Typography>
           </Box>
 
           {/* Rating */}
@@ -115,7 +119,7 @@ const CarCard = ({ car }) => {
               {car.rating || "N/A"}
             </Typography>
             <Typography variant="body2" sx={{ ml: 0.5 }}>
-              ({car.numberOfReviews || 0} reviews)
+              ({car.numberOfReviews || 0} {t("car.reviews")})
             </Typography>
           </Box>
 

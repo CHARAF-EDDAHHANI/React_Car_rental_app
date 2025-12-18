@@ -1,0 +1,131 @@
+{
+  "car": {
+    "seats": "عدد المقاعد",
+    "daily_price": "السعر اليومي",
+    "transmission": "ناقل الحركة",
+    "weekly_price": "السعر الأسبوعي",
+    "monthly_price": "السعر الشهري",
+    "location": "الموقع",
+    "rating": "التقييم",
+    "reviews": "المراجعات",
+    "driver_daily_price": "سعر السائق اليومي",
+    "driver_weekly_price": "سعر السائق الأسبوعي",
+    "driver_monthly_price": "سعر السائق الشهري",
+    "Ready_for_booking": "جاهز للحجز"
+  },
+
+  "availability_values": {
+    "Available": "متاح",
+    "Unavailable": "غير متاح"
+  },
+
+  "category_values": {
+    "SUV": "دفع رباعي",
+    "Sedan": "سيدان",
+    "Compact": "صغيرة",
+    "Van": "فان",
+    "Luxury":"فاخرة"
+  },
+  
+  "header": {
+    "search_by_city": "ابحث حسب المدينة"
+  },
+
+  "carBook": {
+    "rules_Rules and_policies": "القوانين والسياسات",
+    "about_this_car": "حول هذه السيارة",
+    "confirm_booking": "تأكيد الحجز",
+    "booking_successful": "تم الحجز بنجاح!",
+    "booking_failed": "فشل الحجز. حاول مرة أخرى.",
+    "ok": "حسناً",
+    "Book_Now": "احجز الآن"
+  },
+
+  "accordion": {
+    "No_shows_or_late_cancellations_may_incur_a_fee": "الغيابات أو الإلغاءات المتأخرة قد تتسبب في رسوم.",
+    "Vehicle_Return": "إرجاع السيارة",
+    "Return_the_car_on_time_to_avoid_late_fees": "أعد السيارة في الوقت المحدد لتجنب الرسوم المتأخرة.",
+    "Cleanliness_fee_may_apply_if_excessively_dirty": "قد يتم تطبيق رسوم نظافة إذا كانت السيارة متسخة بشكل مفرط.",
+    "Breakdowns_And_Accidents": "الأعطال والحوادث",
+    "In_case_of_accident_contact_company": "في حالة وقوع حادث، اتصل بشركة التأجير فوراً.",
+    "Roadside_assistance_available_24_7": "المساعدة على الطريق متوفرة 24/7 للمشاكل الميكانيكية.",
+    "Free_cancellation_up_to_24_hours_before_pickup": "إلغاء مجاني حتى 24 ساعة قبل الاستلام.",
+    "cancellation_policy": "سياسة الإلغاء",
+    "No_unauthorized_drivers_only_listed_renters_are_insured": "لا يسمح للسائقين غير المصرح لهم؛ فقط المستأجرين المسجلين مؤمن عليهم.",
+    "No_off-road_driving_racing_or_towing_unless_approved": "لا يسمح بالقيادة خارج الطرق، السباقات، أو السحب إلا بموافقة.",
+    "Prohibited_Uses": "الاستخدامات المحظورة",
+    "Payment_methods_Credit_debit_cards_cash_(prepaid_cards_not_accepted)": "طرق الدفع: بطاقات الائتمان/الخصم، نقداً (البطاقات المدفوعة مسبقاً غير مقبولة).",
+    "A_security_deposit_is_required_at_pickup": "يتطلب إيداع أمني عند الاستلام.", 
+    "payment_methods": "طرق الدفع",
+    "Reservations_can_be_made_online_by_phone_or_in_person": "يمكن إجراء الحجوزات عبر الإنترنت، الهاتف، أو شخصياً.",
+    "Tourist_and_International_renters_must_present_a_passport": "يجب على السياح والمستأجرين الدوليين تقديم جواز سفر.",
+    "A_valid_driver's_license_is_required_at_pickup": "يتطلب رخصة قيادة صالحة عند الاستلام.",
+    "renters_must_be_at_least_18_years_old_some_vehicles_may_require_25_plus": "يجب أن يكون عمر المستأجر 18 عاماً على الأقل (بعض السيارات تتطلب 25+). رخصة قيادة وبطاقة ائتمان باسم المستأجر مطلوبة.",
+    "eligibility_requirements": "متطلبات الأهلية",
+    "additional_fees": "رسوم إضافية"
+  },
+
+  "bookingModal": {
+    "choose_dates_and_location": "اختر التواريخ والموقع",
+    "selected_location": "الموقع المختار",
+    "location_accuracy_note": "يمكنك اختيار مواقع الاستلام والتسليم بدقة.",
+    "airports_maritime_train_stations_available": "المطارات والموانئ ومحطات القطارات متاحة.",
+    "select_choice_for_driver": "اختر خيارك للسائق",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "no_driver": "بدون سائق",
+    "with_driver": "مع سائق",
+    "pickup_location": "موقع الاستلام",
+    "dropoff_location": "موقع التسليم",
+    "start": "البداية",
+    "end": "النهاية"
+  },
+
+  "user": {
+    "firstname": "الاسم الأول",
+    "lastname": "الاسم الأخير",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "plan": "الخطة",
+    "companyName": "اسم الشركة",
+    "companyAddress": "عنوان الشركة",
+    "companyPhone": "هاتف الشركة",
+    "companyEmail": "البريد الإلكتروني للشركة"
+  },
+
+  "sideBar":{
+    "upload_Car": "أضف سيارة جديدة",
+    "logout": "تسجيل الخروج",
+    "all_reservations": "جميع الحجوزات",
+    "validated_Reservation":"الحجوزات المؤكدة",
+    "disvalidated_reservation": "الحجوزات غير المؤكدة",
+    "messages":"الرسائل",
+    "support":"الدعم",
+    "reclamation":"الشكاوى",
+    "my_cars": "سياراتي",
+    "unavailable_cars": "السيارات غير المتاحة",
+    "available_cars": "السيارات المتاحة"
+  },
+
+  "uploadcar": {
+    "Upload_Car_Details": "أضف سيارة ",
+    "file": "ملف",
+    "image": "صورة",
+    "model": "الموديل",
+    "year": "السنة",
+    "seats": "عدد المقاعد",
+    "daily_price": "السعر اليومي",
+    "weekly_price": "السعر الأسبوعي",
+    "monthly_price": "السعر الشهري",
+    "driver_daily_price": "سعر السائق اليومي",
+    "driver_weekly_price": "سعر السائق الأسبوعي",
+    "driver_monthly_price": "سعر السائق الشهري",
+    "location": "الموقع",
+    "category": "الفئة",
+    "availability": "التوافر",
+    "transmission": "ناقل الحركة",
+    "submit": "إرسال",
+    "close": "إغلاق"
+  }
+}

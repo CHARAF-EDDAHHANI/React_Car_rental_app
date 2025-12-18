@@ -88,7 +88,22 @@ carrentalhub/
 
 ---
 
-## Getting Started
+## architectur:
+ # HEADER
+
+Logo : Show brand and return to homepage
+
+Search Bar : Let users find rentals fast filtered by city name
+
+CTA Button (List Property) : Encourage users to post a rental
+
+Login / Account : User profile, saved listings, messages
+
+AI chatbot : reach support using AI
+
+Language Selector : Choose site language if needed
+✔ using the i18next Lib
+✔ whole app becomes RTL automatically whenlang is Arabic
 
 ### Prerequisites
 - Node.js (v18 or higher)

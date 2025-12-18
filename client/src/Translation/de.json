@@ -1,0 +1,131 @@
+{
+  "car": {
+    "seats": "Sitze",
+    "daily_price": "Tagespreis",
+    "weekly_price": "Wochenpreis",
+    "transmission": "Getriebe",
+    "monthly_price": "Monatspreis",
+    "location": "Standort",
+    "rating": "Bewertung",
+    "reviews": "Bewertungen",
+    "driver_daily_price": "Tagespreis mit Fahrer",
+    "driver_weekly_price": "Wochenpreis mit Fahrer",
+    "driver_monthly_price": "Monatspreis mit Fahrer",
+    "Ready_for_booking": "Bereit zur Buchung"
+  },
+
+  "availability_values": {
+    "Available": "Verfügbar",
+    "Unavailable": "Nicht verfügbar"
+  },
+
+  "category_values": {
+    "SUV": "SUV",
+    "Sedan": "Limousine",
+    "Compact": "Kompakt",
+    "Van": "Van",
+    "Luxury":"Luxus"
+  },
+
+  "header": {
+    "search_by_city": "Suche nach Stadt"
+  },
+
+  "carBook": {
+    "rules_Rules and_policies": "Regeln und Richtlinien",
+    "about_this_car": "Über dieses Auto",
+    "confirm_booking": "Buchung bestätigen",
+    "booking_successful": "Buchung erfolgreich!",
+    "booking_failed": "Buchung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "ok": "OK",
+    "Book_Now": "Jetzt buchen"
+  },
+
+  "accordion": {
+    "No_shows_or_late_cancellations_may_incur_a_fee": "Nichterscheinen oder späte Stornierungen können Gebühren verursachen.",
+    "Vehicle_Return": "Fahrzeugrückgabe",
+    "Return_the_car_on_time_to_avoid_late_fees": "Geben Sie das Auto rechtzeitig zurück, um Verspätungsgebühren zu vermeiden.",
+    "Cleanliness_fee_may_apply_if_excessively_dirty": "Eine Reinigungsgebühr kann anfallen, wenn das Auto stark verschmutzt zurückgegeben wird.",
+    "Breakdowns_And_Accidents": "Pannen & Unfälle",
+    "In_case_of_accident_contact_company": "Im Falle eines Unfalls wenden Sie sich sofort an das Mietunternehmen.",
+    "Roadside_assistance_available_24_7": "Pannenhilfe ist 24/7 bei mechanischen Problemen verfügbar.",
+    "Free_cancellation_up_to_24_hours_before_pickup": "Kostenlose Stornierung bis 24 Stunden vor Abholung.",
+    "cancellation_policy": "Stornierungsbedingungen",
+    "No_unauthorized_drivers_only_listed_renters_are_insured": "Keine unbefugten Fahrer; nur gelistete Mieter sind versichert.",
+    "No_off-road_driving_racing_or_towing_unless_approved": "Kein Offroad-Fahren, Rennen oder Abschleppen ohne Genehmigung.",
+    "Prohibited_Uses": "Verbotene Nutzung",
+    "Payment_methods_Credit_debit_cards_cash_(prepaid_cards_not_accepted)": "Zahlungsmethoden: Kredit-/Debitkarten, Bargeld (Prepaid-Karten nicht akzeptiert).",
+    "A_security_deposit_is_required_at_pickup": "Bei Abholung ist eine Kaution erforderlich.",
+    "payment_methods": "Zahlungsmethoden",
+    "Reservations_can_be_made_online_by_phone_or_in_person": "Reservierungen können online, telefonisch oder persönlich vorgenommen werden.",
+    "Tourist_and_International_renters_must_present_a_passport": "Touristen und internationale Mieter müssen einen Reisepass vorlegen.",
+    "A_valid_driver's_license_is_required_at_pickup": "Bei Abholung ist ein gültiger Führerschein erforderlich.",
+    "renters_must_be_at_least_18_years_old_some_vehicles_may_require_25_plus": "Mieter müssen mindestens 18 Jahre alt sein (einige Fahrzeuge erfordern 25+). Ein gültiger Führerschein und eine Kreditkarte auf den Namen des Mieters sind erforderlich.",
+    "eligibility_requirements": "Berechtigungsvoraussetzungen",
+    "additional_fees": "Zusätzliche Gebühren"
+  },
+
+  "bookingModal": {
+    "choose_dates_and_location": "Wählen Sie Daten und Ort",
+    "selected_location": "Ausgewählter Standort",
+    "location_accuracy_note": "Sie können Abhol- und Rückgabeorte genau auswählen.",
+    "airports_maritime_train_stations_available": "Flughäfen, Häfen und Bahnhöfe verfügbar.",
+    "select_choice_for_driver": "Wählen Sie Ihre Option für einen Fahrer",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "no_driver": "Ohne Fahrer",
+    "with_driver": "Mit Fahrer",
+    "pickup_location": "Abholort",
+    "dropoff_location": "Rückgabeort",
+    "start": "Start",
+    "end": "Ende"
+  },
+
+  "user": {
+    "firstname": "Vorname",
+    "lastname": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "plan": "Plan",
+    "companyName": "Firmenname",
+    "companyAddress": "Firmenadresse",
+    "companyPhone": "Firmentelefon",
+    "companyEmail": "Firmen-E-Mail"
+  },
+
+  "sideBar":{
+    "upload_Car": "Neues Auto hochladen",
+    "logout": "Abmelden",
+    "all_reservations": "Alle Reservierungen",
+    "validated_Reservation":"Validierte Reservierungen",
+    "disvalidated_reservation": "Nicht validierte Reservierungen",
+    "messages":"Nachrichten",
+    "support":"Support",
+    "reclamation":"Reklamationen",
+    "my_cars": "Meine Autos",
+    "unavailable_cars": "Nicht verfügbare Autos",
+    "available_cars": "Verfügbare Autos"
+  },
+
+  "uploadcar": {
+    "Upload_Car_Details": "Fahrzeugdetails hochladen",
+    "file": "Datei",
+    "image": "Bild",
+    "model": "Modell",
+    "year": "Baujahr",
+    "seats": "Sitze",
+    "daily_price": "Tagespreis",
+    "weekly_price": "Wochenpreis",
+    "monthly_price": "Monatspreis",
+    "driver_daily_price": "Tagespreis mit Fahrer",
+    "driver_weekly_price": "Wochenpreis mit Fahrer",
+    "driver_monthly_price": "Monatspreis mit Fahrer",
+    "location": "Standort",
+    "category": "Kategorie",
+    "availability": "Verfügbarkeit",
+    "transmission": "Getriebe",
+    "submit": "Senden",
+    "close": "Schließen"
+  }
+}

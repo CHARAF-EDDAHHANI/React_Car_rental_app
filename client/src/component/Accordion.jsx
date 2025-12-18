@@ -6,6 +6,9 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
+import { useTranslation } from "react-i18next";
+
+/* - RTL aware Accordion - */
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -29,13 +32,17 @@ const AccordionSummary = styled((props) => (
     theme.palette.mode === "dark"
       ? "rgba(255, 255, 255, .05)"
       : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
+
+  // RTL / LTR handled dynamically
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
   },
+
   "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
+    marginInlineStart: theme.spacing(1),
   },
+
+  minHeight: 56,
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
@@ -43,183 +50,122 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+/* - Component - */
+
 export default function CustomizedAccordions() {
-  const [value, setValue] = React.useState(0);
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = React.useState(false);
+  const { t, i18n } = useTranslation();
+
+  const isArabic = i18n.language === "ar";
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  /* - Accordion Data - */
+
+  const accordionData = [
+    {
+      id: "panel1",
+      title: "accordion.eligibility_requirements",
+      items: [
+        "accordion.renters_must_be_at_least_18_years_old_some_vehicles_may_require_25_plus",
+        "accordion.A_valid_driver's_license_is_required_at_pickup",
+        "accordion.Tourist_and_International_renters_must_present_a_passport",
+      ],
+    },
+    {
+      id: "panel2",
+      title: "accordion.payment_methods",
+      items: [
+        "accordion.Reservations_can_be_made_online_by_phone_or_in_person",
+        "accordion.A_security_deposit_is_required_at_pickup",
+        "accordion.Payment_methods_Credit_debit_cards_cash_(prepaid_cards_not_accepted)",
+      ],
+    },
+    {
+      id: "panel6",
+      title: "accordion.Prohibited_Uses",
+      items: [
+        "accordion.No_off-road_driving_racing_or_towing_unless_approved",
+        "accordion.No_unauthorized_drivers_only_listed_renters_are_insured",
+      ],
+    },
+    {
+      id: "panel8",
+      title: "accordion.cancellation_policy",
+      items: [
+        "accordion.Free_cancellation_up_to_24_hours_before_pickup",
+        "accordion.No_shows_or_late_cancellations_may_incur_a_fee",
+      ],
+    },
+    {
+      id: "panel9",
+      title: "accordion.Vehicle_Return",
+      items: [
+        "accordion.Return_the_car_on_time_to_avoid_late_fees",
+        "accordion.Cleanliness_fee_may_apply_if_excessively_dirty",
+      ],
+    },
+    {
+      id: "panel10",
+      title: "accordion.Breakdowns_And_Accidents",
+      items: [
+        "accordion.In_case_of_accident_contact_company",
+        "accordion.Roadside_assistance_available_24_7",
+      ],
+    },
+  ];
+
+
   return (
     <Box
       sx={{
-        marginBottom: 10,
+        mb: 10,
+        direction: isArabic ? "rtl" : "ltr", // RTL auto
       }}
     >
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Eligibility Requirements</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Renters must be at least 21 years old (some vehicles may require 25+).
-            <br /><br />
-            A valid driver's license and credit card in the renter's name are required.
-            <br /><br />
-            International renters must present a passport and (if applicable) an International Driving Permit (IDP).
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Booking & Payment</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Reservations can be made online, by phone, or in person.
-            <br /><br />
-            A security deposit (hold on credit card) is required at pickup.
-            <br /><br />
-            Payment methods: Credit/debit cards (prepaid cards not accepted).
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Rental Period & Extensions</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Minimum rental: 24 hours.
-            <br /><br />
-            Extensions must be requested before the original return time; late returns may incur fees.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-          <Typography>Fuel Policy</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Full-to-full: The car is provided with a full tank and must be returned full, or refueling charges apply.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel5"}
-        onChange={handleChange("panel5")}
-      >
-        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-          <Typography>Mileage Limits</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Unlimited mileage for most rentals (check specific vehicle restrictions).
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel6"}
-        onChange={handleChange("panel6")}
-      >
-        <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-          <Typography>Prohibited Uses</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            No off-road driving, racing, or towing unless approved.
-            <br /><br />
-            No smoking in vehicles (cleaning fee applies if violated).
-            <br /><br />
-            No unauthorized drivers (only listed renters are insured).
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel7"}
-        onChange={handleChange("panel7")}
-      >
-        <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-          <Typography>Insurance & Damage</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Basic insurance (CDW) is included but may have a deductible.
-            <br /><br />
-            Optional full coverage reduces liability.
-            <br /><br />
-            Renters are responsible for all tolls, parking fines, and traffic violations.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel8"}
-        onChange={handleChange("panel8")}
-      >
-        <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
-          <Typography>Cancellation Policy</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Free cancellation up to 24 hours before pickup.
-            <br /><br />
-            No-shows or late cancellations may incur a fee.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel9"}
-        onChange={handleChange("panel9")}
-      >
-        <AccordionSummary aria-controls="panel9d-content" id="panel9d-header">
-          <Typography>Vehicle Return</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Return the car on time to avoid late fees.
-            <br /><br />
-            A cleanliness fee may apply if the car is returned excessively dirty.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      
-      <Accordion
-        expanded={expanded === "panel10"}
-        onChange={handleChange("panel10")}
-      >
-        <AccordionSummary aria-controls="panel10d-content" id="panel10d-header">
-          <Typography>Breakdowns & Accidents</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            In case of an accident, contact the rental company immediately.
-            <br /><br />
-            Roadside assistance is available 24/7 for mechanical issues.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      {accordionData.map((panel) => (
+        <Accordion
+          key={panel.id}
+          expanded={expanded === panel.id}
+          onChange={handleChange(panel.id)}
+        >
+          <AccordionSummary
+            sx={{
+              flexDirection: isArabic ? "row-reverse" : "row",
+            }}
+          >
+            <Typography fontWeight={600}>
+              {t(panel.title)}
+            </Typography>
+          </AccordionSummary>
+
+          <AccordionDetails>
+            <Box
+              component="ul"
+              sx={{
+                paddingInlineStart: isArabic ? 2 : 3,
+                margin: 0,
+                listStylePosition: "outside",
+              }}
+            >
+              {panel.items.map((itemKey) => (
+                <Typography
+                  component="li"
+                  key={itemKey}
+                  sx={{
+                    mb: 1,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {t(itemKey)}
+                </Typography>
+              ))}
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Box>
   );
 }
