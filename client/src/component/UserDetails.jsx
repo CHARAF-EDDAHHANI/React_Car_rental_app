@@ -5,8 +5,7 @@ import DetailItem from "./DetailItem";
 import { useTranslation } from "react-i18next";
 
 export default function UserDetails({ user, profileType }) {
-  const { i18n, t } = useTranslation();
-const isArabic = i18n.language === "ar";
+  const { t } = useTranslation();
   if (!user) {
     console.log("No user data available please check your login process USERDETAILS 8.");
     return null;
@@ -30,7 +29,6 @@ const isArabic = i18n.language === "ar";
           xs: "1fr",
           sm: "1fr 1fr",
           md: "1fr 1fr",
-          direction: isArabic ? "rtl" : "ltr",
         },
       }}
     >

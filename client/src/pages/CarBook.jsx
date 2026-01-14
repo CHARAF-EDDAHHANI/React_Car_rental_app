@@ -25,8 +25,7 @@ export default function CarBook() {
   const [loading, setLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-   const {t, i18n } = useTranslation();
-   const isArabic = i18n.language ===  "ar";
+   const {t } = useTranslation();
 
 const carId = window.location.pathname.split("/").pop();
   useEffect(() => {
@@ -145,9 +144,7 @@ const carId = window.location.pathname.split("/").pop();
       {/* Rules and Policies Section */}
       <Typography variant="h6" bgcolor={"#daf3d8ff"} p={1} mb={3} width={'100%'} 
        sx={{ 
-        color: "#2f5939ff",
-        direction: isArabic ? "rtl" : "ltr",
-        textAlign: isArabic ? "right" : "left",}}>
+        color: "#2f5939ff",}}>
         {t("carBook.rules_Rules and_policies")}
       </Typography>
       <ControlledAccordions />

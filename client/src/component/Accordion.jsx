@@ -54,10 +54,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function CustomizedAccordions() {
   const [expanded, setExpanded] = React.useState(false);
-  const { t, i18n } = useTranslation();
-
-  const isArabic = i18n.language === "ar";
-
+  const { t } = useTranslation();
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -121,9 +118,7 @@ export default function CustomizedAccordions() {
   return (
     <Box
       sx={{
-        mb: 10,
-        direction: isArabic ? "rtl" : "ltr", // RTL auto
-      }}
+        mb: 10, }}
     >
       {accordionData.map((panel) => (
         <Accordion
@@ -132,9 +127,6 @@ export default function CustomizedAccordions() {
           onChange={handleChange(panel.id)}
         >
           <AccordionSummary
-            sx={{
-              flexDirection: isArabic ? "row-reverse" : "row",
-            }}
           >
             <Typography fontWeight={600}>
               {t(panel.title)}
@@ -145,7 +137,7 @@ export default function CustomizedAccordions() {
             <Box
               component="ul"
               sx={{
-                paddingInlineStart: isArabic ? 2 : 3,
+                paddingInlineStart: 2,
                 margin: 0,
                 listStylePosition: "outside",
               }}

@@ -24,8 +24,7 @@ const BookingModal = ({ open, onOk, onCancel }) => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [driver, setDriver] = useState("withDriver");
-  const { t, i18n } = useTranslation();
-  const isArabic = i18n.language === "ar";
+  const { t } = useTranslation();
 
   // Update dates in YYYY-MM-DD format from BookingDate component
   const handleDateChange = (date, role) => {
@@ -69,9 +68,6 @@ const BookingModal = ({ open, onOk, onCancel }) => {
   return (
     <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth>
       <DialogTitle
-      sx={{ 
-        direction: isArabic ? "rtl" : "ltr",
-        textAlign: isArabic ? "right" : "left",}}
       >{t("bookingModal.choose_dates_and_location")}</DialogTitle>
 
       <DialogContent dividers>
@@ -82,12 +78,8 @@ const BookingModal = ({ open, onOk, onCancel }) => {
         {/* Pickup and Dropoff Location Inputs */}
         <Box mt={3} display="flex" flexDirection="column" gap={2}>
           <FormLabel sx={{ fontWeight: "bold" ,
-            direction : isArabic ? "rtl" : "ltr", textAlign: isArabic ? "right" : "left",
           }}>{t("bookingModal.selected_location")}</FormLabel>
-          <Typography variant="body2" color="text.secondary"
-            sx={{ 
-        direction: isArabic ? "rtl" : "ltr",
-        textAlign: isArabic ? "right" : "left",}}>
+          <Typography variant="body2" color="text.secondary">
             {t("bookingModal.location_accuracy_note")}
             {t("bookingModal.airports_maritime_train_stations_available")}
           </Typography>
@@ -99,10 +91,6 @@ const BookingModal = ({ open, onOk, onCancel }) => {
             onChange={(e) => setPickupLocation(e.target.value)}
             fullWidth
             size="small"
-            sx={{ 
-              direction: isArabic ? "rtl" : "ltr",
-              textAlign: isArabic ? "right" : "left",
-            }}
           />
 
           <TextField
@@ -112,14 +100,10 @@ const BookingModal = ({ open, onOk, onCancel }) => {
             onChange={(e) => setDropoffLocation(e.target.value)}
             fullWidth
             size="small"
-            sx={{ 
-              direction: isArabic ? "rtl" : "ltr",
-              textAlign: isArabic ? "right" : "left",
-            }}
           />
 
           {/* Driver Selection */}
-          <FormLabel sx={{ mt: 2, fontWeight: "bold", direction : isArabic ? "rtl" : "ltr", textAlign: isArabic ? "right" : "left", }}>
+          <FormLabel sx={{ mt: 2, fontWeight: "bold",}}>
             {t("bookingModal.select_choice_for_driver")}
           </FormLabel>
           <RadioGroup
