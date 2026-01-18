@@ -1,10 +1,10 @@
-##React_Car_rental_app
+# React_Car_rental_app
 
 
 A modern React 19 frontend for a car rental platform built with Vite, Material UI, Framer Motion, and i18n.
 It delivers a smooth, interactive, and responsive car booking experience, demonstrating professional frontend architecture  with React .
 
-#Frontend Features
+## Frontend Features
 User Experience
 
 Advanced Car Search – Filter by brand, model, dates, and price.
@@ -63,7 +63,7 @@ Concurrently – Run frontend & backend in dev mode.
 
 Hot Module Replacement – Fast UI updates during development.
 
-#Project Structure (Frontend Focus)
+## Project Structure (Frontend Focus)
 client/
 │
 ├── src/
@@ -79,7 +79,7 @@ client/
 ├── package.json           # Frontend dependencies
 └── vite.config.js         # Vite configuration
 
-#UI Architecture Highlights
+## UI Architecture Highlights
 Header
 
 Logo: Brand identity + link to homepage.
@@ -110,7 +110,7 @@ Node.js v18+
 
 npm or yarn
 
-#Key Achievements
+## Key Achievements
 
 ✅ Professional React Project Structure with separate components, pages, and utils.
 
