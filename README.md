@@ -65,22 +65,6 @@ Concurrently – Run frontend & backend in dev mode.
 
 Hot Module Replacement – Fast UI updates during development.
 
-## Project Structure (Frontend Focus)
-client/
-│
-├── src/
-│   ├── components/        # Reusable UI components: cards, buttons, modals
-│   ├── pages/             # Page-level components: Home, Search, Booking
-│   ├── utils/             # Helper functions & constants
-│   ├── Axios/             # API client setup
-│   ├── i18n/              # Language configuration
-│   ├── App.jsx            # Main app layout
-│   └── main.jsx           # Entry point
-│
-├── public/                # Static assets
-├── package.json           # Frontend dependencies
-└── vite.config.js         # Vite configuration
-
 ## UI Architecture Highlights
 Header
 
